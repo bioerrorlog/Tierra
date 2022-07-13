@@ -1,0 +1,115 @@
+
+How to set up Network Tierra:
+
+Make tierra with the command:
+
+make -f Makefile-Net programs
+
+You man need to edit Makefile-Net to configure it for your operating
+environment.
+
+Environment variables
+ 
+Network Tierra uses the environment variables "HOST" and "SITE".
+You can check to see if they are set by using the command:
+
+env
+
+which will list the environment variables that are set, and their
+values.  If HOST or SITE aren't set, set their values as follows.
+
+setenv HOST XXXX
+
+where "XXXX" is the hostname of your machine.
+
+setenv SITE YYYYYYY
+
+where "YYYY" is the sitename of your site.
+
+For example if your hostname is "myhost" and site name is "efd.abc.co.jp",
+set as follows.
+
+set HOST myhost
+set SITE efd.abc.co.jp
+
+Once the HOST environment variable is set, you can create some running
+files and directories for this host by the command:
+
+netgb0 XXXX
+
+where XXXX is the host name of your node.
+
+Now you can run tierra using the script:
+
+rtie0
+
+Note: This runs tierra in the background mode, and assumes that you
+have compiled with 
+
+#define FRONTEND      STDIO
+
+If you want to run Tierra in the foreground, then compile with:
+
+#define FRONTEND      BASIC
+
+(this definition is made in the configur.h file)
+
+and run tierra with the command:
+
+tierra1 si0-XXXX
+
+where XXXX is the host name.
+
+MORE STUFF:
+
+The file si0-XXXX defines the startup values of a bunch of variables that
+control Tierra.  A few that are relevant to network operation are mentioned
+below:
+
+1) LocalPort
+
+"LocalPort" is a port number for socket communication.  If Tierra failed
+with the message, "bind:RecvSocket failed.", change the varable of LocalPort
+which must be greater than 1023, because port number 1 - 1023 are reserved by
+the system.
+
+2) map_fn
+
+"map_fn" sets the name of the file which lists the know nodes on the
+virtual net.  The form of map_fn for one node is as follows,
+
+hostname:internet address:port number;
+
+You can copy the file "MapFile-Net", and use it (this is done by the
+script netgb0).  If you edit map_fn file, write only one node's
+information each line.  Also: LEAVE NO BLANK LINES
+
+3) Nice
+
+"Nice" is the nice variable which determines the priority of cpu use.
+"nice value 0" means the hightest priority and "39" is the lowest priority.
+Common users are able to set the nice value 20-39.  So "Nice = 0" sets the
+tierra process to cpu priority "20" and "Nice = 19" sets the tierra
+process cpu priority to the minimum: "39".  We recommend using this minumum,
+(set Nice = 19).
+
+Environment variable
+ 
+Network Tierra uses the environment variables "HOST" and "SITE".
+If they aren't set, set their values as follows.
+
+setenv HOST XXXX
+
+where "XXXX" is a hostname of your machine.
+
+setenv SITE YYYYYYY
+
+where "YYYY" is the sitename of your site.
+
+For example if your hostname is "myhost" and site name is "efd.abc.co.jp",
+set as follows.
+
+set HOST myhost
+set SITE efd.abc.co.jp
+
+

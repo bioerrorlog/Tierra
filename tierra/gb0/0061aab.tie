@@ -1,0 +1,87 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0061aab  genetic: 0,61  parent genotype: 0061aaf
+1st_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+2nd_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+Origin: InstExe: 800,0  clock: 0  Sat Jul 14 13:09:59 1990
+MaxPropPop: 0.0  MaxPropInst: 0.0 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: social hyper-parastie by adrf end - this is the second social
+; hyper-parasite to surge up.  It operates on the basis of a completely
+; different social mechanism from 0061aai.  In this creature the basis of
+; cooperation is that the template used to search for its tail, does not
+; match to the tail template.  However, it two of these creatures abut in
+; memory, the union of the tail template of one with the head template of
+; the next, forms the template that is used to identify the tail.  This
+; algorithm also only works when the creatures occur in aggregations.  However,
+; this mechanism is more fragile than that used by 0061aai.  For 0061aoq
+; (renamed to 0061aab), the two cooperating creatures must exactly abut.  For
+; 0061aai, the two cooperating creatures may have some space between them.
+; Therefore it is not surprising that the social mechanism of 0061aai is the
+; one prevailed.  Was originally named 0061aoq, has been renamed to 0061aab.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop1    ; 000 01   2
+nop0    ; 000 00   3
+adrb    ; 000 1c   4
+nop0    ; 000 00   5
+nop0    ; 000 00   6
+nop1    ; 000 01   7
+subAAC  ; 000 07   8
+movBA   ; 000 19   9
+adrf    ; 000 1d  10
+nop0    ; 000 00  11
+nop0    ; 000 00  12
+nop0    ; 000 00  13
+zero    ; 000 04  14
+zero    ; 000 04  15
+subCAB  ; 000 06  16
+mal     ; 000 1e  17
+call    ; 000 16  18
+nop0    ; 000 00  19
+nop0    ; 000 00  20
+nop1    ; 000 01  21
+nop1    ; 000 01  22
+divide  ; 000 1f  23
+jmpb    ; 000 15  24
+nop0    ; 000 00  25
+nop0    ; 000 00  26
+nop1    ; 000 01  27
+jmpo    ; 000 14  28
+nop1    ; 000 01  29
+zero    ; 000 04  30
+ifz     ; 000 05  31
+nop1    ; 000 01  32
+nop1    ; 000 01  33
+nop0    ; 000 00  34
+nop0    ; 000 00  35
+incA    ; 000 08  36
+pushC   ; 000 0e  37
+pushC   ; 000 0e  38
+nop1    ; 000 01  39
+nop0    ; 000 00  40
+nop1    ; 000 01  41
+nop0    ; 000 00  42
+movii   ; 000 1a  43
+decC    ; 000 0a  44
+ifz     ; 000 05  45
+jmpb    ; 000 15  46
+nop1    ; 000 01  47
+nop0    ; 000 00  48
+nop0    ; 000 00  49
+incA    ; 000 08  50
+incB    ; 000 09  51
+jmpb    ; 000 15  52
+nop0    ; 000 00  53
+nop1    ; 000 01  54
+nop0    ; 000 00  55
+nop1    ; 000 01  56
+pushB   ; 000 0d  57
+popB    ; 000 11  58
+nop1    ; 000 01  59
+nop1    ; 000 01  60

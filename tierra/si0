@@ -1,0 +1,90 @@
+# tierra core: 14-12-93 INST == 0 
+
+# observational parameters:
+
+BrkupSiz = 1024      size of output file in K, named break.1, break.2 ...
+CumGeneBnk = 0    Use cumulative gene files, or overwrite
+debug = 0               0 = off, 1 = on, printf statements for debugging
+DiskBank = 1    turn disk-genebanker on and off
+DiskOut = 0            output data to disk (1 = on, 0 = off)
+FindTimeM = 0    to set trap at a certain InstExe time, for debugging
+FindTimeI = 0    to set trap at a certain InstExe time, for debugging
+GeneBnker = 0   turn genebanker on and off
+GenebankPath = gb0/  path for genebanker output
+hangup = 0            0 = exit on error, 1 = hangup on error for debugging
+MaxFreeBlocks = 800     initial number of structures for memory allocation
+SaveFreq = 100     frequency of saving core_out, soup_out and list
+SavRenewMem = 0   free and renew dynamic memory after saving to disk
+SavMinNum = 10     minimum number of individuals to save genotype
+SavThrMem = .02  threshold memory occupancy to save genotype
+SavThrPop = .02  threshold population proportion to save genotype
+TierraLog = 0    0 = no log file, 1 = write log file
+WatchExe = 0     mark executed instructions in genome in genebank
+WatchMov = 0     set mov bits in genome in genebank
+WatchTem = 0     set template bits in genome in genebank
+
+# environmental variables:
+
+alive = 0       how many generations will we run, 0 = infinite
+DistFreq = -.3     frequency of disturbance, factor of recovery time
+DistProp = .2      proportion of population affected by distrubance
+DivSameGen = 0 cells must produce offspring of same genotype, to stop evolution
+DivSameSiz = 0 cells must produce offspring of same size, to stop size change
+DropDead = 5 stop system if no reproduction in the last x million instructions
+EjectRate = 0 rate at which random ejections from soup occur
+GenPerBkgMut = 32 mutation rate control by generations ("cosmic ray")
+GenPerFlaw = 32       flaw control by generations
+GenPerMovMut = 0    mutation rate control by generations (copy mutation)
+GenPerDivMut = 32
+GenPerCroInsSamSiz = 32
+GenPerInsIns = 32
+GenPerDelIns = 32
+GenPerCroIns = 32
+GenPerDelSeg = 32
+GenPerInsSeg = 32
+GenPerCroSeg = 32
+MutBitProp = .2   proportion of mutations that are bit flips
+IMapFile = opcode.map map of opcodes to instructions, file in GenebankPath
+JmpSouTra = 0.   source track switches per average size
+JumpTrackProb = .2 probability of switching track during a jump of the IP
+LazyTol = 10 tolerance for non-reproductive cells
+MalMode = 1 0 = first fit, 1 = better fit, 2 = random preference,
+# 3 = near mother's address, 4 = near bx address
+# 5 = near top of stack address, 6 = suggested address (parse dependant)
+MalReapTol = 1  0 = reap by queue, 1 = reap oldest creature within MalTol
+MalSamSiz = 0  force memory alloc to be same size as parent (stop evolution)
+MalTol = 20 multiple of avgsize to search for free block
+MateSizeEp = 2 size epsilon for potential mate
+MaxCpuPerCell = 16   maximum number of CPUs allowed per cell
+MaxIOBufSiz = 8      maximum size for IOS buffer
+MaxGetBufSiz = 4      maximum size for get IO buffer
+MaxPutBufSiz = 4      maximum size for put IO buffer
+MaxSigBufSiz = 8      maximum size for signal buffer
+MemModeFree = 0  read, write, execute protection for free memory
+MemModeMine = 0  rwx protection for memory owned by a creature
+MemModeProt = 2  rwx protection for memory owned by another creature
+# rwx protect mem: 1 bit = execute, 2 bit = write, 4 bit = read
+MinCellSize = 12       minimum size for cells
+MinGenMemSiz = 12       minimum size for genetic memory of cells
+MinTemplSize = 1       minimum size for templates
+MovPropThrDiv = .7       minimum proportion of daughter cell filled by mov
+new_soup = 1          1 = this a new soup, 0 = restarting an old run
+NumCells = 2      number of creatures and gaps used to inoculate new soup
+PhotonPow = 1.5         power for photon match slice size
+PhotonWidth = 8   amount by which photons slide to find best fit
+PhotonWord = chlorophill  word used to define photon
+PutLimit = 10 distance for intercellular communication, mult of avg creat siz
+ReapRndProp = .3 top prop of reaper que to reap from
+SearchLimit = 5 distance for template matching, mult of avg creat siz
+seed = 0 seed for random number generator, 0 uses time to set seed
+SizDepSlice = 0  set slice size by size of creature
+SlicePow = 1    set power for slice size, use when SizDepSlice = 1
+SliceSize = 25    slice size when SizDepSlice = 0
+SliceStyle = 2   choose style of determining slice size
+SlicFixFrac = 0   fixed fraction of slice size
+SlicRanFrac = 2   random fraction of slice size
+SoupSize = 60000 size of soup in instructions
+AliveGen = 0
+
+center
+0080aaa

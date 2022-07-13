@@ -1,0 +1,59 @@
+# Linux - cluster server
+OSFLAGS = -DTSysV -DNET -DNETTYPE=1 -DHAVE_STDARG_H -DFRONTEND=0 -DCLSTRSRVR \
+          -DHAVE_UNISTD_H -DHAVE_FCNTL_H
+LOADLIBES = -lncurses -ltermcap
+
+# optimization
+OPTIMIZ = -g
+
+# linker options
+LDFLAGS = $(OPTIMIZ)
+
+# ********** no changes below this line **********
+
+.PHONY: clean
+
+TIERRADIR = ../tierra/
+CFLAGS = $(OPTIMIZ) $(OSFLAGS) -I$(TIERRADIR) -I/usr/include/bsd
+CC = gcc
+LINKER = gcc
+MAKEFILE = MakeNet-Linux
+
+%.o: $(TIERRADIR)%.c
+	$(CC) $(CFLAGS) -c $<
+
+$(TIERRADIR)%_xdr.c: $(TIERRADIR)%.x
+	-rm -f $@
+	rpcgen $(OSFLAGS) -c -o $@ $<
+
+$(TIERRADIR)%.h: $(TIERRADIR)%.x
+	-rm -f $@
+	rpcgen $(OSFLAGS) -h -o $@ $<
+
+OBJS = clstrsrvr.o clstrsrvr_inc.o tiecomm.o frontend.o clstrsetup.o \
+       netfunc.o trand.o tiecommudpasm.o tiecommtcp.o mesg_xdr.o port_xdr.o \
+       datpkt_xdr.o tiexdrcom_xdr.o
+
+SRCS = clstrsrvr.c clstrsrvr_inc.c $(TIERRADIR)tiecomm.c \
+       $(TIERRADIR)frontend.c clstrsetup.c $(TIERRADIR)netfunc.c \
+       $(TIERRADIR)trand.c $(TIERRADIR)tiecommudpasm.c \
+       $(TIERRADIR)tiecommtcp.c $(TIERRADIR)mesg_xdr.c $(TIERRADIR)port_xdr.c \
+       $(TIERRADIR)datpkt_xdr.c $(TIERRADIR)tiexdrcom_xdr.c
+
+clstrsrvr: $(OBJS)
+
+datpkt_xdr.o: $(TIERRADIR)datpkt_xdr.c
+	$(CC) $(CFLAGS) -c $<
+
+mesg_xdr.o: $(TIERRADIR)mesg_xdr.c
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	-rm -f $(OBJS) $(TIERRADIR)mesg_xdr.c $(TIERRADIR)mesg.h \
+               $(TIERRADIR)datpkt_xdr.c $(TIERRADIR)datpkt.h $(MAKEFILE).d \
+               clstrsrvr
+
+$(MAKEFILE).d: $(SRCS) $(TIERRADIR)mesg.h $(TIERRADIR)datpkt.h
+	$(CC) -M $(CFLAGS) -c $(SRCS) > $@
+
+-include $(MAKEFILE).d

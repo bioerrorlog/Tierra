@@ -1,0 +1,4 @@
+GenebankPath = gb-Net/  path for genebanker output
+LocalPort = 20030
+PendReqTime = 0     pending TPing request time before node removal
+MaxOutBandWidth = 0

@@ -1,0 +1,1586 @@
+
+format: 3  
+genotype: 0960aae  genetic: 0,320  parent genotype: 0666god
+ploidy: 1  track: 0
+; a network ancestor
+; written by a human, mother of all other creatures.
+; uses variable number of CPUs in the copy and ping procedures
+
+CODE
+
+track 0:
+
+; ******************************************************************************
+
+; Template Usage:
+
+; 1 nop
+
+; 0  split loop complement
+; 1  split loop template
+
+; 2 nop
+
+; 00  copy loop complement
+; 01  copy procedure exit complement
+; 11  copy loop template
+; 10  copy procedure exit template
+
+; 5 nop
+
+; 00000  beginning template complement
+; 00001  end template complement
+; 00010  reproduction loop complement
+; 00011  copy procedure complement
+; 00100  copy procedure jmpb template complement
+; 00101
+; 00110  ping code complement
+; 00111  ping outer loop complement
+; 01000  comparison nest loop top complement
+; 01001  split function complement
+; 01010  reproduction code complement
+; 01011
+; 01100
+; 01101
+; 01110
+; 01111
+; 10000
+; 10001
+; 10010
+; 10011
+; 10100
+; 10101  reproduction code
+; 10110  split function template
+; 10111  comparison nest loop template
+; 11000  ping outer loop template
+; 11001  ping code template
+; 11010
+; 11011  copy procedure jmpb template
+; 11100  copy procedure template
+; 11101  reproduction loop template
+; 11110  end template
+; 11111  beginning template
+
+; ******************************************************************************
+
+; IPM = this symbol marks the occurrences of the instructions that
+; manipulate the behavior of the instruction pointer:
+; split, jmpo, jmpb, call, halt, ret, ifgrtr
+
+; ******************************************************************************
+
+; Start Values:
+        ; ax = undefined
+        ; bx = undefined
+        ; cx = undefined
+        ; dx = undefined
+        ; ex = undefined
+        ; fx = undefined
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: undefined
+
+; GENE  1  begin   0 21by sel self-exam 8888888888888888888888888888888888888888
+
+;   0 -   4  Beginning Marker:
+
+nop1    ;   0 beginning template 11111
+nop1    ;   1 beginning template 11111
+nop1    ;   2 beginning template 11111
+nop1    ;   3 beginning template 11111
+nop1    ;   4 beginning template 11111
+
+; ******************************************************************************
+
+;   5 -  20  Self Exam:
+
+adrb    ;   5 get (backward) address of beginning template -> ax
+nop0    ;   6 beginning template complement 00000
+nop0    ;   7 beginning template complement 00000
+nop0    ;   8 beginning template complement 00000
+nop0    ;   9 beginning template complement 00000
+nop0    ;  10 beginning template complement 00000
+subBAC  ;  11 bx = ax - cx (start address of mother)
+adrf    ;  12 get (forward) address of end template -> ax
+nop0    ;  13 end template complement 00001
+nop0    ;  14 end template complement 00001
+nop0    ;  15 end template complement 00001
+nop0    ;  16 end template complement 00001
+nop1    ;  17 end template complement 00001
+incA    ;  18 include dummy after final template to terminate template
+subCAB  ;  19 subtract bx from ax to get size, result in cx
+pushC   ;  20 save size on stack
+
+; GENE  1    end  20 88888888888888888888888888888888888888888888888888888888888
+
+; ******************************************************************************
+
+;  21 -  38  Split into copy and ping threads:
+
+; Start Values:
+        ; ax = end (of mother)
+        ; bx = start (of mother)
+        ; cx = size
+        ; dx = undefined
+        ; ex = undefined
+        ; fx = undefined
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: size
+
+; GENE  2  begin  21 18by dif differentiate 888888888888888888888888888888888888
+
+zeroD   ;  21 dx = 0
+split   ;  22 IPM, 1 -> 2 CPUs
+pushD   ;  23 push dx onto stack
+popC    ;  24 pop cx from stack, processor #
+ifz     ;  25 if cx == 0 perform next instruction, otherwise skip it
+jmpo    ;  26 IPM, jump to reproduction code (offset 44)
+nop0    ;  27 reproduction code complement 01010
+nop1    ;  28 reproduction code complement 01010
+nop0    ;  29 reproduction code complement 01010
+nop1    ;  30 reproduction code complement 01010
+nop0    ;  31 reproduction code complement 01010
+jmpo    ;  32 IPM, jump to ping code (offset 161)
+nop0    ;  33 ping code complement 00110
+nop0    ;  34 ping code complement 00110
+nop1    ;  35 ping code complement 00110
+nop1    ;  36 ping code complement 00110
+nop0    ;  37 ping code complement 00110
+ifz     ;  38 dummy to separate templates
+
+; GENE  2    end  38 88888888888888888888888888888888888888888888888888888888888
+
+; ******************************************************************************
+
+;  39 -  51  Reproduction Code Setup:
+
+; Start Values:
+        ; ax = end (of mother)
+        ; bx = start (of mother)
+        ; cx = processor number (0)
+        ; dx = processor number (0)
+        ; ex = undefined
+        ; fx = undefined
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: size
+
+; GENE  3  begin  39 56by rep repro-code 888888888888888888888888888888888888888
+
+; GENE  3a begin  39 13by repS repro-setup 8888888888888888888888888888888888888
+
+nop1    ;  39 reproduction code template 10101
+nop0    ;  40 reproduction code template 10101
+nop1    ;  41 reproduction code template 10101
+nop0    ;  42 reproduction code template 10101
+nop1    ;  43 reproduction code template 10101
+
+        ; create offset for Node IP = 4, save in ex
+
+zero    ;  44 set cx =  0  000000
+not0    ;  45 set cx =  1  000001
+shl     ;  46 set cx =  2  000010
+shl     ;  47 set cx =  4  000100
+pushC   ;  48 Node IP offset = 4 onto stack
+popE    ;  49 pop Node IP offset = 4 into ex
+
+        ; preserve end of mother (data segment) in fx
+
+pushA   ;  50 push end of mother onto stack
+popF    ;  51 pop end of mother into fx
+
+; GENE  3a   end  51 88888888888888888888888888888888888888888888888888888888888
+
+; ******************************************************************************
+
+;  52 -  94  Reproduction Loop:
+
+; Start Values:
+        ; ax = end (of mother)
+        ; bx = start (of mother)
+        ; cx = Node IP offset = 4
+        ; dx = processor number (0)
+        ; ex = Node IP offset = 4
+        ; fx = end (of mother) data segment
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: size
+
+; GENE  3b begin  52 43by repL repro-loop 88888888888888888888888888888888888888
+
+nop1    ;  52 reproduction loop template 11101
+nop1    ;  53 reproduction loop template 11101
+nop1    ;  54 reproduction loop template 11101
+nop0    ;  55 reproduction loop template 11101
+nop1    ;  56 reproduction loop template 11101
+
+        ; calculate size x 3 to provide data space
+zero    ;  57 set cx =  0  000000
+not0    ;  58 set cx =  1  000001
+shl     ;  59 set cx =  2  000010
+not0    ;  60 set cx =  3  000011
+pushC   ;  61 move 3
+popD    ;  62 to dx
+popC    ;  63 put size in cx
+pushC   ;  64 save size on stack
+mul     ;  65 cx = size x 3
+pushC   ;  66 save size x 3 on stack
+
+        ; calculate # of CPUs to use in string copy
+zero    ;  67 set cx =  0  000000
+not0    ;  68 set cx =  1  000001
+shl     ;  69 set cx =  2  000010
+pushC   ;  70 move # CPUs from cx
+popD    ;  71 to dx
+
+popC    ;  72 pop cx (size * 3) from stack
+mal     ;  73 allocate space (cx) for daughter, address to ax
+popC    ;  74 restore non-tripled size to cx
+pushC   ;  75 save size on stack
+
+        ; call copy procedure (variable CPU version):
+        ; this procedure will copy cx bytes
+        ; starting from [bx] (source)
+        ; starting to   [ax] (destination)
+        ; using dx CPUs
+
+call    ;  76 IPM, call copy procedure (offset 100)
+nop0    ;  77 copy procedure complement 00011
+nop0    ;  78 copy procedure complement 00011
+nop0    ;  79 copy procedure complement 00011
+nop1    ;  80 copy procedure complement 00011
+nop1    ;  81 copy procedure complement 00011
+
+pushF   ;  82 get end of mother from fx to ax
+popA    ;  83 gen end of mother from fx
+pushE   ;  84 get Node IP offset = 4 to cx
+popC    ;  85 get Node IP offset = 4 from ex
+movdi4  ;  86 cx = [ax + cx], load IP int cx
+divide  ;  87 create independent daughter cell, ship off to IP
+jmpb    ;  88 IPM, jump to top of reproduction loop (offset 57)
+nop0    ;  89 reproduction loop complement 00010
+nop0    ;  90 reproduction loop complement 00010
+nop0    ;  91 reproduction loop complement 00010
+nop1    ;  92 reproduction loop complement 00010
+nop0    ;  93 reproduction loop complement 00010
+ifz     ;  94 dummy to separate templates
+
+; GENE  3b   end  94 88888888888888888888888888888888888888888888888888888888888
+
+; GENE  3    end  94 88888888888888888888888888888888888888888888888888888888888
+
+; ******************************************************************************
+
+;  95 - 140  String Copy algorithm (call and return)
+
+; Required Start Values when calling:
+        ; ax = start of destination
+        ; bx = start of source
+        ; cx = number of bytes to copy (must be divisible by # of CPUs)
+        ; dx = number of CPUs to use (must be power of 2)
+        ; ex = no setup
+        ; fx = no setup
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: no setup, six to stack values are preserved
+
+; Register Usage:
+
+        ; ax = start of destination (does not change)
+        ; bx = start of source (does not change)
+        ; cx = starts as number of bytes to copy
+        ;      then divide by # CPUs to compute bytes/CPU to copy
+        ;      then used for number of CPUs for split function
+        ;      then used for number of bytes to copy in copy loop
+        ;      in both loops, cx is decremented until it reaches zero
+        ; dx = used as temporary storage for # CPUs to use
+        ;      used by split to specify the CPU number
+        ;      used by offAACD: ax = ax + (cx * dx)
+        ;      and offBBCD: bx = bx + (cx * dx) to divide data among CPUs
+        ;      used as test for which CPUs to halt after string copy
+        ; ex = not used
+        ; fx = not used
+        ; destination register = ax, bx  does not change
+        ; source      register = toggles from ax to bx and back to ax
+        ; stack: used to save key values, used to save and move CPU data
+
+; GENE  4  begin  95 46by cop copy-code 8888888888888888888888888888888888888888
+
+; GENE  4a begin  95 22by copS copy-tissue-setup 8888888888888888888888888888888
+
+nop1    ;  95 copy procedure template 11100
+nop1    ;  96 copy procedure template 11100
+nop1    ;  97 copy procedure template 11100
+nop0    ;  98 copy procedure template 11100
+nop0    ;  99 copy procedure template 11100
+
+        ; prepare to copy from bx to ax
+togsr   ; 100 toggle source register from ax -> bx
+
+        ; save key values to stack
+pushA   ; 101 push ax onto stack (start of destination)
+pushB   ; 102 push bx onto stack (start of source)
+pushC   ; 103 push cx onto stack (number of bytes to copy)
+
+        ; calculate and save # bytes/CPU to copy
+div     ; 104 cx = cx / dx (# bytes/CPU)
+pushC   ; 105 push cx onto stack (# bytes/CPU to copy)
+
+        ; move # CPUs into cx to prepare for split function
+pushD   ; 106 push dx onto stack (# CPUs to use)
+popC    ; 107 put # CPUs to use into cx
+
+call    ; 108 IPM, call split function (offset 146)
+nop0    ; 109 split function complement 01001
+nop1    ; 110 split function complement 01001
+nop0    ; 111 split function complement 01001
+nop0    ; 112 split function complement 01001
+nop1    ; 113 split function complement 01001
+
+        ; divide the work up among the CPUs
+popC    ; 114 cx = # bytes/CPU to copy
+offAACD ; 115 ax = ax + (cx * dx)
+offBBCD ; 116 bx = bx + (cx * dx)
+
+; GENE  4a   end 116 88888888888888888888888888888888888888888888888888888888888
+
+; Copy Loop
+
+; GENE  4b begin 117 12by copL copy-loop 888888888888888888888888888888888888888
+
+nop1    ; 117 copy loop template 11
+nop1    ; 118 copy loop template 11
+decC    ; 119 decrement cx (size) by 1, cx -= 1
+movii   ; 120 move contents of [cx + bx] to [cx + ax] (copy one instruction)
+ifz     ; 121 if cx == 0 perform next instruction, otherwise skip it
+jmpo    ; 122 IPM, jump to copy procedure exit (offset 131)
+nop0    ; 123 copy procedure exit complement 00100
+nop1    ; 124 copy procedure exit complement 00100
+jmpb    ; 125 IPM, jump to copy loop (offset 119)
+nop0    ; 126 copy loop complement 00101
+nop0    ; 127 copy loop complement 00101
+ifz     ; 128 this is a dummy instruction to separate templates
+
+; GENE  4b   end 128 88888888888888888888888888888888888888888888888888888888888
+
+; GENE  4c begin 129 12by copC copy-tissue-cleanup 88888888888888888888888888888
+
+nop1    ; 129 copy procedure exit template 10
+nop0    ; 130 copy procedure exit template 10
+pushD   ; 131 push dx onto stack
+popC    ; 132 pop cx from stack
+notl    ; 133 logical not, to halt on all but CPU 0
+ifz     ; 134 if cx == 0 perform next instruction, otherwise skip it
+halt    ; 135 IPM, destroy all but CPU 0
+popC    ; 136 pop cx off stack (size)
+popB    ; 137 pop bx off stack (start address of mother)
+popA    ; 138 pop ax off stack (start address of daughter)
+
+        ; restore source register to ax
+togsr   ; 139 toggle source register from bx -> ax
+ret     ; 140 IPM, return from copy procedure
+
+; GENE  4c   end 140 88888888888888888888888888888888888888888888888888888888888
+
+; GENE  4    end 140 88888888888888888888888888888888888888888888888888888888888
+
+; **************************************************************************
+
+; 141 - 153  Split Function, split into cx CPUs (call and return)
+
+; Required Start Values when calling:
+        ; cx = # of CPUs to split into
+        ; dx will be set to CPU #
+
+; GENE  5  begin 141 14by dev tissue-development 8888888888888888888888888888888
+
+nop1    ; 141 split function template 10110
+nop0    ; 142 split function template 10110
+nop1    ; 143 split function template 10110
+nop1    ; 144 split function template 10110
+nop0    ; 145 split function template 10110
+zeroD   ; 146 dx = 0, prepare to enter split loop
+nop1    ; 147 split loop template 1
+shr     ; 148 cx = cx / 2   half number of CPUs
+ifz     ; 149 if cx == 0 perform next instruction, otherwise skip it
+ret     ; 150 IPM, return to calling code
+split   ; 151 IPM, 1 -> 2 CPUs
+jmpb    ; 152 IPM, jump to top of split loop (offset 148)
+nop0    ; 153 split loop complement 0
+ifz     ; 154 dummy to separate templates
+
+; GENE  5    end 154 88888888888888888888888888888888888888888888888888888888888
+
+; ******************************************************************************
+
+; Ping Code:
+
+; ******************************************************************************
+
+; Development of Ping CPUs:
+
+;            0 --> 0 --> 0 --> 0
+;              |     |     \-> 1
+;              |     \-> 1 --> 2
+;              |           \-> 3
+;              \-> 1 --> 2 --> 4
+;                    |     \-> 5
+;                    \-> 3 --> 6
+;                          \-> 7
+
+; Comparison of Ping data, halting of Ping CPUs:
+
+;     *
+;      0     0 --> 0 --> 0 --> 0
+;     64     1 -/     |     |
+;    128     2 --> 2 -/     |
+;    192     3 -/           |
+;    256     4 --> 4 --> 4 -/
+;    320     5 -/     |
+;    384     6 --> 6 -/
+;    448     7 -/ 
+
+; * Offsets into data segment of Ping CPUs private TPing data,
+;   requires 512 bytes for TPing data
+
+; Getipp data for 0 CPU
+; 
+;     Split into N CPUs
+; 
+;     Each CPU (but 0) does a getipp
+; 
+;         Half of the CPUs halt
+; 
+;         The running CPUs compare and copy data
+; 
+;         When one CPU left, exit
+
+; ******************************************************************************
+
+; Ping Code:
+
+; we will use ex for Speed and # CPUs for nest loop shift-down
+; we will use fx for NumCells and distance to next local data (64^n)
+
+; ******************************************************************************
+
+; Start Values (after split between reproductive and ping threads):
+        ; ax = end (of mother)
+        ; bx = start (of mother)
+        ; cx = processor number (1)
+        ; dx = processor number (1)
+        ; ex = undefined
+        ; fx = undefined
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: size
+
+; **************************************************************************
+
+; GENE  6  begin 155 144by sen sensory-code 888888888888888888888888888888888888
+
+; GENE  6a begin 155 41by senS sensory-tissue-setup 8888888888888888888888888888
+
+; 155 - 159  Ping Code Template
+
+nop1    ; 155 ping code template 11001
+nop1    ; 156 ping code template 11001
+nop0    ; 157 ping code template 11001
+nop0    ; 158 ping code template 11001
+nop1    ; 159 ping code template 11001
+
+; 160 - 160  Get seed TPing data:
+
+        ; assume destination register = ax, bx
+
+getipp  ; 160 get TPing data from map
+
+; **************************************************************************
+
+; 161 - 161  Create sync group for TPing CPUs
+
+csync   ; 161 establish this and descendant threads as a sync group
+
+; **************************************************************************
+
+; 162 - 166  Ping Outer Loop Template
+
+nop1    ; 162 ping outer loop template 11000
+nop1    ; 163 ping outer loop template 11000
+nop0    ; 164 ping outer loop template 11000
+nop0    ; 165 ping outer loop template 11000
+nop0    ; 166 ping outer loop template 11000
+
+; **************************************************************************
+
+; 167 - 177  Set up some constant values
+
+; we will use ex for Speed and # CPUs for nest loop shift-down
+; we will use fx for NumCells and distance to next local data (64^n)
+
+        ; setup # of TPing CPUs to use (8)
+zero    ; 167 set cx =  0  0000000
+not0    ; 168 set cx =  1  0000001
+shl     ; 169 set cx =  2  0000010
+shl     ; 170 set cx =  4  0000100
+shl     ; 171 set cx =  8  0001000
+pushC   ; 172 save # CPUs on stack
+
+        ; setup size of TPing data structure (64)
+shl     ; 173 set cx = 16  0010000
+shl     ; 174 set cx = 32  0100000
+shl     ; 175 set cx = 64  1000000
+pushC   ; 176 save size of TPing data structure on stack
+popF    ; 177 move size of TPing data structure (64) into fx
+
+; **************************************************************************
+
+; 178 - 185  Split into cx CPUs
+
+; Start Values:
+        ; ax = start of data segment (end of code segment)
+        ; bx = start (of mother)
+        ; cx = size of TPing data structure (64)
+        ; dx = processor number (1)
+        ; ex = undefined
+        ; fx = size of TPing data structure (64)
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: # CPUs, size
+
+popC    ; 178 get # CPUs from stack
+pushC   ; 179 preserve # CPUs
+call    ; 180 IPM, call split function (offset 146)
+nop0    ; 181 split function complement 01001
+nop1    ; 182 split function complement 01001
+nop0    ; 183 split function complement 01001
+nop0    ; 184 split function complement 01001
+nop1    ; 185 split function complement 01001
+
+; **************************************************************************
+
+; 186 - 188  Now each CPU must calculate its local data segment.
+
+        ; we need to save ax for the next time through.
+        ;       however, the value is preserved in CPU #0,
+        ;       which is what we use next time through
+
+; Start Values:
+        ; ax = start of data segment (end of code segment)
+        ; bx = start (of mother)
+        ; cx = zero (from split function)
+        ; dx = CPU #
+        ; ex = undefined
+        ; fx = size of TPing data structure (64)
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: # CPUs, size
+
+pushF   ; 186 put size of TPing data structure (64) onto stack
+popC    ; 187 put size of TPing data structure (64) in cx
+offAACD ; 188 ax = ax + (cx * dx)
+
+; **************************************************************************
+
+; 189 - 190  Prepare stack to match loop back in comparison nest loop
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start (of mother)
+        ; cx = distance to next local data segment (+(64^n))
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = size of TPing data structure (64) (first time)
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: # CPUs (down shifted value), size
+
+; Target Stack:
+        ; stack: CPU # (down shifted value),
+        ;        distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value)
+
+pushC   ; 189 put distance to next local data segment (+(64^n)) on stack
+pushD   ; 190 put CPU # (down shifted value) on stack
+
+; **************************************************************************
+
+; 191 - 195  Now each (but the 0) CPU must get its private TPing structure
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start (of mother)
+        ; cx = distance to next local data segment (+(64^n))
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = size of TPing data structure (64) (first time)
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: CPU # (down shifted value),
+        ;        distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value)
+        ;        size
+
+pushD   ; 191 put CPU # (down shifted value) on stack
+popC    ; 192 cx = CPU # (down shifted value)
+notl    ; 193 cx = logical not, so that we getipp from all but CPU 0
+ifz     ; 194 if cx = 0 do next instruction, otherwise skip it
+getipp  ; 195 get private TPing data from IPmap array
+
+; GENE  6a   end 195 88888888888888888888888888888888888888888888888888888888888
+
+; **************************************************************************
+
+; GENE  6b begin 196 17by senO sensory-processing-coordination 88888888888888888
+
+; 196 - 200  Start of comparison nest loop
+
+nop1    ; 196 comparison nest loop template 10111
+nop0    ; 197 comparison nest loop template 10111
+nop1    ; 198 comparison nest loop template 10111
+nop1    ; 199 comparison nest loop template 10111
+nop1    ; 200 comparison nest loop template 10111
+
+; **************************************************************************
+
+; 201 - 212  Test for exiting comparison nest loop
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start (of mother)
+        ; cx = logical not of CPU # (down shifted value)
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = size of TPing data structure (64) (first time)
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: CPU # (down shifted value),
+        ;        distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value)
+        ;        size
+
+popD    ; 201 dx = CPU # (down shifted value)
+popF    ; 202 fx = distance to next local data segment (+(64^n))
+popC    ; 203 cx = # CPUs (down shifted value)
+shr     ; 204 prepare value for next loop
+ifz     ; 205 if cx == 0 perform next instruction, otherwise skip it
+jmpo    ; 206 IPM, jump out of this loop (offset 161)
+nop0    ; 207 ping outer loop complement 00111
+nop0    ; 208 ping outer loop complement 00111
+nop1    ; 209 ping outer loop complement 00111
+nop1    ; 210 ping outer loop complement 00111
+nop1    ; 211 ping outer loop complement 00111
+pushC   ; 212 save # CPUs (down shifted value) on stack
+
+; GENE  6b   end 212 88888888888888888888888888888888888888888888888888888888888
+
+; **************************************************************************
+
+; 213 - 223  Now half of the CPUs must halt
+; set a register value to 1, then do bitwise and on the CPU # (in dx)
+; based on the result, halt if result is non-zero
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start (of mother)
+        ; cx = # CPUs (down shifted value)
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = distance to next local data segment (+(64^n))
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: # CPUs (down shifted value), size
+
+; GENE  6c begin 213 12by senY sensory-system-synchronization 888888888888888888
+
+zero    ; 213 set cx =  0  000000
+not0    ; 214 set cx =  1  000001
+and     ; 215 cx = cx & dx (odd CPUs are true)
+notl    ; 216 set odd CPUs to 0 and even CPUs to 1
+ifz     ; 217 if cx == 0 perform next instruction, otherwise skip it
+halt    ; 218 IPM, halt odd CPUs
+pushD   ; 219 copy dx
+popC    ; 220 to cx
+shr     ; 221 half dx to prepare for next loop
+pushC   ; 222 copy cx
+popD    ; 223 back to dx
+
+; **************************************************************************
+
+; 224 - 224  Synchronize the CPUs remaining in this group
+
+csync   ; 224
+
+; GENE  6c   end 224 88888888888888888888888888888888888888888888888888888888888
+
+; **************************************************************************
+
+; 225 - 231  Now the remaining CPUs must compare data and copy it if necessary
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start (of mother)
+        ; cx = CPU # (down shifted value)
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = distance to next local data segment (+(64^n))
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: # CPUs (down shifted value), size
+
+; GENE  6d begin 225 52by senA sensory-data-analysis 888888888888888888888888888
+
+pushA   ; 225 copy ax
+popB    ; 226 to bx
+pushF   ; 227 put size of TPing data structure (64) on stack
+popC    ; 228 get offset to next local data segment (+(64^n)) from stack
+add     ; 229 bx = bx + cx (address of next local data segment)
+shl     ; 230 double cx for next time around
+pushC   ; 231 save distance to next local data segment (+(64^n)) on stack
+
+; **************************************************************************
+
+; 232 - 240  Set up some constant values
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start of next private data segment
+        ; cx = distance to next local data segment (+(64^n))
+        ; dx = CPU # (down shifted value)
+        ; ex = undefined
+        ; fx = old value: distance to next local data segment (+(64^n))
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value), size
+
+        ; setup offset for FecundityAvg
+zero    ; 232 set cx =  0  000000
+not0    ; 233 set cx =  1  000001
+shl     ; 234 set cx =  2  000010
+shl     ; 235 set cx =  4  000100
+not0    ; 236 set cx =  5  000101
+shl     ; 237 set cx = 10  001010
+shl     ; 238 set cx = 20  010100
+pushC   ; 239 push FecundityAvg offset = 20 onto stack
+popE    ; 240 pop FecundityAvg into ex
+
+; **************************************************************************
+
+; 241 - 298  Make Speed/NumCells comparison for two TPing data structures
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start of next private data segment
+        ; cx = FecundityAvg offset = 20
+        ; dx = CPU # (down shifted value)
+        ; ex = FecundityAvg offset = 20
+        ; fx = old value: distance to next local data segment (+(64^n))
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value), size
+
+pushD   ; 241 save CPU # (down shifted value) on stack
+
+togsr   ; 242 toggle source register from ax -> bx (first -> second)
+
+        ; calculate second rate
+
+pushE   ; 243 FecundityAvg offset = 20 onto stack
+popC    ; 244 FecundityAvg offset = 20 into cx
+movdi4  ; 245 cx = [bx + cx] = second FecundityAvg
+pushC   ; 246 second FecundityAvg onto stack
+
+togsr   ; 247 toggle source register from bx -> ax (second -> first)
+
+        ; calculate first rate
+
+pushE   ; 248 FecundityAvg offset = 20 onto stack
+popC    ; 249 FecundityAvg offset = 20 into cx
+movdi4  ; 250 cx = [bx + cx] = first FecundityAvg
+
+        ; first  rate in cx
+popD    ; 251 second rate in dx
+
+        ; this code makes the test:
+        ; if first rate (cx) higher than second rate (dx)
+        ; don't copy, otherwise copy second data to first data
+
+ifgrtr  ; 252 IPM, cx > dx execute next instruction, otherwise skip it
+jmpb    ; 253 IPM, to PingLoopTop (offset 195)
+nop0    ; 254 comparison nest loop top complement 01000
+nop1    ; 255 comparison nest loop top complement 01000
+nop0    ; 256 comparison nest loop top complement 01000
+nop0    ; 257 comparison nest loop top complement 01000
+nop0    ; 258 comparison nest loop top complement 01000
+
+; GENE  6d   end 258 88888888888888888888888888888888888888888888888888888888888
+
+        ; ******************************************************
+
+; CopySecondDataToFirstData() ax <- bx
+        ; Second data is better, so copy it to first
+
+; Start Values:
+        ; ax = start of private data segment
+        ; bx = start of next private data segment
+        ; cx = first  rate FecundityAvg
+        ; dx = second rate FecundityAvg
+        ; ex = FecundityAvg offset = 20
+        ; fx = old value: distance to next local data segment (+(64^n))
+        ; destination register = ax, bx
+        ; source      register = ax, bx
+        ; stack: CPU # (down shifted value),
+        ;        distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value), size
+
+; GENE  6e begin 259 22by senR sensory-data-report 88888888888888888888888888888
+
+        ; calculate # of CPUs to use in string copy
+zero    ; 259 set cx =  0  000000
+not0    ; 260 set cx =  1  000001
+shl     ; 261 set cx =  2  000010
+shl     ; 262 set cx =  4  000100
+shl     ; 263 set cx =  8  001000
+pushC   ; 264 move # CPUs from cx
+popD    ; 265 to dx
+
+        ; calculate # of bytes to copy (only need half of the TPing structure)
+shl     ; 266 set cx = 16  010000
+shl     ; 267 set cx = 32  100000
+
+        ; Copy procedure (variable CPU version):
+        ; this procedure will copy cx bytes
+        ; starting from [bx] (source)
+        ; starting to   [ax] (destination)
+        ; using dx CPUs
+
+call    ; 268 IPM, call copy procedure long jmpb (offset 304)
+nop0    ; 269 copy procedure jmpb complement 00100
+nop0    ; 270 copy procedure jmpb complement 00100
+nop1    ; 271 copy procedure jmpb complement 00100
+nop0    ; 272 copy procedure jmpb complement 00100
+nop0    ; 273 copy procedure jmpb complement 00100
+jmpb    ; 274 IPM, to PingLoopTop (offset 195)
+nop0    ; 275 comparison nest loop top complement 01000
+nop1    ; 276 comparison nest loop top complement 01000
+nop0    ; 277 comparison nest loop top complement 01000
+nop0    ; 278 comparison nest loop top complement 01000
+nop0    ; 279 comparison nest loop top complement 01000
+ifz     ; 280 dummy to separate templates
+
+; GENE  6e   end 280 88888888888888888888888888888888888888888888888888888888888
+
+; GENE  6    end 280 88888888888888888888888888888888888888888888888888888888888
+
+        ; at the time of jumping back to comparison nest loop top,
+        ;       the registers look like this:
+
+        ; ax = start of private data segment
+        ; bx = start of next private data segment
+        ; cx = 0
+        ; dx = 0
+        ; ex = Speed offset = 24
+        ; fx = NumCells offset = 28
+        ; stack: CPU # (down shifted value),
+        ;        distance to next local data segment (+(64^n)),
+        ;        # CPUs (down shifted value)
+
+; End of comparison nest loop
+
+; **************************************************************************
+
+; End:
+
+; GENE  7  begin 281 22by pad padding 888888888888888888888888888888888888888888
+
+nop1    ; 281 copy procedure jmpb template
+nop1    ; 282 copy procedure jmpb template
+nop0    ; 283 copy procedure jmpb template
+nop1    ; 284 copy procedure jmpb template
+nop1    ; 285 copy procedure jmpb template
+jmpb    ; 286 IPM, long jmpb to copy procedure (offset 100)
+nop0    ; 287 copy procedure complement 00011
+nop0    ; 288 copy procedure complement 00011
+nop0    ; 289 copy procedure complement 00011
+nop1    ; 290 copy procedure complement 00011
+nop1    ; 291 copy procedure complement 00011
+ifz     ; 292 dummy to round off size
+ifz     ; 293 dummy to round off size
+ifz     ; 294 dummy to round off size
+ifz     ; 295 dummy to round off size
+ifz     ; 296 dummy to round off size
+ifz     ; 297 dummy to round off size
+ifz     ; 298 dummy to round off size
+ifz     ; 299 dummy to round off size
+ifz     ; 300 dummy to round off size
+ifz     ; 301 dummy to round off size
+ifz     ; 302 dummy to round off size
+ifz     ; 303 dummy to round off size
+ifz     ; 304 dummy to round off size
+ifz     ; 305 dummy to round off size
+ifz     ; 306 dummy to round off size
+ifz     ; 307 dummy to round off size
+ifz     ; 308 dummy to round off size
+ifz     ; 309 dummy to round off size
+ifz     ; 310 dummy to round off size
+ifz     ; 311 dummy to round off size
+ifz     ; 312 dummy to round off size
+ifz     ; 313 dummy to round off size
+nop1    ; 314 end template 11110
+nop1    ; 315 end template 11110
+nop1    ; 316 end template 11110
+nop1    ; 317 end template 11110
+nop0    ; 318 end template 11110
+ifz     ; 319 dummy to separate templates
+
+; GENE  7    end 319 88888888888888888888888888888888888888888888888888888888888
+
+; **************************************************************************
+
+; DATA     begin 320 640by dat data space 88888888888888888888888888888888888888
+
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+data    ; create data space
+
+; DATA       end 959 88888888888888888888888888888888888888888888888888888888888

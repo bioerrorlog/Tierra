@@ -1,0 +1,70 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0060aaa  genetic: 0,60  parent genotype: 0666god
+ploidy: 1  track: 0
+; comments: a parasite hand-made from the ancestor.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0 beginning marker
+nop1    ; 000 01   1 beginning marker
+nop1    ; 000 01   2 beginning marker
+nop1    ; 000 01   3 beginning marker
+zero    ; 000 12   4 zero out ax so that adrb offset is zero
+adrb    ; 000 1c   5 get (backward) address of beginning marker -> ax
+nop0    ; 000 00   6 complement to beginning marker
+nop0    ; 000 00   7 complement to beginning marker
+nop0    ; 000 00   8 complement to beginning marker
+nop0    ; 000 00   9 complement to beginning marker
+B       ; 000 03  10
+sub     ; 000 11  11 bx = ax - bx (subtract template size from address)
+A       ; 000 02  12 set up register window so that
+C       ; 000 04  13     bx is not clobbered
+D       ; 000 05  14     by the adrf
+zero    ; 000 12  15 zero out dx so that adrf offset is zero
+adrf    ; 000 1d  16 get (forward) address of end marker -> ax
+nop0    ; 000 00  17 complement to end marker
+nop0    ; 000 00  18 complement to end marker
+nop0    ; 000 00  19 complement to end marker
+nop1    ; 000 01  20 complement to end marker
+B       ; 000 03  21
+sub     ; 000 11  22 cx = dx - bx (subtract to find length)
+nop1    ; 000 01  23 reproduction loop marker
+nop1    ; 000 01  24 reproduction loop marker
+nop0    ; 000 00  25 reproduction loop marker
+nop1    ; 000 01  26 reproduction loop marker
+C       ; 000 04  27
+A       ; 000 02  28
+movdd   ; 000 06  29 copy cx (length) to ax
+D       ; 000 05  30
+zero    ; 000 12  31
+dec     ; 000 0f  32 set dx to a negative value (to force better fit)
+A       ; 000 02  33
+mal     ; 000 1e  34 allocate space for daughter with bestfit (addr into ax)
+D       ; 000 05  35
+D       ; 000 05  36
+D       ; 000 05  37
+zero    ; 000 12  38 zero out dx so that adrf offset is zero
+call    ; 000 1a  39
+nop0    ; 000 00  40 copy procedure complement
+nop0    ; 000 00  41 copy procedure complement
+nop1    ; 000 01  42 copy procedure complement
+nop1    ; 000 01  43 copy procedure complement
+zero    ; 000 12  44 zero out dx so that IP offset is zero
+divide  ; 000 1f  45 create independent daughter cell
+D       ; 000 05  46
+D       ; 000 05  47
+D       ; 000 05  48
+zero    ; 000 12  49
+jmpb    ; 000 19  50
+nop0    ; 000 00  51 reproduction loop complement
+nop0    ; 000 00  52 reproduction loop complement
+nop1    ; 000 01  53 reproduction loop complement
+nop0    ; 000 00  54 reproduction loop complement
+ifz     ; 000 16  55
+nop1    ; 000 01  56 copy procedure template
+nop1    ; 000 01  57 copy procedure template
+nop1    ; 000 01  58 copy procedure template
+nop0    ; 000 00  59 copy procedure template

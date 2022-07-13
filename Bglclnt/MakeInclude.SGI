@@ -1,0 +1,35 @@
+## MakeInclude.SunOS -- -*- Makefile -*-
+## 
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Fri Jan 10 13:26:12 1997
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Tue Jan 19 14:29:42 1999
+## Update Count    : 23
+## Status          : 
+
+OS_SHELL =	/bin/sh
+
+OS_CFLAGS = -DTSysV -cckr -signed -DHAVE_UNISTD_H
+
+OS_LIBOPT =
+
+OS_LDFLAGS =
+
+OS_LIBS =
+
+OS_CC =		cc
+
+OS_LINT =	$(OS_CC) -Wall
+
+OS_TIERRAHOME =	../tierra/
+
+OS_BGLHOME =	./
+
+OS_BGLCOMDIR =	$(OS_BGLHOME)../Bglcom/
+
+OS_BGLCLNTDIR =	$(OS_BGLHOME)../Bglclnt/
+
+OS_BGLUIDIR =	$(OS_BGLHOME)../Bgl-$(UISELECT)/
+#

@@ -1,0 +1,181 @@
+
+format: 3  bits:
+genotype: 0085aaa  genetic: 0,85  parent genotype: 0666god
+
+CODE
+
+track 0:
+
+nop1    ; 110 01   0 beginning marker
+nop1    ; 110 01   0 beginning marker
+nop1    ; 110 01   0 beginning marker
+nop1    ; 110 01   0 beginning marker
+zero    ; 110 01   0 cx = 0, offset for search
+adrb    ; 110 01   0 find start, ax = start + 4, dx = templ size
+nop0    ; 110 01   0 complement to beginning marker
+nop0    ; 110 01   0 complement to beginning marker
+nop0    ; 110 01   0 complement to beginning marker
+nop0    ; 110 01   0 complement to beginning marker
+pushA   ; 110 01   0 push start + 4 on stack
+popC    ; 110 01   0 pop start + 4 into cx
+sub     ; 110 01   0 cx = cx - dx, cx = start
+pushC   ; 110 01   0 push start on stack
+zero    ; 110 01   0 cx = 0, offset for search
+adrf    ; 110 01   0 find end, ax = end, cx = offset, dx = templ size
+nop0    ; 110 01   0 complement to end marker
+nop0    ; 110 01   0 complement to end marker
+nop0    ; 110 01   0 complement to end marker
+nop1    ; 110 01   0 complement to end marker
+pushA   ; 110 01   0 push end on stack
+popC    ; 110 01   0 pop end into cx
+inc     ; 110 01   0 increment to include dummy instruction at end
+popD    ; 110 01   0 pop start into dx
+sub     ; 110 01   0 cx = cx - dx, ax = end, cx = size, dx = start
+nop1    ; 110 01   0 reproduction loop marker
+nop1    ; 110 01   0 reproduction loop marker
+nop0    ; 110 01   0 reproduction loop marker
+nop1    ; 110 01   0 reproduction loop marker
+mal     ; 110 01   0 ax = daughter, cx = size, dx = mom
+csync   ; 000 00   0 sync for other cpu to get info
+nop0    ; 110 01   0 delay
+call    ; 110 01   0 call copy procedure
+nop0    ; 110 01   0 copy procedure complement
+nop0    ; 110 01   0 copy procedure complement
+nop1    ; 110 01   0 copy procedure complement
+nop1    ; 110 01   0 copy procedure complement
+csync   ; 000 00   0 sync for other cpu to complete replication
+divide  ; 110 01   0 create daughter cell
+jmpb    ; 110 01   0 jump back to top of reproduction loop
+nop0    ; 110 01   0 reproduction loop complement
+nop0    ; 110 01   0 reproduction loop complement
+nop1    ; 110 01   0 reproduction loop complement
+nop0    ; 110 01   0 reproduction loop complement
+ifz     ; 110 01   0 dummy instruction to separate templates
+nop1    ; 110 01   0 copy procedure template
+nop1    ; 110 01   0 copy procedure template
+nop0    ; 110 01   0 copy procedure template
+nop0    ; 110 01   0 copy procedure template
+pushC   ; 110 01   0 push size on stack
+pushD   ; 110 01   0 push start on stack
+pushD   ; 110 01   0 push start on stack
+popB    ; 110 01   0 pop start into bx
+nop1    ; 110 01   0 copy loop template
+nop0    ; 110 01   0 copy loop template
+nop1    ; 110 01   0 copy loop template
+nop0    ; 110 01   0 copy loop template
+dec     ; 110 01   0 decrement size
+movii   ; 110 01   0 move from [bx + cx] to [ax + cx]
+ifz     ; 110 01   0 test when to exit loop
+jmpo    ; 110 01   0 exit loop
+nop0    ; 110 01   0 copy procedure exit complement
+nop1    ; 110 01   0 copy procedure exit complement
+nop0    ; 110 01   0 copy procedure exit complement
+nop0    ; 110 01   0 copy procedure exit complement
+jmpb    ; 110 01   0 jump to top of copy loop
+nop0    ; 110 01   0 copy loop complement
+nop1    ; 110 01   0 copy loop complement
+nop0    ; 110 01   0 copy loop complement
+nop1    ; 110 01   0 copy loop complement
+ifz     ; 110 01   0 dummy instruction to separate jmp from template
+nop1    ; 110 01   0 copy procedure exit template
+nop0    ; 110 01   0 copy procedure exit template
+nop1    ; 110 01   0 copy procedure exit template
+nop1    ; 110 01   0 copy procedure exit template
+popD    ; 110 01   0 pop start into dx
+popC    ; 110 01   0 pop size into cx
+popB    ; 110 01   0 pop call IP into bx
+jmpo    ; 110 01   0 return from call
+ifz     ; 110 01   0 dummy instruction to separate jmp from template
+nop1    ; 110 01   0 end marker
+nop1    ; 110 01   0 end marker
+nop1    ; 110 01   0 end marker
+nop0    ; 110 01   0 end marker
+ifz     ; 110 01   0 dummy instruction to separate creatures
+
+track 1:
+
+nop1    ; 110 01   0
+nop1    ; 110 01   0
+nop1    ; 110 01   0
+nop1    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop0    ; 110 01   0
+nop1    ; 110 01   0 reproduction loop marker
+nop1    ; 110 01   0 reproduction loop marker
+nop0    ; 110 01   0 reproduction loop marker
+nop1    ; 110 01   0 reproduction loop marker
+csync   ; 110 01   0 wait for other cpu to complete self-exam and allocation
+getregs ; 000 01   0 get addresses from other cpu
+call    ; 110 01   0 call copy procedure
+nop0    ; 110 01   0 copy procedure complement
+nop0    ; 110 01   0 copy procedure complement
+nop1    ; 110 01   0 copy procedure complement
+nop1    ; 110 01   0 copy procedure complement
+csync   ; 000 00   0 wait for other cpu to complete replication
+nop0    ; 110 01   0 create daughter cell
+jmpb    ; 110 01   0 jump back to top of reproduction loop
+nop0    ; 110 01   0 reproduction loop complement
+nop0    ; 110 01   0 reproduction loop complement
+nop1    ; 110 01   0 reproduction loop complement
+nop0    ; 110 01   0 reproduction loop complement
+ifz     ; 110 01   0 dummy instruction to separate templates
+nop1    ; 110 01   0 copy procedure template
+nop1    ; 110 01   0 copy procedure template
+nop0    ; 110 01   0 copy procedure template
+nop0    ; 110 01   0 copy procedure template
+pushC   ; 110 01   0 push size on stack
+pushD   ; 110 01   0 push start on stack
+pushD   ; 110 01   0 push start on stack
+popB    ; 110 01   0 pop start into bx
+nop1    ; 110 01   0 copy loop template
+nop0    ; 110 01   0 copy loop template
+nop1    ; 110 01   0 copy loop template
+nop0    ; 110 01   0 copy loop template
+dec     ; 110 01   0 decrement size
+movii   ; 110 01   0 move from [bx + cx] to [ax + cx]
+ifz     ; 110 01   0 test when to exit loop
+jmpo    ; 110 01   0 exit loop
+nop0    ; 110 01   0 copy procedure exit complement
+nop1    ; 110 01   0 copy procedure exit complement
+nop0    ; 110 01   0 copy procedure exit complement
+nop0    ; 110 01   0 copy procedure exit complement
+jmpb    ; 110 01   0 jump to top of copy loop
+nop0    ; 110 01   0 copy loop complement
+nop1    ; 110 01   0 copy loop complement
+nop0    ; 110 01   0 copy loop complement
+nop1    ; 110 01   0 copy loop complement
+ifz     ; 110 01   0 dummy instruction to separate jmp from template
+nop1    ; 110 01   0 copy procedure exit template
+nop0    ; 110 01   0 copy procedure exit template
+nop1    ; 110 01   0 copy procedure exit template
+nop1    ; 110 01   0 copy procedure exit template
+popD    ; 110 01   0 pop start into dx
+popC    ; 110 01   0 pop size into cx
+popB    ; 110 01   0 pop call IP into bx
+jmpo    ; 110 01   0 return from call
+ifz     ; 110 01   0 dummy instruction to separate jmp from template
+nop1    ; 110 01   0 end marker
+nop1    ; 110 01   0 end marker
+nop1    ; 110 01   0 end marker
+nop0    ; 110 01   0 end marker
+ifz     ; 110 01   0 dummy instruction to separate creatures

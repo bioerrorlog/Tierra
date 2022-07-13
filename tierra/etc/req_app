@@ -1,0 +1,102 @@
+## req_app -- -*- Fundamental -*-
+##
+## @(#)req_app	1.10	06/02/98 11:00:55
+## 
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Fri Mar  7 17:35:53 1997
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Tue Jun  2 11:00:41 1998
+## Update Count    : 15
+## Status          : 
+#######################################################################
+#
+# This is the file "req_app".
+# There is put in "tierrra/etc" directory and red by Tierra/Beagle.
+#
+# This file indicate permission for Beagle user's operation.
+# Left character mean a operation and right side of "=" mean a
+# permission for "SU Beagle" and "Non SU Beagle".
+#
+# "SU Beagle" is mean a "Super User's Beagle".
+#
+# "SU Beagle" are can use only the Tierra's owner.
+# Tierra's owner need know the tierra's password.
+#
+# "SU Beagle" usual can more hard operation than "Non SU Beagle" for example
+# "terminate the tierra".
+#
+# FORMAT:
+#
+#    <name> = <s>,<n>
+#
+#  <name> is a OPERATION NAME you can use following.
+#  <s> is a "1" mean PERMIT, and "0"(zero) mean NOT for SU Beagle.
+#  <n> is a "1" mean PERMIT, and "0"(zero) mean NOT for Non SU Beagle.
+#
+#
+# OPERATION NAME:
+#
+#   Connect   ... Beagle can connect or not.
+#   FEMenu    ... Menu operation of all action.
+#   OV        ... Overview start/quit operation.
+#   genome    ... Genome information show or not.
+#   genome_save	  ... Genome save or not
+#   info_plan     ... Plan information show or not.
+#   info_size     ... Size histogram information show or not.
+#   info_gen      ... Gene histogram information show or not.
+#   info_mem      ... Memory size histogram information show or not.
+#   info_es       ... Effic(size) histogram information show or not.
+#   info_eg       ... Effic(gene) histogram information show or not.
+#   info_z        ... Permit Size Query operation or not.
+#   misc_histolog     ... Permit Histo Logging operation or not.
+#   misc_inject       ... Permit Inject operation or not.
+#   misc_tping_s
+#      ... Permit Server TPing information correction start/stop or not.
+#   misc_tping_c
+#      ... Permit Client TPing information correction start/stop or not.
+#   misc_micro    ... Permit Micro Debugger Toggle operation or not.
+#   debug_brk_put     ... Permit breakpoint put
+#   debug_brk_repeat  ... Permit breakpoint repeat
+#   debug_brk_clear   ... Permit breakpoint clear
+#   val_alter     ... Permit Value alter operation or not.
+#   val_exam_id   ... Permit Value examination by ID operation or not.
+#   val_exam_all  ... Permit all Value examination operation or not.
+#   save_only     ... Permit Soup save operation or not.
+#   save_quit     ... Permit Soup save and quit operation or not.
+#   migration_tracking  ... Permit Migration Tracking On/Off operation.
+#   quit          ... Permit Tierra Quit operation or not.
+#   suspend_life  ... Permit Suspend Tierra Simulator or Not.
+#
+#######################################################################
+#
+Connect = 1,1
+FEMenu = 1,1
+save_only = 1,0
+save_quit = 1,0
+quit = 1,0
+suspend_life = 1,0
+info_plan = 1,1
+info_size = 1,1
+info_gen = 1,1
+info_mem = 1,1
+info_es = 1,1
+info_eg = 1,1
+info_z = 1,1
+val_alter = 1,0
+val_exam_id = 1,1
+val_exam_all = 1,1
+misc_histolog =	1,0
+misc_inject = 1,0
+misc_tping_s = 1,1
+misc_tping_c = 1,1
+misc_micro = 1,0
+debug_brk_put = 1,0
+debug_brk_repeat = 1,0
+debug_brk_clear = 1,0
+OV = 1,1
+genome = 1,1
+genome_save = 1,0
+migration_tracking = 1,1
+################################

@@ -1,0 +1,8 @@
+cd gb0
+rm *.gen
+rm *.tmp
+rm core_out soup_out tierra.log
+../arg1 c 0073.gen 0073aaa.tie
+../arg1 c 0080.gen 0080aaa.tie
+cd ..
+

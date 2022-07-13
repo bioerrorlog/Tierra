@@ -1,0 +1,38 @@
+#00ff00 green (pure)
+#0000ff blue  (pure)
+#ff0000 red   (pure)
+#cc00ff purple
+#ffba6b light brown
+#ff00ea fushia
+#00d0ff light blue
+#7effd4 aqua
+#ebff1c yellow
+
+Note: only the first nine lines of the file will be read, so you can
+keep a list of other color options below:
+
+#ffba6b light brown
+#4848ff dark blue
+#cc00ff purple
+#1bff18 green
+#ff00ea fushia
+#00d0ff light blue
+#7effd4 aqua
+#ff4f4f red
+#ebff1c yellow
+
+#800000 dark red   (dim, low saturation)
+#008000 dark green (dim, low saturation)
+#000080 dark blue  (dim, low saturation)
+#ff0000 red   (pure)
+#00ff00 green (pure)
+#0000ff blue  (pure)
+#ffff00 yellow
+#ff00ff purple
+#00ffff light blue
+#ffffff white
+#ff8000 brown
+#ff0080 red-purple
+#00ff80 blue-green
+#80ff00 green-blue
+#0080ff blue

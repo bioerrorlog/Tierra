@@ -1,0 +1,49 @@
+## BglDefaultFile -- -*- Fundamental -*-
+##
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Fri Apr 25 20:09:27 1997
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Wed Nov 17 10:40:20 1999
+## Update Count    : 20
+## Status          : 
+######################################################################
+#
+# This is a Default file for Beagle (connection information)
+#
+# If you filled following parameter, then Beagle will not ask for you.
+# <- The '#' mark puted most left side of line is meaning comment line.
+#
+#  FORMAT:
+#
+#    <name> = <ValueStrings>
+#
+#  <name> ... You can use as following names.
+#
+#   beagleNice ... nice value for the Beagle, This symbol will effect by
+#                  the file name "BglDefaultFile" only.
+#   host  ..... host name of Tierra running that beagle will connect.
+#   ip    ..... above matchines ip address ()
+#   dotted  ... above matchines ip dotted form (xxx.xxx.xxx.xxx)
+#   port  ..... port number that beagle use for connecting with Tierra
+#   uname  .... put your name, This data will send to Tierra.
+#   passwd  ... put your tierra's password.
+#                (If you use this then you have to set "uname")
+#   priv  ..... 's' or 'n', 's' means for connect SU mode and 'n' is Non SU.
+#   migrctrlport ... the port number that using for short communication and
+#                    Migration control. 
+#
+######################################################################
+#
+beagleNice = 19
+#
+host = localhost
+#ip =
+dotted = 127.0.0.1
+port = 17501
+uname = tierra
+passwd =   # You should not write your passwd in file.
+priv = s
+migrctrlport = 17503
+##

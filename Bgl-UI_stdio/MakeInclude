@@ -1,0 +1,60 @@
+## makeInclude -- -*- Makefile -*-
+## 
+## @(#)MakeInclude	1.5	03/09/98 15:44:51
+##
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Wed Aug 21 10:51:38 1996
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Mon Mar  9 15:44:14 1998
+## Update Count    : 20
+## Status          : 
+
+
+UI_INCOPT     =
+
+UI_LIBOPT     =
+
+UI_CFLAGS     =
+
+UI_EXTHDRS    =
+
+UI_HDRS       = $(BGLUIDIR)bglstd_global.h\
+		$(BGLUIDIR)bglstd_prot.h
+
+UI_LDFLAGS    = 
+
+UI_LIBS	      =
+
+UI_OBJS       = $(BGLUIDIR)bglstd_main.o\
+		$(BGLUIDIR)bglstd_print.o\
+                $(BGLUIDIR)bglstd_menu.o\
+                $(BGLUIDIR)bglstd_show.o
+
+UI_SRCS       = $(BGLUIDIR)bglstd_main.c\
+		$(BGLUIDIR)bglstd_print.c\
+		$(BGLUIDIR)bglstd_menu.c\
+		$(BGLUIDIR)bglstd_show.c
+
+##
+$(BGLUIDIR)bglstd_main.o:	$(BGLUIDIR)bglstd_main.c $(UI_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)bglstd_main.c\
+			-o $(BGLUIDIR)bglstd_main.o
+
+$(BGLUIDIR)bglstd_print.o: $(BGLUIDIR)bglstd_print.c $(UI_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)bglstd_print.c\
+			-o $(BGLUIDIR)bglstd_print.o
+
+$(BGLUIDIR)bglstd_menu.o: $(BGLUIDIR)bglstd_menu.c $(UI_HDRS)\
+			beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)bglstd_menu.c\
+			-o $(BGLUIDIR)bglstd_menu.o
+
+$(BGLUIDIR)bglstd_show.o: $(BGLUIDIR)bglstd_show.c $(UI_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)bglstd_show.c\
+			-o $(BGLUIDIR)bglstd_show.o
+
+
+
+

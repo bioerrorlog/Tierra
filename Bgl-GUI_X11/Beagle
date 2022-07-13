@@ -1,0 +1,150 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! Beagle : resource file for X11 type Beagle program
+!!! @(#)Beagle	1.21	05/28/99 19:04:04
+!!!
+!!! You can change representations image without compile
+!!!     via edit following text data.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+!!!!!! for all windows common style  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! fonts
+Beagle*Font:			-adobe-*-*-*-*-*-12-*-*-*-*-*-*-*
+Beagle*confDialog*Font:		-adobe-*-*-*-*-*-16-*-*-*-*-*-*-*
+Beagle*infoDialog*Font:		-adobe-*-*-*-*-*-16-*-*-*-*-*-*-*
+Beagle*warningDialog*Font:	-adobe-*-*-*-*-*-16-*-*-*-*-*-*-*
+Beagle*errorDialog*Font:	-adobe-*-*-*-*-*-16-*-*-*-*-*-*-*
+Beagle*messageDialog*Font:	-adobe-*-*-*-*-*-16-*-*-*-*-*-*-*
+
+!!! colors
+Beagle*menuBar.background: gray
+Beagle*menuBar*label*foreground: black
+Beagle*fileButton.background: cyan
+Beagle*filePullDownMenu.background: gray
+Beagle*connectButton.background: cyan
+Beagle*connectPullDownMenu*background: gray
+Beagle*windowButton.background: cyan
+Beagle*windowPullDownMenu*background: gray
+Beagle*miscButton.background: cyan
+Beagle*miscPullDownMenu.background: gray
+Beagle*modeButton.background: cyan
+Beagle*modePullDownMenu*background: gray
+Beagle*optionButton.background: cyan
+Beagle*optionPullDownMenu.background: gray
+Beagle*brkButton.background: cyan
+Beagle*brkPullDownMenu*background: gray
+Beagle*brkPutPullDownMenu.background: gray
+Beagle*displayButton.background: cyan
+Beagle*displayPullDownMenu.background: gray
+Beagle*pageUpButton.background: cyan
+Beagle*pageDownButton.background: cyan
+
+!!!!!! about "...DialogWindow"   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*confirmationDialog.confDialog.background: SteelBlue
+Beagle*informationDialog.infoDialog.background: SteelBlue
+Beagle*warningDialog.warnDialog.background: Steelblue
+Beagle*errorDialog.errDialog.background: SteelBlue
+Beagle*messageDialog.msgDialog.background: SteelBlue
+Beagle*stringKeyInputDialog.strKeyInDialog.background: plum
+Beagle*secretStringKeyInputDialog.secretStrKeyInDialog.background: plum
+
+
+!!!!!! about "topWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*topWindow*topInfoArea.background: lavender
+Beagle*infoMessageWindow*infoMessageInfoArea.background: lavender
+
+
+!!!!!! about "statsWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*statsWindow*statsInfoArea.background: lavender
+
+
+!!!!!! about "planWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*planWindow*planInfoArea.background: lavender
+
+
+!!!!!! about "messageWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*messageWindow*messageList.background: lavender
+
+
+!!!!!! about "overviewWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*creature00color: red
+Beagle*creature01color: blue
+Beagle*creature02color: pink
+Beagle*creature03color: yellow
+Beagle*creature04color: cyan
+Beagle*creature05color: orange
+Beagle*creature06color: green
+Beagle*creature07color: brown
+Beagle*creature08color: violet
+Beagle*creature09color: sky blue
+Beagle*stickylabel.background:	lavender
+
+!!!!!! about "ovInstWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*ovInstWindow*instInfoArea*background: lavender
+
+
+!!!!!! about "ovGeneWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*ovGeneWindow*geneInfoArea*background: lavender
+
+
+!!!!!! about "histoWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+
+
+!!!!!! about "tPingSWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*tPingSWindow*nameLabel.background: white
+Beagle*tPingSWindow*itemLabel.background: white
+Beagle*tPingSWindow*tPingSInfoArea*background: lavender
+
+
+!!!!!! about "tPingCWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*tPingCWindow*nameLabel.background: white
+Beagle*tPingCWindow*itemLabel.background: white
+Beagle*tPingCWindow*tPingCInfoArea*background: lavender
+
+
+!!!!!! about "varWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*varWindow*varInfoArea.background: lavender
+Beagle*varWindow*alterOpenButton.background: cyan
+Beagle*varWindow*alterPullDownMenu.background: gray
+
+
+!!!!!! about "debugWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*debugWindow*debugInfoArea*background: lavender
+
+
+!!!!!! about "debugKeyWaitWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*debugKeyWaitWindow*debugKeyWaitInfoArea.background: lavender
+Beagle*debugKeyWaitWindow*tcellButton.background: cyan
+Beagle*debugKeyWaitWindow*tcpuButton.background: cyan
+Beagle*debugKeyWaitWindow*ncpuButton.background: cyan
+Beagle*debugKeyWaitWindow*nBrkButton.background: cyan
+Beagle*debugKeyWaitWindow*nextButton.background: cyan
+
+!!!!!! about "migrationwindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!! colors
+Beagle*migrationWindow*itemLabel.background: white
+Beagle*migrationWindow*migrationInfoArea*background: lavender
+
+!!!!!! about "queryWindow"  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Beagle*queryWindow*sizeButton.label: Size
+Beagle*queryWindow*sizeButton.background: cyan
+Beagle*queryWindow*sizePullDownMenu.background: gray
+Beagle*queryWindow*itemLabel.background: white
+Beagle*queryWindow*queryInfoList*background: lavender
+
+
+!!!

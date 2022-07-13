@@ -1,0 +1,153 @@
+define([AC_CACHE_LOAD], )dnl
+define([AC_CACHE_SAVE], )dnl
+AC_INIT(micromon.c)
+
+AC_CANONICAL_HOST
+AC_PROG_RANLIB
+AC_PROG_CC
+AC_OBJEXT
+
+AC_SUBST(TIELDLIBS_ALL)
+AC_SUBST(TIELDLIBS_BASIC)
+AC_SUBST(ARGLDLIBS)
+AC_SUBST(TBGLPASSWDLDLIBS)
+AC_SUBST(GENALIGNLDLIBS)
+AC_SUBST(THREADTREELDLIBS)
+AC_SUBST(SOUPUPDTRCLDLIBS)
+AC_SUBST(TIEAUDCLLDLIBS)
+AC_SUBST(TIE2PDLDLIBS)
+AC_SUBST(LOG2IPMAPLDLIBS)
+AC_SUBST(PROBELDLIBS)
+AC_SUBST(TIEUDPTNLLDLIBS)
+AC_SUBST(TIEUDPTNLCLDLIBS)
+
+AC_PATH_XTRA
+
+LIBS=""
+AC_CHECK_LIB(termcap, main)
+AC_CHECK_LIB(curses, main)
+TIELDLIBS_BASIC=$LIBS
+LIBS=""
+AC_CHECK_LIB(crypt, main)
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+TIELDLIBS_ALL=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+ARGLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(crypt, main)
+TBGLPASSWDLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+GENALIGNLDLIBS=$LIBS
+
+LIBS="$X_LIBS"
+AC_CHECK_LIB(Xwchar, main)
+AC_CHECK_LIB(Xmu, main)
+AC_CHECK_LIB(X11, main)
+AC_CHECK_LIB(Xt, main)
+AC_CHECK_LIB(Xaw, main)
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+THREADTREELDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+SOUPUPDTRCLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+TIEAUDCLLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(m, main)
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+TIE2PDLDLIBS=$LIBS
+
+LIBS=""
+LOG2IPMAPLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+PROBELDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+TIEUDPTNLLDLIBS=$LIBS
+
+LIBS=""
+AC_CHECK_LIB(nsl, main)
+AC_CHECK_LIB(socket, main)
+TIEUDPTNLCLDLIBS=$LIBS
+
+AC_HEADER_DIRENT
+AC_HEADER_SYS_WAIT
+AC_CHECK_HEADERS(fcntl.h limits.h sgtty.h sys/file.h sys/ioctl.h sys/time.h termio.h crypt.h stdarg.h unistd.h)
+
+cat >> confdefs.h <<EOF
+#include<unistd.h>
+EOF
+AC_CHECK_TYPE(socklen_t,int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+
+if test $ac_cv_type_socklen_t = "no"; then
+unset ac_cv_type_socklen_t
+cat confdefs.h | grep -v "socklen_t" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+cat >> confdefs.h <<EOF
+#include<sys/socket.h>
+EOF
+AC_CHECK_TYPE(socklen_t,int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+fi
+
+cat >> confdefs.h <<EOF
+#include<stdint.h>
+EOF
+AC_CHECK_TYPE(uint32_t,unsigned int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+
+cat >> confdefs.h <<EOF
+#include<stdint.h>
+EOF
+AC_CHECK_TYPE(int32_t,int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+
+cat >> confdefs.h <<EOF
+#include<rpc/types.h>
+EOF
+AC_CHECK_TYPE(bool_t,int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+
+cat >> confdefs.h <<EOF
+#include<rpc/types.h>
+EOF
+AC_CHECK_TYPE(enum_t,int)
+cat confdefs.h | grep -v "^#include" > confdefs.h.new
+mv confdefs.h.new confdefs.h
+
+AC_CHECK_TYPE(caddr_t, char *)
+
+AC_HEADER_TIME
+
+AC_OUTPUT(Makefile)

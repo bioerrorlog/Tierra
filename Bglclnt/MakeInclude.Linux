@@ -1,0 +1,42 @@
+## MakeInclude.Linux -- -*- Makefile -*-
+##
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Fri Feb 27 18:08:04 1998
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Fri May  8 10:50:18 1998
+## Update Count    : 10
+## Status          : 
+
+OS_SHELL =	/bin/sh
+
+RPCGENFLAGS = -DHAVE_TDT_FST_LST_OFSTTYP -DUSE_PORT
+
+OS_CFLAGS = $(RPCGENFLAGS) -DPLOIDY=1 -DTSysV -DHAVE_DIRENT_H=1 \
+            -DHAVE_SYS_WAIT_H=1 -DHAVE_FCNTL_H=1 \
+            -DHAVE_LIMITS_H=1 -DHAVE_SGTTY_H=1 -DHAVE_SYS_FILE_H=1 \
+            -DHAVE_SYS_IOCTL_H=1 -DHAVE_SYS_TIME_H=1 \
+            -DHAVE_TERMIO_H=1 -DHAVE_CRYPT_H=1 -DHAVE_STDARG_H=1 \
+            -DHAVE_UNISTD_H=1
+
+OS_LIBOPT =
+
+OS_LDFLAGS =
+
+OS_LIBS =
+
+OS_CC =		gcc
+
+OS_LINT =	$(OS_CC) -Wall
+
+OS_TIERRAHOME =	../tierra/
+
+OS_BGLHOME =	./
+
+OS_BGLCOMDIR =	$(OS_BGLHOME)../Bglcom/
+
+OS_BGLCLNTDIR =	$(OS_BGLHOME)../Bglclnt/
+
+OS_BGLUIDIR =	$(OS_BGLHOME)../Bgl-$(UISELECT)/
+#

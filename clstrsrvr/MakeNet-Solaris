@@ -1,0 +1,58 @@
+# Solaris - cluster server
+OSFLAGS = -DNET -DNETTYPE=1 -DTSysV -DFRONTEND=0 -DCLSTRSRVR
+LIBS = -lsocket -lnsl -lm -lcurses -ltermcap
+
+# optimization
+OPTIMIZ = -g
+
+# linker options
+LDFLAGS = $(OPTIMIZ)
+
+# ********** no changes below this line **********
+
+.PHONY: clean
+
+CFLAGS = $(OPTIMIZ) $(OSFLAGS)
+CC = gcc
+LINKER = gcc
+MAKEFILE = MakeNet-Solaris
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+%_xdr.c: %.x
+	-rm -f $@
+	rpcgen $(OSFLAGS) -c -o $@ $<
+
+%.h: %.x
+	-rm -f $@
+	rpcgen $(OSFLAGS) -h -o $@ $<
+
+OBJS = clstrsrvr.o clstrsrvr_inc.o tiecomm.o frontend.o clstrsetup.o \
+       netfunc.o trand.o tiecommudpasm.o tiecommtcp.o mesg_xdr.o port_xdr.o \
+       datpkt_xdr.o tiexdrcom_xdr.o
+
+SRCS = clstrsrvr.c clstrsrvr_inc.c tiecomm.c frontend.c clstrsetup.c \
+       netfunc.c trand.c tiecommudpasm.c tiecommtcp.c mesg_xdr.c port_xdr.c \
+       datpkt_xdr.c tiexdrcom_xdr.c
+
+clstrsrvr: $(OBJS)
+	$(LINKER) $(LDFLAGS) $(OBJS) $(LIBS) -o clstrsrvr
+
+clean:
+	-rm -f $(OBJS) $(TIERRADIR)mesg_xdr.c $(TIERRADIR)mesg.h \
+               $(TIERRADIR)datpkt_xdr.c $(TIERRADIR)datpkt.h $(MAKEFILE).d \
+               clstrsrvr
+
+$(MAKEFILE).d: $(SRCS) $(TIERRADIR)mesg.h $(TIERRADIR)datpkt.h
+	$(CC) -M $(CFLAGS) -c $(SRCS) > $@
+
+clstrmesg_xdr.c: clstrmesg.x
+
+clstrmesg.h: clstrmesg.x
+
+clstrdatpkt_xdr.c: clstrdatpkt.x
+
+clstrdatpkt.h: clstrdatpkt.x
+
+include $(MAKEFILE).d

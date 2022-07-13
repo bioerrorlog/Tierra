@@ -1,0 +1,85 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0069aab  genetic: 0,69  parent genotype: 0069ace
+1st_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+2nd_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+Origin: InstExe: 520,0  clock: 0  Sat Jul 14 06:04:23 1990
+MaxPropPop: 0.0  MaxPropInst: 0.0 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: this host creature co-dominates the soup for a time, with the
+; parasite 0031acw (renamed to 0031aaa).  Was originally named 0069acm,
+; has been renamed to 0069aab.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop0    ; 000 00   2
+adrb    ; 000 1c   3
+nop0    ; 000 00   4
+nop0    ; 000 00   5
+nop1    ; 000 01   6
+subAAC  ; 000 07   7
+movBA   ; 000 19   8
+adrf    ; 000 1d   9
+nop0    ; 000 00  10
+nop0    ; 000 00  11
+nop0    ; 000 00  12
+jmpo    ; 000 14  13
+nop0    ; 000 00  14
+subCAB  ; 000 06  15
+mal     ; 000 1e  16
+call    ; 000 16  17
+nop0    ; 000 00  18
+nop0    ; 000 00  19
+nop1    ; 000 01  20
+nop1    ; 000 01  21
+divide  ; 000 1f  22
+jmpb    ; 000 15  23
+nop0    ; 000 00  24
+nop0    ; 000 00  25
+nop1    ; 000 01  26
+jmpo    ; 000 14  27
+nop1    ; 000 01  28
+nop0    ; 000 00  29
+ifz     ; 000 05  30
+nop1    ; 000 01  31
+nop1    ; 000 01  32
+nop0    ; 000 00  33
+nop0    ; 000 00  34
+pushA   ; 000 0c  35
+pushB   ; 000 0d  36
+pushC   ; 000 0e  37
+nop1    ; 000 01  38
+nop0    ; 000 00  39
+nop1    ; 000 01  40
+nop0    ; 000 00  41
+movii   ; 000 1a  42
+decC    ; 000 0a  43
+ifz     ; 000 05  44
+jmpo    ; 000 14  45
+nop0    ; 000 00  46
+nop1    ; 000 01  47
+nop0    ; 000 00  48
+nop0    ; 000 00  49
+incA    ; 000 08  50
+incB    ; 000 09  51
+jmpb    ; 000 15  52
+nop0    ; 000 00  53
+nop1    ; 000 01  54
+nop0    ; 000 00  55
+nop1    ; 000 01  56
+popB    ; 000 11  57
+nop1    ; 000 01  58
+nop0    ; 000 00  59
+nop1    ; 000 01  60
+nop1    ; 000 01  61
+popC    ; 000 12  62
+popB    ; 000 11  63
+popB    ; 000 11  64
+ret     ; 000 17  65
+nop1    ; 000 01  66
+nop1    ; 000 01  67
+nop1    ; 000 01  68

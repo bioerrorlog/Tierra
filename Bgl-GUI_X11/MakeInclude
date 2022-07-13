@@ -1,0 +1,248 @@
+## MakeInclude -- -*- Makefile -*-
+##
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Wed Aug 21 10:51:38 1996
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Wed May 20 10:56:26 1998
+## Update Count    : 127
+## Status          : 
+
+
+UI_INCOPT     = -I/usr/X11R6/include
+#UI_INCOPT     = -I/usr/local/X11/include
+#UI_INCOPT     = -I/usr/openwin/include
+
+UI_LIBOPT     = -L/usr/X11R6/lib
+#UI_LIBOPT     = -L/usr/local/X11/lib
+#UI_LIBOPT     = -L/usr/openwin/lib -R/usr/openwin/lib
+
+UI_CFLAGS     =
+
+UI_EXTHDRS    = 
+
+UI_HDRS	      = $(BGLUIDIR)beagleGUI_Global.h\
+		$(BGLUIDIR)beagleGUI_CommonActions.h\
+		$(BGLUIDIR)beagleGUI_TopWindow.h \
+		$(BGLUIDIR)beagleGUI_StatsWindow.h \
+		$(BGLUIDIR)beagleGUI_PlanWindow.h \
+		$(BGLUIDIR)beagleGUI_MessageWindow.h \
+		$(BGLUIDIR)beagleGUI_OvInstWindow.h \
+		$(BGLUIDIR)beagleGUI_OvInfoWindow.h \
+		$(BGLUIDIR)beagleGUI_OvGeneWindow.h \
+		$(BGLUIDIR)beagleGUI_OverviewWindow.h \
+		$(BGLUIDIR)beagleGUI_QueryWindow.h \
+		$(BGLUIDIR)beagleGUI_HistoWindow.h \
+		$(BGLUIDIR)beagleGUI_TPingSWindow.h \
+		$(BGLUIDIR)beagleGUI_TPingCWindow.h \
+		$(BGLUIDIR)beagleGUI_DebugWindow.h \
+		$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.h \
+		$(BGLUIDIR)beagleGUI_MigrationWindow.h \
+		$(BGLUIDIR)beagleGUI_InfoWindows.h \
+		$(BGLUIDIR)beagleGUI_VarWindow.h \
+		$(BGLUIDIR)beagleGUI_KeyInWindow.h \
+		$(BGLUIDIR)beagleGUI_InfoMessageWindow.h
+
+
+UI_LDFLAGS    =
+
+UI_LIBS       =  -lXaw -lXmu -lXt -lXext -lX11
+#UI_LIBS       =  -lXaw -lXmu -lXt -lXext -lX11 -lXwchar
+#UI_LIBS       =  -lm -lXaw -lXt -lX11 -lXmu
+
+UI_OBJS	      = $(BGLUIDIR)beagleGUI.o \
+		$(BGLUIDIR)beagleGUI_CommonActions.o\
+		$(BGLUIDIR)beagleGUI_TopWindow.o \
+		$(BGLUIDIR)beagleGUI_StatsWindow.o \
+		$(BGLUIDIR)beagleGUI_PlanWindow.o \
+		$(BGLUIDIR)beagleGUI_MessageWindow.o \
+		$(BGLUIDIR)beagleGUI_OvInstWindow.o \
+		$(BGLUIDIR)beagleGUI_OvInfoWindow.o \
+		$(BGLUIDIR)beagleGUI_OvGeneWindow.o \
+		$(BGLUIDIR)beagleGUI_OverviewWindow.o \
+		$(BGLUIDIR)beagleGUI_QueryWindow.o \
+		$(BGLUIDIR)beagleGUI_HistoWindow.o \
+		$(BGLUIDIR)beagleGUI_TPingSWindow.o \
+		$(BGLUIDIR)beagleGUI_TPingCWindow.o \
+		$(BGLUIDIR)beagleGUI_DebugWindow.o \
+		$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.o \
+		$(BGLUIDIR)beagleGUI_MigrationWindow.o \
+		$(BGLUIDIR)beagleGUI_InfoWindows.o \
+		$(BGLUIDIR)beagleGUI_VarWindow.o \
+		$(BGLUIDIR)beagleGUI_KeyInWindow.o \
+		$(BGLUIDIR)beagleGUI_InfoMessageWindow.o
+
+
+UI_SRCS       = $(BGLUIDIR)beagleGUI.c \
+		$(BGLUIDIR)beagleGUI_CommonActions.c\
+		$(BGLUIDIR)beagleGUI_TopWindow.c \
+		$(BGLUIDIR)beagleGUI_StatsWindow.c \
+		$(BGLUIDIR)beagleGUI_PlanWindow.c \
+		$(BGLUIDIR)beagleGUI_MessageWindow.c \
+		$(BGLUIDIR)beagleGUI_OvInstWindow.c \
+		$(BGLUIDIR)beagleGUI_OvInfoWindow.c \
+		$(BGLUIDIR)beagleGUI_OvGeneWindow.c \
+		$(BGLUIDIR)beagleGUI_OverviewWindow.c \
+		$(BGLUIDIR)beagleGUI_QueryWindow.c \
+		$(BGLUIDIR)beagleGUI_HistoWindow.c \
+		$(BGLUIDIR)beagleGUI_TPingSWindow.c \
+		$(BGLUIDIR)beagleGUI_TPingCWindow.c \
+		$(BGLUIDIR)beagleGUI_DebugWindow.c \
+		$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.c \
+		$(BGLUIDIR)beagleGUI_MigrationWindow.c \
+		$(BGLUIDIR)beagleGUI_InfoWindows.c \
+		$(BGLUIDIR)beagleGUI_VarWindow.c \
+		$(BGLUIDIR)beagleGUI_KeyInWindow.c \
+		$(BGLUIDIR)beagleGUI_InfoMessageWindow.c
+
+##
+$(BGLUIDIR)beagleGUI.o:	$(BGLUIDIR)beagleGUI.c $(UI_HDRS)\
+	beagleUI.h\
+	beagleUTIL_SockMgr.h\
+	beagleRoutines.h\
+	beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI.c\
+			-o $(BGLUIDIR)beagleGUI.o
+
+$(BGLUIDIR)beagleGUI_CommonActions.o:	$(BGLUIDIR)beagleGUI_CommonActions.c\
+					$(BGLUIDIR)beagleGUI_CommonActions.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_CommonActions.c\
+			-o $(BGLUIDIR)beagleGUI_CommonActions.o
+
+$(BGLUIDIR)beagleGUI_TopWindow.o:	$(BGLUIDIR)beagleGUI_TopWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_TopWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleUTIL_SockMgr.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_TopWindow.c\
+			-o $(BGLUIDIR)beagleGUI_TopWindow.o
+
+$(BGLUIDIR)beagleGUI_StatsWindow.o:	$(BGLUIDIR)beagleGUI_StatsWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_StatsWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_StatsWindow.c\
+			-o $(BGLUIDIR)beagleGUI_StatsWindow.o
+
+$(BGLUIDIR)beagleGUI_PlanWindow.o:	$(BGLUIDIR)beagleGUI_PlanWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_PlanWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_PlanWindow.c\
+			-o $(BGLUIDIR)beagleGUI_PlanWindow.o
+
+$(BGLUIDIR)beagleGUI_MessageWindow.o:	$(BGLUIDIR)beagleGUI_MessageWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_MessageWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_MessageWindow.c\
+			-o $(BGLUIDIR)beagleGUI_MessageWindow.o
+
+$(BGLUIDIR)beagleGUI_OvGeneWindow.o:	$(BGLUIDIR)beagleGUI_OvGeneWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_OvGeneWindow.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_OvGeneWindow.c\
+			-o $(BGLUIDIR)beagleGUI_OvGeneWindow.o
+
+$(BGLUIDIR)beagleGUI_OvInstWindow.o:	$(BGLUIDIR)beagleGUI_OvInstWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_OvInstWindow.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_OvInstWindow.c\
+			-o $(BGLUIDIR)beagleGUI_OvInstWindow.o
+
+$(BGLUIDIR)beagleGUI_OvInfoWindow.o:	$(BGLUIDIR)beagleGUI_OvInfoWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_OvInfoWindow.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_OvInfoWindow.c\
+			-o $(BGLUIDIR)beagleGUI_OvInfoWindow.o
+
+$(BGLUIDIR)beagleGUI_OverviewWindow.o:	$(BGLUIDIR)beagleGUI_OverviewWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_OverviewWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h\
+	$(BGLCLNTDIR)beagleUTIL_OVMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_OverviewWindow.c\
+			-o $(BGLUIDIR)beagleGUI_OverviewWindow.o
+
+$(BGLUIDIR)beagleGUI_QueryWindow.o:	$(BGLUIDIR)beagleGUI_QueryWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_QueryWindow.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_QueryWindow.c\
+			-o $(BGLUIDIR)beagleGUI_QueryWindow.o
+
+$(BGLUIDIR)beagleGUI_HistoWindow.o:	$(BGLUIDIR)beagleGUI_HistoWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_HistoWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_HistoWindow.c\
+			-o $(BGLUIDIR)beagleGUI_HistoWindow.o
+
+$(BGLUIDIR)beagleGUI_TPingSWindow.o:	$(BGLUIDIR)beagleGUI_TPingSWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_TPingSWindow.h\
+	$(BGLUIDIR)beagleGUI_TopWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_TPingSWindow.c\
+			-o $(BGLUIDIR)beagleGUI_TPingSWindow.o
+
+$(BGLUIDIR)beagleGUI_TPingCWindow.o:	$(BGLUIDIR)beagleGUI_TPingCWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_TPingCWindow.h\
+	$(BGLUIDIR)beagleGUI_TopWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_TPingCWindow.c\
+			-o $(BGLUIDIR)beagleGUI_TPingCWindow.o
+
+$(BGLUIDIR)beagleGUI_DebugWindow.o:	$(BGLUIDIR)beagleGUI_DebugWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_DebugWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_DebugWindow.c\
+			-o $(BGLUIDIR)beagleGUI_DebugWindow.o
+
+$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.o:\
+		$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.c\
+		$(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.h\
+	$(BGLUIDIR)beagleGUI_Global.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.c\
+			-o $(BGLUIDIR)beagleGUI_DebugKeyWaitWindow.o
+
+$(BGLUIDIR)beagleGUI_MigrationWindow.o:\
+		$(BGLUIDIR)beagleGUI_MigrationWindow.c\
+		$(BGLUIDIR)beagleGUI_MigrationWindow.h\
+	$(BGLUIDIR)beagleGUI_Global.h\
+	$(BGLCLNTDIR)beagleMessage_Migr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_MigrationWindow.c\
+			-o $(BGLUIDIR)beagleGUI_MigrationWindow.o
+
+$(BGLUIDIR)beagleGUI_InfoWindows.o:	$(BGLUIDIR)beagleGUI_InfoWindows.c\
+	$(BGLUIDIR)beagleGUI_Global.h 	$(BGLUIDIR)beagleGUI_InfoWindows.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_InfoWindows.c\
+			-o $(BGLUIDIR)beagleGUI_InfoWindows.o
+
+$(BGLUIDIR)beagleGUI_VarWindow.o:	$(BGLUIDIR)beagleGUI_VarWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_VarWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_VarWindow.c\
+			-o $(BGLUIDIR)beagleGUI_VarWindow.o
+
+$(BGLUIDIR)beagleGUI_KeyInWindow.o:	$(BGLUIDIR)beagleGUI_KeyInWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_KeyInWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h\
+	$(BGLCLNTDIR)beagleMessageMgr.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_KeyInWindow.c\
+			-o $(BGLUIDIR)beagleGUI_KeyInWindow.o
+
+$(BGLUIDIR)beagleGUI_InfoMessageWindow.o:	\
+	$(BGLUIDIR)beagleGUI_InfoMessageWindow.c\
+	$(BGLUIDIR)beagleGUI_Global.h  $(BGLUIDIR)beagleGUI_InfoMessageWindow.h\
+	$(BGLUIDIR)beagleGUI_InfoWindows.h
+	$(CC) $(CFLAGS) -c $(BGLUIDIR)beagleGUI_InfoMessageWindow.c\
+			-o $(BGLUIDIR)beagleGUI_InfoMessageWindow.o
+##

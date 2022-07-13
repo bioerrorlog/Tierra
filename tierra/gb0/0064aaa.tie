@@ -1,0 +1,79 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0064aaa  genetic: 0,64  parent genotype: 0080aaa
+1st_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+2nd_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+Origin: InstExe: 0,0  clock: 0  Thu Jan 01 -5:00:00 1970
+MaxPropPop: 0  MaxPropInst: 0 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: a symbiont with 0046aaa.  These two were created by hand,
+; by splitting 0080aaa into two parts.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop1    ; 000 01   2
+nop1    ; 000 01   3
+adrb    ; 000 1c   4
+nop0    ; 000 00   5
+nop0    ; 000 00   6
+nop0    ; 000 00   7
+nop0    ; 000 00   8
+subAAC  ; 000 07   9
+movBA   ; 000 19  10
+adrf    ; 000 1d  11
+nop0    ; 000 00  12
+nop0    ; 000 00  13
+nop0    ; 000 00  14
+nop1    ; 000 01  15
+incA    ; 000 08  16
+subCAB  ; 000 06  17
+jmpo    ; 000 14  18
+nop0    ; 000 00  19
+nop0    ; 000 00  20
+nop1    ; 000 01  21
+nop0    ; 000 00  22
+ifz     ; 000 05  23
+nop1    ; 000 01  24
+nop1    ; 000 01  25
+nop0    ; 000 00  26
+nop0    ; 000 00  27
+pushA   ; 000 0c  28
+pushB   ; 000 0d  29
+pushC   ; 000 0e  30
+nop1    ; 000 01  31
+nop0    ; 000 00  32
+nop1    ; 000 01  33
+nop0    ; 000 00  34
+movii   ; 000 1a  35
+decC    ; 000 0a  36
+ifz     ; 000 05  37
+jmpo    ; 000 14  38
+nop0    ; 000 00  39
+nop1    ; 000 01  40
+nop0    ; 000 00  41
+nop0    ; 000 00  42
+incA    ; 000 08  43
+incB    ; 000 09  44
+jmpb    ; 000 15  45
+nop0    ; 000 00  46
+nop1    ; 000 01  47
+nop0    ; 000 00  48
+nop1    ; 000 01  49
+ifz     ; 000 05  50
+nop1    ; 000 01  51
+nop0    ; 000 00  52
+nop1    ; 000 01  53
+nop1    ; 000 01  54
+popC    ; 000 12  55
+popB    ; 000 11  56
+popA    ; 000 10  57
+ret     ; 000 17  58
+nop1    ; 000 01  59
+nop1    ; 000 01  60
+nop1    ; 000 01  61
+nop0    ; 000 00  62
+ifz     ; 000 05  63

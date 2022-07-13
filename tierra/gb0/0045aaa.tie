@@ -1,0 +1,59 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0045aaa  genetic: 0,45  parent genotype: 0080aek
+1st_daughter:  flags: 0  inst: 489  mov_daught: 45          breed_true: 1
+2nd_daughter:  flags: 0  inst: 463  mov_daught: 45          breed_true: 1
+Origin: InstExe: 0,0  clock: 0  Thu Jan 01 -5:00:00 1970
+MaxPropPop: 0.0214  MaxPropInst: 0.0054 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: the archtypical parasite
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop1    ; 000 01   2
+nop1    ; 000 01   3
+zero    ; 000 04   4
+not0    ; 000 02   5
+shl     ; 000 03   6
+shl     ; 000 03   7
+movDC   ; 000 18   8
+adrb    ; 000 1c   9
+nop0    ; 000 00  10
+nop0    ; 000 00  11
+nop0    ; 000 00  12
+nop0    ; 000 00  13
+subAAC  ; 000 07  14
+movBA   ; 000 19  15
+adrf    ; 000 1d  16
+nop0    ; 000 00  17
+nop0    ; 000 00  18
+nop0    ; 000 00  19
+nop1    ; 000 01  20
+incA    ; 000 08  21
+subCAB  ; 000 06  22
+nop1    ; 000 01  23
+nop1    ; 000 01  24
+nop0    ; 000 00  25
+nop1    ; 000 01  26
+mal     ; 000 1e  27
+call    ; 000 16  28
+nop0    ; 000 00  29
+nop0    ; 000 00  30
+nop1    ; 000 01  31
+nop1    ; 000 01  32
+divide  ; 000 1f  33
+jmpo    ; 000 14  34
+nop0    ; 000 00  35
+nop0    ; 000 00  36
+nop1    ; 000 01  37
+nop0    ; 000 00  38
+ifz     ; 000 05  39
+nop1    ; 000 01  40
+nop1    ; 000 01  41
+nop1    ; 000 01  42
+nop0    ; 000 00  43
+pushA   ; 000 0c  44

@@ -1,0 +1,94 @@
+
+format: 3  bits: 2156009669  EXsh    TCsh    TPs     MFs     MTd     MBh     
+genotype: 0080aaa  genetic: 0,80  parent genotype: 0666god
+1st_daughter:  flags: 0  inst: 827  mov_daught: 80          breed_true: 1
+2nd_daughter:  flags: 0  inst: 809  mov_daught: 80          breed_true: 1
+Origin: InstExe: 0,0  clock: 0  Thu Jan 01 -5:00:00 1970
+MaxPropPop: 0.8306  MaxPropInst: 0.4239 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: the ancestor, written by a human, mother of all other creatures.
+
+CODE
+
+track 0:
+
+nop1    ; 110 01   0 beginning marker
+nop1    ; 110 01   1 beginning marker
+nop1    ; 110 01   2 beginning marker
+nop1    ; 110 01   3 beginning marker
+zero    ; 110 04   4 put zero in cx
+not0    ; 110 02   5 put 1 in first bit of cx
+shl     ; 110 03   6 shift left cx (cx = 2)
+shl     ; 110 03   7 shift left cx (cx = 4)
+movDC   ; 110 18   8 move cx to dx (dx = 4)
+adrb    ; 110 1c   9 get (backward) address of beginning marker -> ax
+nop0    ; 100 00  10 complement to beginning marker
+nop0    ; 100 00  11 complement to beginning marker
+nop0    ; 100 00  12 complement to beginning marker
+nop0    ; 100 00  13 complement to beginning marker
+subAAC  ; 110 07  14 subtract cx from ax, result in ax
+movBA   ; 110 19  15 move ax to bx, bx now contains start address of mother
+adrf    ; 110 1d  16 get (forward) address of end marker -> ax
+nop0    ; 100 00  17 complement to end marker
+nop0    ; 100 00  18 complement to end marker
+nop0    ; 100 00  19 complement to end marker
+nop1    ; 100 01  20 complement to end marker
+incA    ; 110 08  21 increment ax, to include dummy instruction at end
+subCAB  ; 110 06  22 subtract bx from ax to get size, result in cx
+nop1    ; 110 01  23 reproduction loop marker
+nop1    ; 110 01  24 reproduction loop marker
+nop0    ; 110 00  25 reproduction loop marker
+nop1    ; 110 01  26 reproduction loop marker
+mal     ; 110 1e  27 allocate space (cx) for daughter, address to ax
+call    ; 110 16  28 call template below (copy procedure)
+nop0    ; 100 00  29 copy procedure complement
+nop0    ; 100 00  30 copy procedure complement
+nop1    ; 100 01  31 copy procedure complement
+nop1    ; 100 01  32 copy procedure complement
+divide  ; 110 1f  33 create independent daughter cell
+jmpo    ; 110 14  34 jump to template below (reproduction loop)
+nop0    ; 100 00  35 reproduction loop complement
+nop0    ; 100 00  36 reproduction loop complement
+nop1    ; 100 01  37 reproduction loop complement
+nop0    ; 100 00  38 reproduction loop complement
+ifz     ; 000 05  39 dummy instruction to separate templates
+nop1    ; 110 01  40 copy procedure template
+nop1    ; 110 01  41 copy procedure template
+nop0    ; 110 00  42 copy procedure template
+nop0    ; 110 00  43 copy procedure template
+pushA   ; 110 0c  44 push ax onto stack
+pushB   ; 110 0d  45 push bx onto stack
+pushC   ; 110 0e  46 push cx onto stack
+nop1    ; 110 01  47 copy loop template
+nop0    ; 110 00  48 copy loop template
+nop1    ; 110 01  49 copy loop template
+nop0    ; 110 00  50 copy loop template
+movii   ; 110 1a  51 move contents of [bx] to [ax] (copy one instruction)
+decC    ; 110 0a  52 decrement cx (size)
+ifz     ; 110 05  53 if cx == 0 perform next instruction, otherwise skip it
+jmpo    ; 110 14  54 jump to template below (copy procedure exit)
+nop0    ; 110 00  55 copy procedure exit complement
+nop1    ; 110 01  56 copy procedure exit complement
+nop0    ; 110 00  57 copy procedure exit complement
+nop0    ; 110 00  58 copy procedure exit complement
+incA    ; 110 08  59 increment ax (address in daughter to copy to)
+incB    ; 110 09  60 increment bx (address in mother to copy from)
+jmpo    ; 110 14  61 bidirectional jump to template below (copy loop)
+nop0    ; 100 00  62 copy loop complement
+nop1    ; 100 01  63 copy loop complement
+nop0    ; 100 00  64 copy loop complement
+nop1    ; 100 01  65 copy loop complement
+ifz     ; 000 05  66 this is a dummy instruction to separate templates
+nop1    ; 110 01  67 copy procedure exit template
+nop0    ; 110 00  68 copy procedure exit template
+nop1    ; 110 01  69 copy procedure exit template
+nop1    ; 110 01  70 copy procedure exit template
+popC    ; 110 12  71 pop cx off stack (size)
+popB    ; 110 11  72 pop bx off stack (start address of mother)
+popA    ; 110 10  73 pop ax off stack (start address of daughter)
+ret     ; 110 17  74 return from copy procedure
+nop1    ; 100 01  75 end template
+nop1    ; 100 01  76 end template
+nop1    ; 100 01  77 end template
+nop0    ; 100 00  78 end template
+ifz     ; 000 05  79 dummy instruction to separate creature

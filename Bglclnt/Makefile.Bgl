@@ -1,0 +1,345 @@
+## Makefile.Bgl -- -*- Makefile -*-
+##
+## @(#)Makefile.Bgl	1.24	12/18/98 18:50:05
+## 
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Tue Aug 20 16:12:02 1996
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Fri Dec 18 18:49:43 1998
+## Update Count    : 174
+## Status          : 
+
+## chose your OS type
+## ( "SunOS", "Solaris", "SGI", "DigitalUNIX", "HPUX", "Linux" )
+OSSELECT =    Linux
+
+## chose you want UserInterface style ( "UI_stdio", "GUI_X11" )
+UISELECT =	GUI_X11
+
+include		MakeInclude.$(OSSELECT)
+
+SHELL =		$(OS_SHELL)
+
+SUFFIXES =
+SUFFIXES =	.o .h .c
+
+SYSTEMNAME =	bgl
+
+#PROGRAM = $(SYSTEMNAME)
+#PROGRAM = $(SYSTEMNAME)-$(UISELECT)
+PROGRAM =	$(SYSTEMNAME)-$(UISELECT)-$(OSSELECT)
+
+TIERRAHOME =	$(OS_TIERRAHOME)
+BGLHOME =	$(OS_BGLHOME)
+BGLCOMDIR =	$(OS_BGLCOMDIR)
+BGLCLNTDIR =	$(OS_BGLCLNTDIR)
+BGLUIDIR =	$(OS_BGLUIDIR)
+
+BGL_OPT =	-DBGL -DBGL_CLNT -D$(UISELECT)
+
+# all: 	touch program
+
+program: $(PROGRAM)
+
+include $(BGLUIDIR)MakeInclude
+
+BGL_INCDIR =	-I$(TIERRAHOME) \
+		-I$(BGLCOMDIR) -I$(BGLCLNTDIR) -I$(BGLUIDIR) $(UI_INCOPT)
+
+OPTIMIZE =
+
+PROFILEOPT =
+
+DEBUGGEROPT = -g
+
+#DEBUGOPT =	-DDEBUG
+DEBUGOPT =
+
+CFLAGS =	$(OPTIMIZE) \
+		$(DEBUGGEROPT) $(DEBUGOPT) \
+		$(PROFILEOPT) \
+		$(BGL_INCDIR) \
+		$(BGL_OPT) \
+		$(OS_CFLAGS)
+
+INCOPT =
+
+LIBOPT =	$(UI_LIBOPT) $(OS_LIBOPT)
+
+LINTOPT =
+
+DEST =		${HOME}/bin
+
+EXTHDRS =
+
+TIERRA_HDRS =	$(TIERRAHOME)license.h \
+		$(TIERRAHOME)tierra.h \
+		$(TIERRAHOME)configur.h \
+		$(TIERRAHOME)portable.h \
+		$(TIERRAHOME)prototyp.h \
+		$(TIERRAHOME)mesg.h \
+		$(TIERRAHOME)globals.h \
+ 		$(TIERRAHOME)tiexdrcom.h \
+		$(TIERRAHOME)port_xdr.h
+
+CLNT_HDRS =	$(BGLCLNTDIR)beagleUI.h \
+		$(BGLCLNTDIR)beagleRoutines.h \
+		$(BGLCLNTDIR)beagleMessageMgr.h \
+		$(BGLCLNTDIR)beagleMessageMgrP.h \
+		$(BGLCLNTDIR)beagleMessageMgrPt.h \
+		$(BGLCLNTDIR)beagleProcCtrl.h \
+		$(BGLCLNTDIR)beagleMessage_Migr.h \
+		$(BGLCLNTDIR)beagleMessage_Ov.h \
+		$(BGLCLNTDIR)beagleMessage_Debug.h \
+		$(BGLCLNTDIR)beagleMessage_Info.h \
+		$(BGLCLNTDIR)beagleMessage_Var.h \
+		$(BGLCLNTDIR)beagleMessage_Misc.h \
+		$(BGLCLNTDIR)beagleMessage_TPingS.h \
+		$(BGLCLNTDIR)beagleMessage_TPingC.h \
+		$(BGLCLNTDIR)beagleMessage_File.h \
+		$(BGLCLNTDIR)beagleMessage_Connect.h \
+		$(BGLCLNTDIR)beagleUTIL_OVMgr.h \
+		$(BGLCLNTDIR)beagleUTIL_SockMgr.h \
+		$(BGLCLNTDIR)beagleUTIL_MigrMgr.h \
+		$(BGLCLNTDIR)beagleUTIL_Convert.h \
+		$(BGLCLNTDIR)clnt.h \
+		$(BGLCLNTDIR)clnt_fsm.h \
+		$(BGLCLNTDIR)clnt_global.h \
+		$(BGLCLNTDIR)clnt_prot.h
+
+COM_HDRS =	$(BGLCOMDIR)bgl.h \
+		$(BGLCOMDIR)bgl_define.h \
+		$(BGLCOMDIR)bgl_global.h \
+		$(BGLCOMDIR)bgl_prot.h \
+		$(BGLCOMDIR)bglprint.h \
+		$(BGLCOMDIR)bgl_data_code.h \
+		$(BGLCOMDIR)bgl_dat_xdr.h
+
+HDRS =		$(TIERRA_HDRS) $(CLNT_HDRS) $(COM_HDRS) $(UI_HDRS)
+
+LDFLAGS =	$(DEBUGGEROPT) $(LIBOPT) $(UI_LDFLAGS) $(OS_LDFLAGS)
+
+LIBS =		$(UI_LIBS) $(OS_LIBS)
+
+CC =		$(OS_CC)
+
+LINKER =	$(CC)
+
+LINT =		$(OS_LINT)
+
+LINTFLAG =	$(CFLAGS)
+
+MAKEFILE =	Makefile.Bgl
+
+TIERRA_OBJS =	$(BGLCLNTDIR)portable.o \
+ 		$(BGLCLNTDIR)tiexdrcom_xdr.o \
+		$(BGLCLNTDIR)port_xdr.o
+
+CLNT_OBJS =	$(BGLCLNTDIR)beagleMain.o \
+		$(BGLCLNTDIR)beagleRoutines.o \
+		$(BGLCLNTDIR)beagleMessageMgr.o \
+		$(BGLCLNTDIR)beagleProcCtrl.o \
+		$(BGLCLNTDIR)beagleMessage_Migr.o \
+		$(BGLCLNTDIR)beagleMessage_Ov.o \
+		$(BGLCLNTDIR)beagleMessage_Debug.o \
+		$(BGLCLNTDIR)beagleMessage_Info.o \
+		$(BGLCLNTDIR)beagleMessage_Var.o \
+		$(BGLCLNTDIR)beagleMessage_Misc.o \
+		$(BGLCLNTDIR)beagleMessage_TPingS.o \
+		$(BGLCLNTDIR)beagleMessage_TPingC.o \
+		$(BGLCLNTDIR)beagleMessage_File.o \
+		$(BGLCLNTDIR)beagleMessage_Connect.o \
+		$(BGLCLNTDIR)beagleUTIL_OVMgr.o \
+		$(BGLCLNTDIR)beagleUTIL_SockMgr.o \
+		$(BGLCLNTDIR)beagleUTIL_MigrMgr.o \
+		$(BGLCLNTDIR)beagleUTIL_Convert.o \
+		$(BGLCLNTDIR)clnt_entry.o \
+		$(BGLCLNTDIR)clnt_dat.o \
+		$(BGLCLNTDIR)clnt_com.o
+
+COM_OBJS =	$(BGLCLNTDIR)bglcode.o \
+		$(BGLCLNTDIR)bglnet.o \
+		$(BGLCLNTDIR)bglprint.o \
+		$(BGLCLNTDIR)bgl_dat_xdr.o \
+		$(BGLCLNTDIR)bgltcp.o
+
+OBJS =		$(TIERRA_OBJS) $(CLNT_OBJS) $(COM_OBJS) $(UI_OBJS)
+
+PRINT =		pr
+
+TIERRA_SRC =	$(TIERRAHOME)portable.c\
+ 		$(TIERRAHOME)tiexdrcom_xdr.c\
+		$(TIERRAHOME)port_xdr.c
+
+CLNT_SRCS =	$(BGLCLNTDIR)beagleMain.c \
+		$(BGLCLNTDIR)beagleRoutines.c \
+		$(BGLCLNTDIR)beagleMessageMgr.c \
+		$(BGLCLNTDIR)beagleProcCtrl.c \
+		$(BGLCLNTDIR)beagleMessage_Migr.c \
+		$(BGLCLNTDIR)beagleMessage_Ov.c \
+		$(BGLCLNTDIR)beagleMessage_Debug.c \
+		$(BGLCLNTDIR)beagleMessage_Info.c \
+		$(BGLCLNTDIR)beagleMessage_Var.c \
+		$(BGLCLNTDIR)beagleMessage_Misc.c \
+		$(BGLCLNTDIR)beagleMessage_TPingS.c \
+		$(BGLCLNTDIR)beagleMessage_TPingC.c \
+		$(BGLCLNTDIR)beagleMessage_File.c \
+		$(BGLCLNTDIR)beagleMessage_Connect.c \
+		$(BGLCLNTDIR)beagleUTIL_OVMgr.c \
+		$(BGLCLNTDIR)beagleUTIL_SockMgr.c \
+		$(BGLCLNTDIR)beagleUTIL_MigrMgr.c \
+		$(BGLCLNTDIR)beagleUTIL_Convert.c \
+		$(BGLCLNTDIR)clnt_entry.c \
+		$(BGLCLNTDIR)clnt_dat.c \
+		$(BGLCLNTDIR)clnt_com.c
+
+COM_SRCS =	$(BGLCOMDIR)bglcode.c \
+		$(BGLCOMDIR)bglnet.c \
+		$(BGLCOMDIR)bglprint.c \
+		$(BGLCOMDIR)bgl_dat_xdr.c \
+		$(BGLCOMDIR)bgltcp.c
+
+SRCS =		$(TIERRA_SRCS) $(CLNT_SRCS) $(COM_SRCS) $(UI_SRCS)
+
+.c.o:
+		$(CC) $(CFLAGS) -c $<
+
+$(PROGRAM):     $(OBJS) $(TIERRAHOME)mesg.h
+		$(LINKER) $(LDFLAGS) $(OBJS) $(LIBS) -o $(PROGRAM)
+
+# touch:;		touch beagleMessage_Migr.c
+lint:
+		$(LINT) $(LINTFLAG) $(SRCS) $(LIBS) -o $(PROGRAM)
+
+tierraobj_clean:
+		rm -f $(TIERRA_OBJS)
+		rm -f $(TIERRAHOME)mesg.h
+		rm -f $(TIERRAHOME)tiexdrcom.h
+		rm -f $(TIERRAHOME)tiexdrcom_xdr.c
+
+clntobj_clean:
+		rm -f $(CLNT_OBJS)
+
+uiobj_clean:
+		rm -f $(UI_OBJS)
+
+comobj_clean:
+		rm -f $(COM_OBJS)
+		rm -f $(BGLCOMDIR)bgl_dat_xdr.h
+		rm -f $(BGLCOMDIR)bgl_dat_xdr.c
+
+clean:		tierraobj_clean clntobj_clean uiobj_clean comobj_clean
+
+all_clean:	clean
+		rm -f $(PROGRAM) core *.~*
+		(cd $(BGLCOMDIR); rm -f core *.*~*)
+		(cd $(BGLUIDIR); rm -f core *.*~*)
+
+install:	$(PROGRAM)
+		install -s $(PROGRAM) $(DEST)
+
+print:;	$(PRINT) $(HDRS) $(SRCS)
+
+tags:;	etags -o TAGS-$(UISELECT) $(HDRS) $(SRCS)
+
+##
+$(TIERRAHOME)mesg.h:		$(TIERRAHOME)mesg.x
+	rpcgen $(RPCGENFLAGS) -h -o $(TIERRAHOME)mesg.h $(TIERRAHOME)mesg.x
+
+$(TIERRAHOME)tiexdrcom.h:		$(TIERRAHOME)tiexdrcom.x
+	rpcgen $(RPCGENFLAGS) -h -o $(TIERRAHOME)tiexdrcom.h \
+            $(TIERRAHOME)tiexdrcom.x
+
+$(BGLCOMDIR)bgl_dat_xdr.h:	$(BGLCOMDIR)bgl_dat_xdr.x
+	rpcgen $(RPCGENFLAGS) -h -o $(BGLCOMDIR)bgl_dat_xdr.h \
+            $(BGLCOMDIR)bgl_dat_xdr.x
+
+$(TIERRAHOME)tiexdrcom_xdr.c:		$(TIERRAHOME)tiexdrcom.x
+	rpcgen $(RPCGENFLAGS) -c -o $(TIERRAHOME)tiexdrcom_xdr.c \
+            $(TIERRAHOME)tiexdrcom.x
+
+$(BGLCOMDIR)bgl_dat_xdr.c:	$(BGLCOMDIR)bgl_dat_xdr.x
+	rpcgen $(RPCGENFLAGS) -c -o $(BGLCOMDIR)bgl_dat_xdr.c \
+            $(BGLCOMDIR)bgl_dat_xdr.x
+
+$(BGLCLNTDIR)portable.o:	$(TIERRAHOME)portable.c $(TIERRA_HDRS) \
+                                $(BGLCOMDIR)bgl_dat_xdr.h
+	$(CC) $(CFLAGS) -c $(TIERRAHOME)portable.c -o $(BGLCLNTDIR)portable.o
+
+$(BGLCLNTDIR)tiexdrcom_xdr.o:	$(TIERRAHOME)tiexdrcom_xdr.c $(TIERRA_HDRS)
+	$(CC) $(CFLAGS) -c $(TIERRAHOME)tiexdrcom_xdr.c \
+            -o $(BGLCLNTDIR)tiexdrcom_xdr.o
+
+$(BGLCLNTDIR)port_xdr.o:	$(TIERRAHOME)port_xdr.c $(TIERRA_HDRS)
+	$(CC) $(CFLAGS) -c $(TIERRAHOME)port_xdr.c -o $(BGLCLNTDIR)port_xdr.o
+
+$(BGLCLNTDIR)beagleMain.o:	$(BGLCLNTDIR)beagleMain.c\
+				$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleRoutines.o:	$(BGLCLNTDIR)beagleRoutines.c\
+				$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessageMgr.o:	$(BGLCLNTDIR)beagleMessageMgr.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleProcCtrl.o:	$(BGLCLNTDIR)beagleProcCtrl.c\
+				$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Migr.o:	$(BGLCLNTDIR)beagleMessage_Migr.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Ov.o:	$(BGLCLNTDIR)beagleMessage_Ov.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Debug.o:	$(BGLCLNTDIR)beagleMessage_Debug.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Info.o:	$(BGLCLNTDIR)beagleMessage_Info.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Var.o:	$(BGLCLNTDIR)beagleMessage_Var.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Misc.o:	$(BGLCLNTDIR)beagleMessage_Misc.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_TPingS.o:	$(BGLCLNTDIR)beagleMessage_TPingS.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_TPingC.o:	$(BGLCLNTDIR)beagleMessage_TPingC.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_File.o:	$(BGLCLNTDIR)beagleMessage_File.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleMessage_Connect.o:	$(BGLCLNTDIR)beagleMessage_Connect.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleUTIL_OVMgr.o:	$(BGLCLNTDIR)beagleUTIL_OVMgr.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleUTIL_SockMgr.o:	$(BGLCLNTDIR)beagleUTIL_SockMgr.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleUTIL_MigrMgr.o:	$(BGLCLNTDIR)beagleUTIL_MigrMgr.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)beagleUTIL_Convert.o:	$(BGLCLNTDIR)beagleUTIL_Convert.c\
+					$(CLNT_HDRS) $(COM_HDRS)
+
+$(BGLCLNTDIR)bglcode.o:	$(BGLCOMDIR)bglcode.c $(COM_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLCOMDIR)bglcode.c -o $(BGLCLNTDIR)bglcode.o
+
+$(BGLCLNTDIR)bglnet.o:	$(BGLCOMDIR)bglnet.c $(COM_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLCOMDIR)bglnet.c -o $(BGLCLNTDIR)bglnet.o
+
+$(BGLCLNTDIR)bglprint.o:	$(BGLCOMDIR)bglprint.c $(COM_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLCOMDIR)bglprint.c -o $(BGLCLNTDIR)bglprint.o
+
+$(BGLCLNTDIR)bgl_dat_xdr.o:	$(BGLCOMDIR)bgl_dat_xdr.c $(COM_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLCOMDIR)bgl_dat_xdr.c -o $(BGLCLNTDIR)bgl_dat_xdr.o
+
+$(BGLCLNTDIR)bgltcp.o:	$(BGLCOMDIR)bgltcp.c $(COM_HDRS)
+	$(CC) $(CFLAGS) -c $(BGLCOMDIR)bgltcp.c -o $(BGLCLNTDIR)bgltcp.o

@@ -1,0 +1,15 @@
+; gene definitions for 0996aad
+sel                  0     20 0 ; self examination
+dif                 21     38 0 ; differentiation
+repS                39     51 0 ; reproductive setup
+repL                52    106 0 ; reproductive loop
+copS               107    128 0 ; copy loop setup
+copL               129    140 0 ; copy loop
+copC               141    152 0 ; copy loop cleanup
+dev                153    166 1 ; tissue development
+senS               167    207 0 ; sensory processing setup
+senO               208    224 0 ; sensory processing coordination
+senY               225    235 0 ; sensory processing synchronization
+senA               237    288 0 ; sensory data analysis
+senR               289    310 0 ; sensory data report
+pad                311    331 0 ; sensory data copy call patch

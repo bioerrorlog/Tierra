@@ -1,0 +1,88 @@
+
+format: 3  bits: 2  EX      TC      TP      MF      MT      MB      
+genotype: 0072aaa  genetic: 0,72  parent genotype: 0072fon
+1st_daughter:  flags: 14  inst: 232  mov_daught: 36          breed_true: 1
+2nd_daughter:  flags: 13  inst: 228  mov_daught: 36          breed_true: 0
+Origin: InstExe: 15289,0  clock: 0  Thu Jan 01 -5:00:00 1970
+MaxPropPop: 0.0024  MaxPropInst: 0.0012 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: a phenomenal example of optimization through evolution,
+; involving the unrolling of the copy loop.  Was originally named 0072etq,
+; has been renamed to 0072aaa.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+adrb    ; 000 1c   1
+nop0    ; 000 00   2
+divide  ; 000 1f   3
+subAAC  ; 000 07   4
+movBA   ; 000 19   5
+adrf    ; 000 1d   6
+nop0    ; 000 00   7
+incA    ; 000 08   8
+call    ; 000 16   9
+subCAB  ; 000 06  10
+pushB   ; 000 0d  11
+shl     ; 000 03  12
+mal     ; 000 1e  13
+nop0    ; 000 00  14
+movii   ; 000 1a  15
+decC    ; 000 0a  16
+decC    ; 000 0a  17
+jmpb    ; 000 15  18
+decC    ; 000 0a  19
+incA    ; 000 08  20
+incB    ; 000 09  21
+movii   ; 000 1a  22
+decC    ; 000 0a  23
+incA    ; 000 08  24
+incB    ; 000 09  25
+movii   ; 000 1a  26
+decC    ; 000 0a  27
+not0    ; 000 02  28
+ifz     ; 000 05  29
+ret     ; 000 17  30
+incA    ; 000 08  31
+incB    ; 000 09  32
+jmpb    ; 000 15  33
+nop1    ; 000 01  34
+ifz     ; 000 05  35
+nop1    ; 000 01  36
+adrb    ; 000 1c  37
+nop0    ; 000 00  38
+divide  ; 000 1f  39
+subAAC  ; 000 07  40
+movBA   ; 000 19  41
+adrf    ; 000 1d  42
+nop0    ; 000 00  43
+incA    ; 000 08  44
+call    ; 000 16  45
+subCAB  ; 000 06  46
+pushB   ; 000 0d  47
+shl     ; 000 03  48
+mal     ; 000 1e  49
+nop0    ; 000 00  50
+movii   ; 000 1a  51
+decC    ; 000 0a  52
+decC    ; 000 0a  53
+jmpb    ; 000 15  54
+decC    ; 000 0a  55
+incA    ; 000 08  56
+incB    ; 000 09  57
+movii   ; 000 1a  58
+decC    ; 000 0a  59
+incA    ; 000 08  60
+incB    ; 000 09  61
+movii   ; 000 1a  62
+decC    ; 000 0a  63
+not0    ; 000 02  64
+ifz     ; 000 05  65
+ret     ; 000 17  66
+incA    ; 000 08  67
+incB    ; 000 09  68
+jmpb    ; 000 15  69
+nop1    ; 000 01  70
+ifz     ; 000 05  71

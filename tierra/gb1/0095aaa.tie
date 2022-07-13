@@ -1,0 +1,104 @@
+
+format: 3  bits: 3
+genotype: 0095aaa  genetic: 0,95  parent genotype: 0666god
+; comments: the ancestor for instruction set 2.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0 beginning marker
+nop1    ; 000 01   1 beginning marker
+nop1    ; 000 01   2 beginning marker
+nop1    ; 000 01   3 beginning marker
+zero    ; 000 12   4 zero out ax so that adrb offset is zero
+adrb    ; 000 1c   5 find start, ax = start+4, bx = templ size, cx = offset
+nop0    ; 000 00   6 complement to beginning marker
+nop0    ; 000 00   7 complement to beginning marker
+nop0    ; 000 00   8 complement to beginning marker
+nop0    ; 000 00   9 complement to beginning marker
+B       ; 000 03  10 abcd -> babc
+sub     ; 000 11  11 bx = ax - bx, bx = start, ax = start+4, cx = offset
+A       ; 000 02  12 abab
+C       ; 000 04  13 caba
+D       ; 000 05  14 dcab
+zero    ; 000 12  15 zero out dx so that adrf offset is zero
+adrf    ; 000 1d  16 find end, dx=end, cx=templ size, ax=offset, bx=start
+nop0    ; 000 00  17 complement to end marker
+nop0    ; 000 00  18 complement to end marker
+nop0    ; 000 00  19 complement to end marker
+nop1    ; 000 01  20 complement to end marker
+inc     ; 000 11  22 increment to include dummy instruction at end
+B       ; 000 03  21 bdca
+sub     ; 000 11  22 cx = dx - bx, bx=mom, dx=end, cx=size, ax=offset
+nop1    ; 000 01  23 reproduction loop marker
+nop1    ; 000 01  24 reproduction loop marker
+nop0    ; 000 00  25 reproduction loop marker
+nop1    ; 000 01  26 reproduction loop marker
+C       ; 000 04  27 cbdc, cx=size, bx=mom, dx=end
+push    ; 000 1a  39 save size on stack
+mal     ; 000 1e  34 allocate daughter, cx=daughter, bx=mom, dx=end, ax=off
+A       ; 000 04  27 acbd
+pop     ; 000 04  27 ax=size, cx=daughter, bx=mom, dx=end of mom
+call    ; 000 1a  39
+nop0    ; 000 00  40 copy procedure complement
+nop0    ; 000 00  41 copy procedure complement
+nop1    ; 000 01  42 copy procedure complement
+nop1    ; 000 01  43 copy procedure complement dx=ret adr, cx=size, bx=mom
+zero    ; 000 12  44 zero out dx so that offspring remains in soup
+divide  ; 000 1f  45 create independent daughter cell
+B       ; 000 04  27 bdcb, bx=mom, dx=ret adr, cx=size
+jmpb    ; 000 19  50
+nop0    ; 000 00  51 reproduction loop complement
+nop0    ; 000 00  52 reproduction loop complement
+nop1    ; 000 01  53 reproduction loop complement
+nop0    ; 000 00  54 reproduction loop complement
+ifz     ; 000 16  55
+nop1    ; 000 01  56 copy procedure template
+nop1    ; 000 01  57 copy procedure template
+nop0    ; 000 00  58 copy procedure template
+nop0    ; 000 00  59 copy procedure template
+push    ; 000 0a  63 save (ax) length on stack
+B       ; 000 03  60 bacd, bx=mom, ax=length, cx=daughter, dx=end of mom
+push    ; 000 0a  61 save (bx) start of mom on stack
+C       ; 000 02  69 cbac, cx=daughter, bx=mom, ax=length, dx=end of mom
+nop1    ; 000 01  64 copy loop template
+nop0    ; 000 00  65 copy loop template
+nop1    ; 000 01  66 copy loop template
+nop0    ; 000 00  67 copy loop template
+movii   ; 000 09  70 move contents of [bx] to [cx] (copy one instruction)
+A       ; 000 04  71 acba, ax=length, cx=daughter, bx=mom, dx=end of mom
+dec     ; 000 0f  72 decrement ax (size)
+ifz     ; 000 16  78 if ax == 0 perform next instruction, otherwise skip it
+jmpo    ; 000 18  79 jump to template below (copy procedure exit)
+nop0    ; 000 00  80 copy procedure exit complement
+nop1    ; 000 01  81 copy procedure exit complement
+nop0    ; 000 00  82 copy procedure exit complement
+nop0    ; 000 00  83 copy procedure exit complement
+B       ; 000 02  84 bacb, bx=mom, ax=length, cx=daughter, dx=end of mom
+inc     ; 000 0e  85 inc addr of mother cell
+C       ; 000 03  86 cbac, cx=daughter, bx=mom, ax=length, dx=end of mom
+inc     ; 000 0e  87 inc addr of daughter
+jmpb    ; 000 19  92 jump back to top of copy loop
+nop0    ; 000 00  93 copy loop complement
+nop1    ; 000 01  94 copy loop complement
+nop0    ; 000 00  95 copy loop complement
+nop1    ; 000 01  96 copy loop complement
+ifz     ; 000 16  97 dummy instruction to separate templates
+nop1    ; 000 01  98 copy procedure exit template
+nop0    ; 000 00  99 copy procedure exit template
+nop1    ; 000 01 100 copy procedure exit template
+nop1    ; 000 01 101 copy procedure exit template
+B       ; 000 03 104 bcba
+pop     ; 000 0b 105 pop bx (start of mom) off the stack
+C       ; 000 04 102 cbcb
+pop     ; 000 0b 103 pop cx (size) off the stack
+D       ; 000 05 106 dcbc
+pop     ; 000 0b 107 pop dx (IP) off the stack
+jmpo    ; 000 18 108 return, dx=ret adr, cx=size, bx=mom
+ifz     ; 000 16 109 dummy to separate jmp from template
+nop1    ; 000 01 110 end template
+nop1    ; 000 01 111 end template
+nop1    ; 000 01 112 end template
+nop0    ; 000 00 113 end template
+ifz     ; 000 16 114 dummy to separate creatures

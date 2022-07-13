@@ -1,0 +1,47 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0031aaa  genetic: 0,31  parent genotype: 0031abf
+1st_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+2nd_daughter:  flags: 0  inst: 1  mov_daught: 0          breed_true: 1
+Origin: InstExe: 368,0  clock: 0  Sat Jul 14 01:17:23 1990
+MaxPropPop: 0.0  MaxPropInst: 0.0 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: this parasite co-dominates the soup for a time, with the
+; host 0069acm (renamed to 0069aab).  Was originally named 0031acw, has
+; been renamed to 0031aaa.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop0    ; 000 00   2
+adrb    ; 000 1c   3
+nop0    ; 000 00   4
+nop0    ; 000 00   5
+nop1    ; 000 01   6
+subAAC  ; 000 07   7
+movBA   ; 000 19   8
+adrf    ; 000 1d   9
+nop0    ; 000 00  10
+nop0    ; 000 00  11
+nop0    ; 000 00  12
+jmpb    ; 000 15  13
+zero    ; 000 04  14
+subCAB  ; 000 06  15
+mal     ; 000 1e  16
+call    ; 000 16  17
+nop0    ; 000 00  18
+nop0    ; 000 00  19
+nop1    ; 000 01  20
+nop1    ; 000 01  21
+divide  ; 000 1f  22
+jmpb    ; 000 15  23
+nop0    ; 000 00  24
+nop0    ; 000 00  25
+nop1    ; 000 01  26
+jmpo    ; 000 14  27
+nop1    ; 000 01  28
+nop1    ; 000 01  29
+nop1    ; 000 01  30

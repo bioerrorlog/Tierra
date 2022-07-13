@@ -1,0 +1,17 @@
+bookeep.c
+diskbank.c
+rambank.c
+genio.c
+decode.c
+frontend.c
+instruct.c
+memalloc.c
+memtree.c
+micromon.c
+portable.c
+queues.c
+slicers.c
+tierra.c
+trand.c
+tsetup.c
+ttools.c

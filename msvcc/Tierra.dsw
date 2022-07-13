@@ -1,0 +1,251 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "arg"=".\arg.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "arg_net"=".\arg_net.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "clstrsrvr"=".\clstrsrvr.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "diffscan"=".\diffscan.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "genalign"=".\genalign.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "probe"=".\probe.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "reseq"=".\reseq.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "tbglpasswd"=".\tbglpasswd.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "tierra"=".\tierra.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name arg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tiewinlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name diffscan
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name reseq
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name genalign
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name probe
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "tierra_bgl"=".\tierra_bgl.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name arg
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tbglpasswd
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tiewinlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name diffscan
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name reseq
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name genalign
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name probe
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "tierra_net"=".\tierra_net.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name tiewinlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name arg_net
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name diffscan
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name reseq
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name genalign
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name probe
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "tierra_net_bgl"=".\tierra_net_bgl.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name arg_net
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tiewinlib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name tbglpasswd
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name diffscan
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name reseq
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name genalign
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name probe
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "tiewinlib"=".\tiewinlib.dsp" - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

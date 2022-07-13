@@ -1,0 +1,15 @@
+
+format: 3  bits: 3
+genotype: 0005aaa  genetic: 0,5  parent genotype: 0666god
+ploidy: 1  track: 0
+; comments: non-replicating program written to test get().
+
+CODE
+
+track 0:
+
+nop0    ; 000 01   0
+get     ; 000 01   0
+jmpb    ; 000 01   0
+nop1    ; 000 01   0
+ifz     ; 000 01   0

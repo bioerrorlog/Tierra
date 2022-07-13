@@ -1,0 +1,65 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0052aaa  genetic: 0,52  parent genotype: 0052afV
+1st_daughter:  flags: 0  inst: 122  mov_daught: 52          breed_true: 1
+2nd_daughter:  flags: 0  inst: 123  mov_daught: 52          breed_true: 1
+Origin: InstExe: 0,0  clock: 763407669  Sat Mar 12 02:41:09 1994
+MaxPropPop: 0.0049  MaxPropInst: 0.0026 mpp_time: 218,657017 
+ploidy: 1
+
+CODE
+
+track 0:
+
+nop0    ; 000 00   0
+adrb    ; 000 3c   1
+nop1    ; 000 01   2
+offBBCD ; 000 27   3
+offBBCD ; 000 27   4
+subAAC  ; 000 07   5
+decC    ; 000 2a   6
+movBA   ; 000 39   7
+adrf    ; 000 1d   8
+adrf    ; 000 3d   9
+nop0    ; 000 00  10
+nop0    ; 000 00  11
+decC    ; 000 0a  12
+decC    ; 000 0a  13
+offAACD ; 000 26  14
+incC    ; 000 2b  15
+subCAB  ; 000 06  16
+mal     ; 000 3e  17
+ifz     ; 000 05  18
+zeroD   ; 000 24  19
+split   ; 000 20  20
+pushB   ; 000 0d  21
+adrf    ; 000 1d  22
+shr     ; 000 23  23
+offAACD ; 000 26  24
+offBBCD ; 000 27  25
+ifz     ; 000 05  26
+not0    ; 000 02  27
+zeroD   ; 000 24  28
+call    ; 000 16  29
+split   ; 000 20  30
+pushB   ; 000 0d  31
+shr     ; 000 23  32
+offAACD ; 000 26  33
+offBBCD ; 000 27  34
+nop1    ; 000 01  35
+nop0    ; 000 00  36
+movii   ; 000 1a  37
+decC    ; 000 0a  38
+ifz     ; 000 25  39
+jmpo    ; 000 34  40
+nop0    ; 000 00  41
+incA    ; 000 08  42
+incB    ; 000 29  43
+jmpb    ; 000 15  44
+nop0    ; 000 00  45
+nop1    ; 000 01  46
+join    ; 000 21  47
+divide  ; 000 1f  48
+ret     ; 000 37  49
+nop1    ; 000 01  50
+nop1    ; 000 01  51

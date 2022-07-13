@@ -1,0 +1,4 @@
+rm gb1/*.tmp
+rm gb1/core_out
+rm gb1/soup_out
+rm gb1/tierra.log

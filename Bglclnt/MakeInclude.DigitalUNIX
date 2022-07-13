@@ -1,0 +1,35 @@
+## MakeInclude.DigitalUNIX -- -*- Makefile -*-
+##
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Wed Feb 25 17:54:11 1998
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Fri May  8 13:19:18 1998
+## Update Count    : 11
+## Status          : 
+
+OS_SHELL =	/bin/sh
+
+OS_CFLAGS = -DHAVE_UNISTD_H
+
+OS_LIBOPT =
+
+OS_LDFLAGS =
+
+OS_LIBS =
+
+OS_CC =		cc
+
+OS_LINT =	$(OS_CC) -Wall
+
+OS_TIERRAHOME =	../tierra/
+
+OS_BGLHOME =	./
+
+OS_BGLCOMDIR =	$(OS_BGLHOME)../Bglcom/
+
+OS_BGLCLNTDIR =	$(OS_BGLHOME)../Bglclnt/
+
+OS_BGLUIDIR =	$(OS_BGLHOME)../Bgl-$(UISELECT)/
+#

@@ -1,0 +1,58 @@
+
+format: 3  bits: 3
+genotype: 0050aaa  genetic: 0,50  parent genotype: 0093aaa
+
+CODE
+
+track 0:
+
+nop1   ; 000 00   0 beginning marker
+nop1   ; 000 00   0 beginning marker
+nop1   ; 000 00   0 beginning marker
+nop1   ; 000 00   0 beginning marker
+zero   ; 000 00   0 to clear bx
+enter  ; 000 00   0 to clear bx
+adrb   ; 000 00   0 find start
+nop0   ; 000 00   0 complement to beginning marker
+nop0   ; 000 00   0 complement to beginning marker
+nop0   ; 000 00   0 complement to beginning marker
+nop0   ; 000 00   0 complement to beginning marker
+exch   ; 000 00   0 ax = templ size, bx = start addr after templ
+sub    ; 000 00   0 ax = start addr
+zero   ; 000 00   0 to clear bx
+exch   ; 000 00   0 to clear bx, ax = start, bx = 0
+adrf   ; 000 00   0 find end
+nop0   ; 000 00   0 complement to end marker
+nop0   ; 000 00   0 complement to end marker
+nop0   ; 000 00   0 complement to end marker
+nop1   ; 000 00   0 complement to end marker
+inc    ; 000 00   0 increment ax, to include dummy instruction at end
+rollu  ; 000 00   0 ax = start, bx = end
+push   ; 000 00   0 save start addr on stack
+sub    ; 000 00   0 ax = bx - ax, ax = size
+pop    ; 000 00   0 pop start addr from stack: ax = start, bx = size
+nop1   ; 000 00   0 reproduction loop marker
+nop1   ; 000 00   0 reproduction loop marker
+nop0   ; 000 00   0 reproduction loop marker
+nop1   ; 000 00   0 reproduction loop marker
+mal    ; 000 00   0 allocate daughter, ax = daughter, bx = mom, cx = size
+call   ; 000 00   0 call template below (copy procedure)
+nop0   ; 000 00   0 copy procedure complement
+nop0   ; 000 00   0 copy procedure complement
+nop1   ; 000 00   0 copy procedure complement
+nop1   ; 000 00   0 copy procedure complement, ax = mom, bx = size
+rolld  ; 000 00   0 put ax = mom, bx = size
+zero   ; 000 00   0 set offset of IP into daughter at 0
+divide ; 000 00   0 create independent daughter cell
+rolld  ; 000 00   0 put ax = mom, bx = size
+jmpb   ; 000 00   0 jump back to template below (reproduction loop)
+nop0   ; 000 00   0 reproduction loop complement
+nop0   ; 000 00   0 reproduction loop complement
+nop1   ; 000 00   0 reproduction loop complement
+nop0   ; 000 00   0 reproduction loop complement
+ifz    ; 000 00   0 dummy instruction to separate templates
+nop1   ; 000 00   0 copy procedure template
+nop1   ; 000 00   0 copy procedure template
+nop1   ; 000 00   0 copy procedure template
+nop0   ; 000 00   0 copy procedure template
+rolld  ; 000 00   0 roll mom's start address to ax

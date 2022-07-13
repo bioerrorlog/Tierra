@@ -1,0 +1,65 @@
+    {0, 1, "nop0", nop, pnop, "", ""},              /* no decode args */
+    {0, 1, "nop1", nop, pnop, "", ""},              /* no decode args */
+    {0, 1, "not0", not0, dec1d, "c", ""},           /* "r" */
+    {0, 1, "shl", shl, dec1d, "c", ""},             /* "r" */
+    {0, 1, "zero", movdd, dec1d1s, "cc", ""},       /* "rr" */
+    {0, 1, "ifz", skip, dec2s, "cc", ""},           /* "r#" */
+    {0, 1, "subCAB", math, dec1d2s, "cab", ""},     /* "rrr" */
+    {0, 1, "subAAC", math, dec1d2s, "aac", ""},     /* "rrr" */
+    {0, 1, "incA", math, dec1d1s, "aa", ""},        /* "aa" */
+    {0, 1, "incB", math, dec1d1s, "bb", ""},        /* "bb" */
+    {0, 1, "decC", math, dec1d1s, "cc", ""},        /* "cc" */
+    {0, 1, "incC", math, dec1d1s, "cc", ""},        /* "cc" */
+    {0, 1, "pushA", push, dec1s, "a", ""},          /* "a" */
+    {0, 1, "pushB", push, dec1s, "b", ""},          /* "b" */
+    {0, 1, "pushC", push, dec1s, "c", ""},          /* "c" */
+    {0, 1, "pushD", push, dec1s, "d", ""},          /* "d" */
+    {0, 1, "popA", pop, dec1d, "a", ""},            /* "a" */
+    {0, 1, "popB", pop, dec1d, "b", ""},            /* "b" */
+    {0, 1, "popC", pop, dec1d, "c", ""},            /* "c" */
+    {0, 1, "popD", pop, dec1d, "d", ""},            /* "d" */
+    {0, 1, "jmpo", adr, decjmp, "b", ""},           /* "r" */
+    {0, 1, "jmpb", adr, decjmp, "b", ""},           /* "r" */
+    {0, 1, "call", tcall, ptcall, "", ""},          /* no decode args */
+    {0, 1, "ret", pop, dec1d, "", ""},              /* no decode args */
+    {0, 1, "movDC", movdd, dec1d1s, "dc", ""},      /* "dc" */
+    {0, 1, "movBA", movdd, dec1d1s, "ba", ""},      /* "ba" */
+    {0, 1, "movii", movii, pmovii, "ab", ""},       /* "rr" */
+    {0, 1, "adro", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "adrb", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "adrf", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "mal", malchm, dec1d3s, "ac a", ""},     /* "rr r" */
+    {0, 1, "divide", divide, dec2s, "aa", "C"},     /* "rr" */
+    {0, 1, "split", split, dec1d1s, "dd", ""},      /* "rr" */
+    {0, 1, "join", join, pnop, "", ""},             /* no decode args */
+    {0, 1, "not0", not0, dec1d, "c", ""},           /* "r" */
+    {0, 1, "shr", shr, dec1d, "c", ""},             /* "r" */
+    {0, 1, "zeroD", movdd, dec1d1s, "dd", ""},      /* "dd" */
+    {0, 1, "ifz", skip, dec2s, "cc", ""},           /* "r#" */
+    {0, 1, "offAACD", offset, dec1d3s, "aacd", ""}, /* "rrrr" */
+    {0, 1, "offBBCD", offset, dec1d3s, "bbcd", ""}, /* "rrrr" */
+    {0, 1, "incA", math, dec1d1s, "aa", ""},        /* "aa" */
+    {0, 1, "incB", math, dec1d1s, "bb", ""},        /* "bb" */
+    {0, 1, "decC", math, dec1d1s, "cc", ""},        /* "cc" */
+    {0, 1, "incC", math, dec1d1s, "cc", ""},        /* "cc" */
+    {0, 1, "pushA", push, dec1s, "a", ""},          /* "a" */
+    {0, 1, "pushB", push, dec1s, "b", ""},          /* "b" */
+    {0, 1, "pushC", push, dec1s, "c", ""},          /* "c" */
+    {0, 1, "pushD", push, dec1s, "d", ""},          /* "d" */
+    {0, 1, "popA", pop, dec1d, "a", ""},            /* "a" */
+    {0, 1, "popB", pop, dec1d, "b", ""},            /* "b" */
+    {0, 1, "popC", pop, dec1d, "c", ""},            /* "c" */
+    {0, 1, "popD", pop, dec1d, "d", ""},            /* "d" */
+    {0, 1, "jmpo", adr, decjmp, "b", ""},           /* "r" */
+    {0, 1, "jmpb", adr, decjmp, "b", ""},           /* "r" */
+    {0, 1, "call", tcall, ptcall, "", ""},          /* no decode args */
+    {0, 1, "ret", pop, dec1d, "", ""},              /* no decode args */
+    {0, 1, "movDC", movdd, dec1d1s, "dc", ""},      /* "dc" */
+    {0, 1, "movBA", movdd, dec1d1s, "ba", ""},      /* "ba" */
+    {0, 1, "movii", movii, pmovii, "ab", ""},       /* "rr" */
+    {0, 1, "adro", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "adrb", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "adrf", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, 1, "mal", malchm, dec1d3s, "ac a", ""},     /* "rr r" */
+    {0, 1, "divide", divide, dec2s, "aa", "C"},     /* "rr" */
+

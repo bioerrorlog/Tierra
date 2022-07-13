@@ -1,0 +1,26 @@
+
+format: 3  bits: 3
+genotype: 0016aaa  genetic: 0,16  parent genotype: 0666god
+ploidy: 1  track: 0
+; comments: non-replicating program to test put.
+
+CODE
+
+track 0:
+
+B       ; 000 01   0
+inc     ; 000 01   0
+shl     ; 000 01   0
+shl     ; 000 01   0
+shl     ; 000 01   0
+shl     ; 000 01   0
+A       ; 000 01   0
+inc     ; 000 01   0
+nop0    ; 000 01   0
+nop0    ; 000 01   0
+inc     ; 000 01   0
+put     ; 000 01   0
+jmpb    ; 000 01   0
+nop1    ; 000 01   0
+nop1    ; 000 01   0
+ifz     ; 000 01   0

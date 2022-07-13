@@ -1,0 +1,67 @@
+Destination registers: ab
+Segment registers: c
+Source registers: ab
+    {0, "nop0", nop, pnop, "", ""},              /* no decode args */
+    {0, "nop1", nop, pnop, "", ""},              /* no decode args */
+    {0, "add", add, dec1d2s, "bbc", ""},         /* "rrr" */
+    {0, "adrb", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, "adrf", adr, decadr, "ac  ", ""},        /* "rr  " */
+    {0, "and", and, dec1d2s, "abc", ""},         /* "rrr" */
+    {0, "call", tcall, ptcall, "", ""},          /* no decode args */
+    {0, "csync", csync, pnop, "", ""},           /* no decode args */
+    {0, "dec", add, dec1d1s, "dd", ""},          /* "rr" */
+    {0, "decC", add, dec1d1s, "cc", ""},         /* "cc" */
+    {0, "div", idiv, dec1d2s, "ccd", ""},        /* "rrr" */
+    {0, "divide", divide, dec2s, "ca", ""},      /* "rr" */
+    {0, "getipp",  getipp,  dec1d, " ", "T"},    /* "r" */
+    {0, "halt", halt, pnop, "", ""},             /* no decode args */
+    {0, "ifequal", skip, dec2s, "cd", ""},       /* "rr" */
+    {0, "ifgrtr", skip, dec2s, "cd", ""},        /* "rr" */
+    {0, "ifless", skip, dec2s, "cd", ""},        /* "rr" */
+    {0, "ifsig", skip, dec2s, "c", ""},          /* "rr" */
+    {0, "ifz", skip, dec2s, "cc", ""},           /* "rr" */
+    {0, "incA", add, dec1d1s, "aa", ""},         /* "aa" */
+    {0, "incB", add, dec1d1s, "bb", ""},         /* "bb" */
+    {0, "incC", add, dec1d1s, "cc", ""},         /* "cc" */
+    {0, "ior", ior, dec1d2s, "ccd", ""},         /* "rrr" */
+    {0, "jmpb", adr, decjmp, "b", ""},           /* "r" */
+    {0, "jmpo", adr, decjmp, "b", ""},           /* "r" */
+    {0, "mal", malchm, dec1d3s, "ac a", ""},     /* "rr r" */
+    {0, "movdi4", movdi, pmovdi, "cc", "FG"},    /* "rr" */
+    {0, "movid4", movid, pmovid, "cc", "FT"},    /* "rr" */
+    {0, "movii", movii, pmovii, " ", "FTG"},     /* "rr" */
+    {0, "mul", mul, dec1d2s, "ccd", ""},         /* "rrr" */
+    {0, "notl", notl, dec1d1s, "c", ""},         /* "r" */
+    {0, "not0", not0, dec1d, "c", ""},           /* "r" */
+    {0, "offAACD", offset, dec1d3s, "aacd", ""}, /* "aacd" */
+    {0, "offBBCD", offset, dec1d3s, "bbcd", ""}, /* "bbcd" */
+    {0, "popA", pop, dec1d, "a", ""},            /* "a" */
+    {0, "popB", pop, dec1d, "b", ""},            /* "b" */
+    {0, "popC", pop, dec1d, "c", ""},            /* "c" */
+    {0, "popD", pop, dec1d, "d", ""},            /* "d" */
+    {0, "popE", pop, dec1d, "e", ""},            /* "e" */
+    {0, "popF", pop, dec1d, "f", ""},            /* "f" */
+    {0, "pushA", push, dec1s, "a", ""},          /* "a" */
+    {0, "pushB", push, dec1s, "b", ""},          /* "b" */
+    {0, "pushC", push, dec1s, "c", ""},          /* "c" */
+    {0, "pushD", push, dec1s, "d", ""},          /* "d" */
+    {0, "pushE", push, dec1s, "e", ""},          /* "e" */
+    {0, "pushF", push, dec1s, "f", ""},          /* "f" */
+    {0, "rand", movdd, dec1d1s, "c", ""},        /* "rr" */
+    {0, "ret", pop, dec1d, "", ""},              /* no decode args */
+    {0, "shl", shl, dec1d, "c", ""},             /* "r" */
+    {0, "shr", shr, dec1d, "c", ""},             /* "r" */
+    {0, "split", split, dec1d1s, "dd", ""},      /* "rr" */
+    {0, "subBAC", add, dec1d2s, "bac", ""},      /* "bac" */
+    {0, "subCAB", add, dec1d2s, "cab", ""},      /* "cab" */
+    {0, "subCBA", add, dec1d2s, "cba", ""},      /* "cba" */
+    {0, "subCCD", add, dec1d2s, "ccd", ""},      /* "ccd" */
+    {0, "surf", migrate, dec1s, "c", ""},        /* "r" */
+    {0, "togdr", togdr, pnop, "", ""},           /* no decode args */
+    {0, "togsr", togsr, pnop, "", ""},           /* no decode args */
+    {0, "tpingr", tpingrec, dec1d, " ", "T"},    /* "r" */
+    {0, "tpings", tpingsnd, dec1s, "c", ""},     /* "r" */
+    {0, "ttime", ttime, dec1d, "c", ""},         /* no decode args */
+    {0, "xor", xor, dec1d2s, "ccd", ""},         /* "rrr" */
+    {0, "zero", movdd, dec1d1s, "c", ""},        /* "rr" */
+    {0, "zeroD", movdd, dec1d1s, "dd", ""},      /* "dd" */

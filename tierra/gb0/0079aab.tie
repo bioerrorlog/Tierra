@@ -1,0 +1,95 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0079aab  genetic: 0,79  parent genotype: 0079agl
+1st_daughter:  flags: 0  inst: 0  mov_daught: 0          breed_true: 1
+2nd_daughter:  flags: 0  inst: 1  mov_daught: 0          breed_true: 1
+Origin: InstExe: 396,0  clock: 0  Sat Jul 14 02:03:58 1990
+MaxPropPop: 0.0  MaxPropInst: 0.0 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: this creature dominated the soup at the time that a major
+; optimization took place, resulting in 0069aaa and its relatives.
+; Was originally named 0079aca, has been renamed to 0079aab.
+
+CODE
+
+track 0:
+
+nop1    ; 000 01   0
+nop1    ; 000 01   1
+nop1    ; 000 01   2
+nop1    ; 000 01   3
+zero    ; 000 04   4
+shl     ; 000 03   5
+shl     ; 000 03   6
+shl     ; 000 03   7
+movDC   ; 000 18   8
+adrb    ; 000 1c   9
+nop0    ; 000 00  10
+nop0    ; 000 00  11
+nop0    ; 000 00  12
+nop0    ; 000 00  13
+subAAC  ; 000 07  14
+movBA   ; 000 19  15
+adrf    ; 000 1d  16
+nop0    ; 000 00  17
+nop0    ; 000 00  18
+nop0    ; 000 00  19
+nop1    ; 000 01  20
+movDC   ; 000 18  21
+subCAB  ; 000 06  22
+nop1    ; 000 01  23
+nop1    ; 000 01  24
+nop0    ; 000 00  25
+nop1    ; 000 01  26
+mal     ; 000 1e  27
+call    ; 000 16  28
+nop0    ; 000 00  29
+nop0    ; 000 00  30
+nop1    ; 000 01  31
+nop1    ; 000 01  32
+divide  ; 000 1f  33
+call    ; 000 16  34
+nop0    ; 000 00  35
+nop0    ; 000 00  36
+nop1    ; 000 01  37
+nop0    ; 000 00  38
+pushB   ; 000 0d  39
+nop1    ; 000 01  40
+nop1    ; 000 01  41
+nop0    ; 000 00  42
+nop0    ; 000 00  43
+pushA   ; 000 0c  44
+pushB   ; 000 0d  45
+pushC   ; 000 0e  46
+nop1    ; 000 01  47
+nop0    ; 000 00  48
+nop1    ; 000 01  49
+nop0    ; 000 00  50
+movii   ; 000 1a  51
+decC    ; 000 0a  52
+ifz     ; 000 05  53
+jmpo    ; 000 14  54
+nop0    ; 000 00  55
+nop1    ; 000 01  56
+nop0    ; 000 00  57
+nop0    ; 000 00  58
+incA    ; 000 08  59
+incB    ; 000 09  60
+jmpb    ; 000 15  61
+nop0    ; 000 00  62
+nop1    ; 000 01  63
+nop0    ; 000 00  64
+nop1    ; 000 01  65
+jmpb    ; 000 15  66
+nop1    ; 000 01  67
+nop0    ; 000 00  68
+nop1    ; 000 01  69
+nop1    ; 000 01  70
+popC    ; 000 12  71
+popB    ; 000 11  72
+popA    ; 000 10  73
+ret     ; 000 17  74
+nop1    ; 000 01  75
+nop1    ; 000 01  76
+nop1    ; 000 01  77
+nop0    ; 000 00  78

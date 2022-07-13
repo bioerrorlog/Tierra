@@ -1,0 +1,43 @@
+## MakeInclude.SunOS -- -*- Makefile -*-
+## 
+## This work has been done at ATR HIP
+## 
+## Author          : YOSHIKAWA Tooru
+## Created On      : Fri Jan 10 13:26:12 1997
+## Last Modified By: YOSHIKAWA Tooru
+## Last Modified On: Mon Mar  9 16:11:46 1998
+## Update Count    : 10
+## Status          : 
+
+OS_SHELL =	/bin/sh
+
+RPCGENFLAGS = -DHAVE_TDT_FST_LST_OFSTTYP
+
+OS_CFLAGS = $(RPCGENFLAGS) -DPLOIDY=1 -DTBSD \
+            -DNEED_CRYPT_PROTO -DNEED_STRERROR -DHAVE_DIRENT_H=1 \
+            -DHAVE_SYS_WAIT_H=1 -DHAVE_FCNTL_H=1 -DHAVE_LIMITS_H=1 \
+            -DHAVE_SGTTY_H=1 -DHAVE_SYS_FILE_H=1 -DHAVE_SYS_IOCTL_H=1 \
+            -DHAVE_SYS_TIME_H=1 -DHAVE_TERMIO_H=1 -DHAVE_STDARG_H=1 \
+            -DHAVE_UNISTD_H=1 -Dsocklen_t=int -Duint32_t=unsigned\ int \
+            -Dint32_t=int -Dbool_t=int -Denum_t=int
+
+OS_LIBOPT =
+
+OS_LDFLAGS =
+
+OS_LIBS =
+
+OS_CC =		gcc
+
+OS_LINT =	$(OS_CC) -Wall
+
+OS_TIERRAHOME =	../tierra/
+
+OS_BGLHOME =	./
+
+OS_BGLCOMDIR =	$(OS_BGLHOME)../Bglcom/
+
+OS_BGLCLNTDIR =	$(OS_BGLHOME)../Bglclnt/
+
+OS_BGLUIDIR =	$(OS_BGLHOME)../Bgl-$(UISELECT)/
+#

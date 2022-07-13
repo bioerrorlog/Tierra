@@ -1,0 +1,35 @@
+
+format: 3  bits: 3  EX      TC      TP      MF      MT      MB      
+genotype: 0021aaa  genetic: 0,21  parent genotype: 0022aaa
+1st_daughter:  flags: 0  inst: 827  mov_daught: 80          breed_true: 1
+2nd_daughter:  flags: 0  inst: 809  mov_daught: 80          breed_true: 1
+Origin: InstExe: 0,0  clock: 0  Thu Jan 01 -5:00:00 1970
+MaxPropPop: 0.8306  MaxPropInst: 0.4239 mpp_time: 0,0 
+ploidy: 1  track: 0
+; comments: the ancestor, written by a human, mother of all other creatures.
+
+CODE
+
+track 0:
+
+nop0    ; 000 00   0
+adrb    ; 000 1c   1
+nop1    ; 000 01   2
+subAAC  ; 000 06   3
+movBA   ; 000 19   4
+adrf    ; 000 1d   5
+nop0    ; 000 00   6
+pushA   ;          7
+incA    ; 000 08   8
+subCAB  ; 000 06   9
+mal     ; 000 1e  10
+nop0    ; 000 00  11
+movii   ; 000 1a  12
+decC    ; 000 0a  13
+ifz     ; 000 05  14
+ret     ; 000 17  15
+incA    ; 000 08  16
+incB    ; 000 09  17
+jmpb    ; 000 15  18
+nop1    ; 000 01  19
+divide  ; 000 1f  20

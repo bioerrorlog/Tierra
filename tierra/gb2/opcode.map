@@ -1,0 +1,32 @@
+    {0, 1, "nop0", nop, pnop, "", ""},           /* no decode args */
+    {0, 1, "nop1", nop, pnop, "", ""},           /* no decode args */
+    {0, 1, "rollu", rollu, pnop, "", ""},        /* no decode args */
+    {0, 1, "rolld", rolld, pnop, "", ""},        /* no decode args */
+    {0, 1, "enter", enter, pnop, "", ""},        /* no decode args */
+    {0, 1, "exch", exch, dec2s, "ab", ""},       /* "rr" */
+    {0, 1, "movdi", movdi, pmovdi, "ab", ""},    /* "rr" */
+    {0, 1, "movid", movid, pmovid, "ba", ""},    /* "rr" */
+    {0, 1, "movii", movii, pmovii, "ab", ""},    /* "rr" */
+    {0, 1, "push", push, dec1s, "a", ""},        /* "r" */
+    {0, 1, "pop", pop, dec1d, "a", "P"},         /* "r" */
+    {0, 1, "puticc", puticc, pputicc, "ab", ""}, /* "rr" */
+    {0, 1, "get", get, dec1d1s, "a", ""},        /* "r" */
+    {0, 1, "inc", math, dec1d1s, "aa", ""},      /* "rr" */
+    {0, 1, "dec", math, dec1d1s, "aa", ""},      /* "rr" */
+    {0, 1, "add", math, dec1d2s, "aba", "P"},    /* "rrr" */
+    {0, 1, "sub", math, dec1d2s, "aba", "P"},    /* "rrr" */
+    {0, 1, "zero", movdd, dec1d1s, "aa", "P"},   /* "rr" */
+    {0, 1, "shl", shl, dec1d, "a", ""},          /* "r" */
+    {0, 1, "not0", not0, dec1d, "a", ""},        /* "r" */
+    {0, 1, "not", not, dec1d, "a", ""},          /* "r" */
+    {0, 1, "rand", movdd, dec1d1s, "aa", "P"},   /* "rr" */
+    {0, 1, "ifz", skip, dec2s, "ac", ""},        /* "r#" */
+    {0, 1, "ifE", skip, dec2s, "ab", ""},        /* "r#" */
+    {0, 1, "jmpo", adr, decjmp, "a", ""},        /* "r" */
+    {0, 1, "jmpb", adr, decjmp, "a", ""},        /* "r" */
+    {0, 1, "call", tcall, ptcall, "", ""},       /* no parse args */
+    {0, 1, "adro", adr, decadr, "abcb", "P"},    /* "rr  " */
+    {0, 1, "adrb", adr, decadr, "abcb", "P"},    /* "rr  " */
+    {0, 1, "adrf", adr, decadr, "abcb", "P"},    /* "rr  " */
+    {0, 1, "mal", malchm, dec1d3s, "ab a", "P"}, /* "rr r" */
+    {0, 1, "divide", divide, dec2s, "ab", "C"},   /* "rr" */

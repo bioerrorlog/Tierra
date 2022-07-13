@@ -1,0 +1,17 @@
+case $# in
+0) echo 'Usage: nclr1 hostname'; exit 2;;
+esac
+
+case "$1" in
+$HOST) 
+        rm -r gb-$HOST
+        cp -r gb-Net gb-$HOST
+        chmod +w gb-$HOST
+        cd gb-$HOST
+        ../arg1 c 0960.gen 0960aaa.tie
+        cd ..
+        cp si-Net si-$HOST
+        sed -e s/-Net/-$HOST/ si-Net > si-$HOST
+        exit 1;;
+*) echo 'You must login target host';;
+esac

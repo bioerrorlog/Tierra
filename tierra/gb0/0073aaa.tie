@@ -1,0 +1,81 @@
+
+format: 3  bits: 3
+genotype: 0073aaa  genetic: 0,73  parent genotype: 0666god
+
+CODE
+
+track 0:
+
+nop1    ; 000 00  00 beginning marker
+nop1    ; 000 00  00 beginning marker
+nop1    ; 000 00  00 beginning marker
+nop1    ; 000 00  00 beginning marker
+adrb    ; 000 00  00 get (backward) address of beginning marker -> ax
+nop0    ; 000 00  00 complement to beginning marker
+nop0    ; 000 00  00 complement to beginning marker
+nop0    ; 000 00  00 complement to beginning marker
+nop0    ; 000 00  00 complement to beginning marker
+subAAC  ; 000 00  00 subtract cx from ax, result in ax
+movBA   ; 000 00  00 move ax to bx, bx now contains start address of mother
+adrf    ; 000 00  00 get (forward) address of end marker -> ax
+nop0    ; 000 00  00 complement to end marker
+nop0    ; 000 00  00 complement to end marker
+nop0    ; 000 00  00 complement to end marker
+nop1    ; 000 00  00 complement to end marker
+incA    ; 000 00  00 increment ax, to include dummy instruction at end
+subCAB  ; 000 00  00 subtract bx from ax to get size, result in cx
+nop1    ; 000 00  00 reproduction loop marker
+nop1    ; 000 00  00 reproduction loop marker
+nop0    ; 000 00  00 reproduction loop marker
+nop1    ; 000 00  00 reproduction loop marker
+mal     ; 000 00  00 allocate space (cx) for daughter, address to ax
+call    ; 000 00  00 call template below (copy procedure)
+nop0    ; 000 00  00 copy procedure complement
+nop0    ; 000 00  00 copy procedure complement
+nop1    ; 000 00  00 copy procedure complement
+nop1    ; 000 00  00 copy procedure complement
+divide  ; 000 00  00 create independent daughter cell
+jmpo    ; 000 00  00 jump to template below (reproduction loop)
+nop0    ; 000 00  00 reproduction loop complement
+nop0    ; 000 00  00 reproduction loop complement
+nop1    ; 000 00  00 reproduction loop complement
+nop0    ; 000 00  00 reproduction loop complement
+ifz     ; 000 00  00 dummy instruction to separate templates
+nop1    ; 000 00  00 copy procedure template
+nop1    ; 000 00  00 copy procedure template
+nop0    ; 000 00  00 copy procedure template
+nop0    ; 000 00  00 copy procedure template
+pushB   ; 000 00  00 push bx (mom) onto stack
+pushC   ; 000 00  00 push cx (size) onto stack
+nop1    ; 000 00  00 copy loop template
+nop0    ; 000 00  00 copy loop template
+nop1    ; 000 00  00 copy loop template
+nop0    ; 000 00  00 copy loop template
+movii   ; 000 00  00 move contents of [bx] to [ax] (copy one instruction)
+decC    ; 000 00  00 decrement cx (size)
+ifz     ; 000 00  00 if cx == 0 perform next instruction, otherwise skip it
+jmpo    ; 000 00  00 jump to template below (copy procedure exit)
+nop0    ; 000 00  00 copy procedure exit complement
+nop1    ; 000 00  00 copy procedure exit complement
+nop0    ; 000 00  00 copy procedure exit complement
+nop0    ; 000 00  00 copy procedure exit complement
+incA    ; 000 00  00 increment ax (address in daughter to copy to)
+incB    ; 000 00  00 increment bx (address in mother to copy from)
+jmpo    ; 000 00  00 bidirectional jump to template below (copy loop)
+nop0    ; 000 00  00 copy loop complement
+nop1    ; 000 00  00 copy loop complement
+nop0    ; 000 00  00 copy loop complement
+nop1    ; 000 00  00 copy loop complement
+ifz     ; 000 00  00 this is a dummy instruction to separate templates
+nop1    ; 000 00  00 copy procedure exit template
+nop0    ; 000 00  00 copy procedure exit template
+nop1    ; 000 00  00 copy procedure exit template
+nop1    ; 000 00  00 copy procedure exit template
+popC    ; 000 00  00 pop cx off stack (size)
+popB    ; 000 00  00 pop bx off stack (start address of mother)
+ret     ; 000 00  00 return from copy procedure
+nop1    ; 000 00  00 end template
+nop1    ; 000 00  00 end template
+nop1    ; 000 00  00 end template
+nop0    ; 000 00  00 end template
+ifz     ; 000 00  00 dummy instruction to separate creature

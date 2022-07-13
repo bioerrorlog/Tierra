@@ -1,0 +1,117 @@
+CPU:
+
+General Registers:
+
+AX
+BX
+CX
+DX
+
+Index Registers:
+
+SI
+
+Segment Registers:
+
+DS - data segment
+
+Other Registers:
+
+SP - stack pointer
+IP - instruction pointer
+FL - flags register
+
+AX  000
+CX  001
+DX  010
+BX  011
+DS  100
+SI  101
+
+Flags:
+
+typedef struct {
+    I16s  E: 1; /* Error */
+    I16s  S: 1; /* Sign */
+    I16s  Z: 1; /* Zero */
+    I16s  F: 1; /* Offset */
+    I16s  B: 1; /* Bits */
+    I16s  T: 1; /* Target */
+    I16s  G: 1; /* Source */
+    I16s  D: 1; /* Direction */
+    I16s  H: 1; /* Shadow Registers */
+    I16s  R: 1; /* Reverse Polish */
+    I16s  C: 1; /* Special */
+} IDflags;
+
+typedef struct { /* structure for instruction set definitions */
+    I8s op;                      /* op code */
+    I8s mn[9];                   /* assembler mnemonic */
+    void (*execute) P_((TCell  *));  /* pointer to execute function */
+    void (*decode) P_((TCell  *));    /* pointer to decode function */
+    I8s  re[8]; /* register assignments */
+    IDflags  idf; /* flags usage */
+
+    I8s  df;    /* flags for special decode conditions */
+    I8s  sha;   /* flags for shadow decoding */
+    I8s  rpn;   /* flags for Reverse Polish Notation decoding */
+} InstDef;
+
+    set by computation:
+
+E - Error : 1 = error condition has occurred, 0 = no error condition occurred
+S - Sign : resulting sign of arithmetic operation, 0 = +, 1 = -
+Z - Zero : result of arithmetic or compare operation, 0 = nonzero, 1 = zero
+
+    set directly by flag manipulation instructions:
+
+F - Offset : 1 = use offset from DS for addressing, 0 = use direct addressing
+B - Bits : determines the number of bits for Reg-Mem Mov, Mem-Reg Mov, and IO
+           11 = 8 bits, 10 = 16 bits, 01 = 32 bits, 00 = 32 bits
+T - Target: target register for  unary math operations
+G - Source: source retister for binary math operations
+D - Direction : designates left or right direction for moving or comparing
+                string data
+
+Flag manipulation:
+
+tff  Offset - toggle F flag (2 state: direct, offset)
+tbf  Bits   - toggle B flag (3 state:  8, 16, 32)
+ttf  Target - toggle T flag (4 state: AX, BX, CX, DX)
+tgf  Source - toggle G flag (4 state: AX, BX, CX, DX)
+clrf Clear  - set all flags to 0
+
+Inter-register moves through push-pop:
+
+Push AX CX DX BX DS SI
+
+Pop  AX CX DX BX DS SI
+
+Binary Math (add, sub, mul, div, and, or, xor, test):
+
+Target = Target op Source
+
+Unary Math (dec, inc, neg, not, not0, zero, rand, rol, ror, shl, shr):
+
+operates on Target
+
+Memory to register moves:
+
+Mov AX <- [SI or BX]          F = 0
+Mov AX <- [DS + (SI or BX)]   F = 1
+
+Register to memory moves:
+
+Mov [SI or BX] <- AX          F = 0
+Mov [DS + (SI or BX)] <- AX   F = 1
+
+IO:
+
+Get AX <- port
+Put port <- AX
+
+IP manipulation:
+
+jmpo, jmpb, jmpf, call, ret, ifcz, ife, ifg, ifl, ifge, ifle
+
+The if things test the S and Z flags

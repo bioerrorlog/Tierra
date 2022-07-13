@@ -1,0 +1,19 @@
+#!/usr/local/bin/expect
+set hn [exec hostname]
+puts "executing NetgbTom $hn"
+log_user 0
+spawn NetgbTom $hn
+expect eof
+log_user 1
+spawn gdb tierra-Mon-Stdio
+expect "(gdb)"
+while (1) {
+interact {
+  "\007" break
+}
+}
+send "\r"
+expect "(gdb)"
+send "run siTom-$hn\r"
+interact
+

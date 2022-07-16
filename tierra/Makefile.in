@@ -4,7 +4,7 @@
 PLOIDY=1
 
 # bgl/basic/stdio
-FRONTEND=basic
+FRONTEND=bgl
 
 # yes/no
 DEBUG=yes

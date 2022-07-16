@@ -43,7 +43,7 @@ host = localhost
 dotted = 127.0.0.1
 port = 17501
 uname = tierra
-passwd =   # You should not write your passwd in file.
+passwd = tierra # You should not write your passwd in file.
 priv = s
 migrctrlport = 17503
 ##

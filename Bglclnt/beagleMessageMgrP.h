@@ -58,7 +58,7 @@ extern MM_state_t MM_tPingS_s;		/* state for TPingS buffer */
 extern MM_state_t MM_tPingC_s;		/* state for TPingC buffer */
 
 extern MM_state_t MM_sizeQuery_s;	/* state for size query buffer */
-extern MM_state_t MM_misc_h_s;		/* state for Hist. Logging buffer */
+// extern MM_state_t MM_misc_h_s;		/* state for Hist. Logging buffer */
 
 /*
  * Command requests to tierra

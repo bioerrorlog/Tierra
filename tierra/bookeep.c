@@ -472,6 +472,7 @@ void plan()
     TierraClock = (I32s) tietime(NULL);
     if (OClock)
     {   FESpeed = TierraClock - OClock;
+        if (FESpeed < 1) FESpeed = 1;
         Speed = 1000000L / FESpeed;
         LastSpeedUpdate=TierraClock;
     }

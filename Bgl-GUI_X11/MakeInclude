@@ -10,13 +10,15 @@
 ## Status          : 
 
 
-UI_INCOPT     = -I/usr/X11R6/include
+#UI_INCOPT     = -I/usr/X11R6/include
 #UI_INCOPT     = -I/usr/local/X11/include
 #UI_INCOPT     = -I/usr/openwin/include
+UI_INCOPT = -I/usr/include/X11
 
-UI_LIBOPT     = -L/usr/X11R6/lib
+#UI_LIBOPT     = -L/usr/X11R6/lib
 #UI_LIBOPT     = -L/usr/local/X11/lib
 #UI_LIBOPT     = -L/usr/openwin/lib -R/usr/openwin/lib
+UI_LIBOPT = -L/usr/lib/X11
 
 UI_CFLAGS     =
 

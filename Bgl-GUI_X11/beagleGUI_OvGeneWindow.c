@@ -197,15 +197,15 @@ int OvGene_ShowPoint(address)
       BglMM_Gene_Wait(OvGene_ShowLastPoint);
       lastAddress = address;
       BglPrintf(BGL_MES_SCR, BGL_MES_X, BGL_MES_Y, 0, 0,
-"This address pointed to another creatures.\n
-   Beagle sent request for new gene data.\n
-   When after get new gene data, Beagle will show it.");
+"This address pointed to another creatures.\n"
+"Beagle sent request for new gene data.\n"
+"When after get new gene data, Beagle will show it.");
      return 1;
     }
     else
       BglPrintf(BGL_MES_SCR, BGL_MES_X, BGL_MES_Y, 0, 0,
-"This address pointed to UNKNOWN creatures area.\n
-   Beagle cannot send request for UNKNOWN creatures gene data.");
+"This address pointed to UNKNOWN creatures area.\n"
+"Beagle cannot send request for UNKNOWN creatures gene data.");
       return 0;
   }
 

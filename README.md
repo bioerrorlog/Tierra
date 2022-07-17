@@ -11,10 +11,11 @@ Tierra Simulator V6.02: Copyright (c) 1990 - 2004 Thomas S. Ray
 On Linux, run following commands:  
 (Operation checked on Ubuntu 20.04)
 ```sh
-git clone https://github.com/bioerrorlog/Tierra.git
-
 # Install required libraries
 sudo apt install libncurses-dev libxt-dev libxaw7-dev x11-apps
+
+# Clone this repository
+git clone https://github.com/bioerrorlog/Tierra.git
 
 # Build Tierra
 cd Tierra/tierra

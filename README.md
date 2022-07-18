@@ -9,7 +9,7 @@ Tierra Simulator V6.02: Copyright (c) 1990 - 2004 Thomas S. Ray
 
 ## How to run Tierra
 On Linux, run following commands:  
-(Operation checked on Ubuntu 20.04)
+([Operation checked on Ubuntu 20.04](https://youtu.be/X5QBazw4NF4))
 ```sh
 # Install required libraries
 sudo apt install libncurses-dev libxt-dev libxaw7-dev x11-apps

@@ -48,7 +48,7 @@ For more detail, see [Tierra.doc](https://github.com/bioerrorlog/Tierra/blob/mai
 
 ## Running Tierra (Video)
 
-[![Running Tierra - Artificial Life]('サムネイル画像のURL')](https://youtu.be/X5QBazw4NF4)
+[![Running Tierra - Artificial Life](https://user-images.githubusercontent.com/51422347/204118501-448ab941-a367-4b3d-b698-7aa20d6ba054.png)](https://youtu.be/X5QBazw4NF4)
 
 ## Reference
 - http://tomray.me/tierra/source/

@@ -8,8 +8,7 @@ Tierra Simulator V6.02: Copyright (c) 1990 - 2004 Thomas S. Ray
 - Patched for Linux (Ubuntu 20.04): [main branch](https://github.com/bioerrorlog/Tierra/tree/main)
 
 ## How to run Tierra
-On Linux, run following commands:  
-([Operation checked on Ubuntu 20.04](https://youtu.be/X5QBazw4NF4))
+On Linux, run following commands:
 ```sh
 # Install required libraries
 sudo apt install libncurses-dev libxt-dev libxaw7-dev x11-apps
@@ -47,6 +46,9 @@ HOSTNAME=localhost ./bgl-GUI_X11-Linux
 ```
 For more detail, see [Tierra.doc](https://github.com/bioerrorlog/Tierra/blob/main/Tierra.doc).
 
+## Running Tierra (Video)
+
+[![Running Tierra - Artificial Life]('サムネイル画像のURL')](https://youtu.be/X5QBazw4NF4)
 
 ## Reference
 - http://tomray.me/tierra/source/

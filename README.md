@@ -1,17 +1,23 @@
 # Tierra
+[![Build check](https://github.com/bioerrorlog/Tierra/actions/workflows/build.yml/badge.svg)](https://github.com/bioerrorlog/Tierra/actions/workflows/build.yml)
+
+
 Source code of Tom Ray's artificial life model "Tierra" from http://tomray.me/tierra/source/
 
 Tierra Simulator V6.02: Copyright (c) 1990 - 2004 Thomas S. Ray
 
 ## Versions
-- Original v6.02: [v6.02-original branch](https://github.com/bioerrorlog/Tierra/tree/v6.02-original)
 - Patched for Linux (Ubuntu 20.04): [main branch](https://github.com/bioerrorlog/Tierra/tree/main)
+- Original v6.02: [v6.02-original branch](https://github.com/bioerrorlog/Tierra/tree/v6.02-original)
 
 ## How to run Tierra
-On Linux (Ubuntu), run following commands:
+On Linux (Ubuntu 20.04), run following commands.
+
+WARNING: At this time, a build error occurs on Ubuntu 22.04
 ```sh
 # Install required libraries
-sudo apt install libncurses-dev libxt-dev libxaw7-dev x11-apps
+sudo apt update
+sudo apt install -y build-essential libncurses-dev libxt-dev libxaw7-dev libtirpc-dev x11-apps
 
 # Clone this repository
 git clone https://github.com/bioerrorlog/Tierra.git

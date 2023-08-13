@@ -1,0 +1,29 @@
+name: Build check
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+          - ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libncurses-dev libxt-dev libxaw7-dev libtirpc-dev 
+
+      - name: Build
+        working-directory: tierra
+        run: |
+          ./configure
+          make clean
+          make

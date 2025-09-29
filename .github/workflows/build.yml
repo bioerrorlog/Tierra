@@ -20,13 +20,16 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential libncurses-dev libxt-dev libxaw7-dev libtirpc-dev pkg-config
+          if [ "${{ matrix.os }}" == "ubuntu-24.04" ]; then
+            sudo apt-get install -y build-essential libncurses-dev libxt-dev libxaw7-dev libtirpc-dev pkg-config rpcbind-dev autoconf
+          else
+            sudo apt-get install -y build-essential libncurses-dev libxt-dev libxaw7-dev libtirpc-dev pkg-config autoconf
+          fi
 
       - name: Build
         working-directory: tierra
         run: |
-          export CPPFLAGS="$(pkg-config --cflags libtirpc)"
-          export LDFLAGS="$(pkg-config --libs libtirpc)"
+          autoconf
           ./configure
           make clean
           make

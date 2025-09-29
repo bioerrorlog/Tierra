@@ -23,6 +23,15 @@ AC_SUBST(TIEUDPTNLCLDLIBS)
 
 AC_PATH_XTRA
 
+dnl Check for tirpc on newer systems
+AC_MSG_CHECKING([for tirpc headers])
+if test -d "/usr/include/tirpc"; then
+    CPPFLAGS="$CPPFLAGS -I/usr/include/tirpc"
+    AC_MSG_RESULT([found, added -I/usr/include/tirpc])
+else
+    AC_MSG_RESULT([not found])
+fi
+
 LIBS=""
 AC_CHECK_LIB(termcap, main)
 AC_CHECK_LIB(curses, main)

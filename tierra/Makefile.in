@@ -65,7 +65,7 @@ LDFLAGS=$(OPTIMIZ)
 COMBASNAM=genebank_xdr port_xdr tiexdrcom_xdr
 COMSRCS=$(addsuffix .c,$(COMBASNAM))
 COMOBJS=$(COMSRCS:.c=.@OBJEXT@)
-COMCFLAGS=$(strip $(OPTIMIZ) -I. $(OSFLAGS) @DEFS@)
+COMCFLAGS=$(strip $(OPTIMIZ) -I. $(OSFLAGS) @DEFS@ @CPPFLAGS@)
 
 ifneq ($(findstring gcc,$(CC)),)
 ifneq ($(findstring linux-gnu,@host_os@),)

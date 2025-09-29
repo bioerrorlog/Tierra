@@ -37,6 +37,7 @@ AC_CHECK_LIB(termcap, main)
 AC_CHECK_LIB(curses, main)
 TIELDLIBS_BASIC=$LIBS
 LIBS=""
+AC_CHECK_LIB(tirpc, xdr_vector)
 AC_CHECK_LIB(crypt, main)
 AC_CHECK_LIB(m, main)
 AC_CHECK_LIB(nsl, main)

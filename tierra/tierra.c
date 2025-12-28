@@ -57,6 +57,7 @@ extern __declspec(dllimport) time_t tmlstact;
  * argv - pointer to array of argument string pointers
  *
  */
+#ifndef __EMSCRIPTEN__
 int main(argc, argv)
     int argc;
     char *argv[];
@@ -153,6 +154,7 @@ int main(argc, argv)
     FEExit(0);
     return 0;
 }
+#endif /* __EMSCRIPTEN__ */
 
 /*
  * life - doles out time slices and death
@@ -164,9 +166,17 @@ void life()
    I32s  LClock;
 #endif /* NET */
 
+#ifndef __EMSCRIPTEN__
+    /* Native mode: run full simulation loop */
     while((!alive)||(((AliveGen)&&(Generations<alive))||
         ((!AliveGen)&&(InstExe.m<alive))))
     {
+#else
+    /* WASM mode: single iteration (called from JavaScript) */
+    if((!alive)||(((AliveGen)&&(Generations<alive))||
+        ((!AliveGen)&&(InstExe.m<alive))))
+    {
+#endif /* __EMSCRIPTEN__ */
 #ifdef AMIGA
 #if FRONTEND == STDIO
         chkabort();

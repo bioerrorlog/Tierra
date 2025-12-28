@@ -51,6 +51,7 @@
 
 #define STDIO     0
 #define BASIC     1
+#define WASM      99  /* WebAssembly frontend */
 
 #ifndef FRONTEND
 #define FRONTEND      STDIO

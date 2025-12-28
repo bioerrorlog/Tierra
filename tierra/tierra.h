@@ -270,6 +270,10 @@ typedef int socklen_t;
 #ifdef __MWERKS__
 #define KEYHIT() ( FEProcessEvent() )
 #endif /* __MWERKS__ */
+
+#ifdef __EMSCRIPTEN__
+#define KEYHIT() ( 0 )  /* No keyboard input in WASM */
+#endif /* __EMSCRIPTEN__ */
 #endif /* BGL_CLNT */
 
 #if defined(TIERRA)||defined(PROBE)||defined(ARGTIE)

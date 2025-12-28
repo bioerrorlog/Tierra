@@ -1,0 +1,77 @@
+# Makefile.wasm - Emscripten build configuration for Tierra WebAssembly
+
+# Emscripten compiler
+EMCC = emcc
+
+# Compiler flags
+CFLAGS = -O3 \
+	-DPLOIDY=1 \
+	-D__EMSCRIPTEN__ \
+	-DFRONTEND=99 \
+	-I../tierra
+
+# Emscripten-specific flags
+EMFLAGS = -s WASM=1 \
+	-s MODULARIZE=1 \
+	-s EXPORT_NAME='TierraModule' \
+	-s ALLOW_MEMORY_GROWTH=1 \
+	-s INITIAL_MEMORY=67108864 \
+	-s MAXIMUM_MEMORY=134217728 \
+	-s NO_EXIT_RUNTIME=1 \
+	-s ASSERTIONS=1 \
+	-s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","HEAPU8","HEAP32"]' \
+	-s EXPORTED_FUNCTIONS='["_tierra_init","_tierra_step","_tierra_get_soup","_tierra_get_stats","_tierra_reset","_tierra_pause","_tierra_resume","_tierra_get_size_histogram","_malloc","_free"]' \
+	-s ENVIRONMENT='web' \
+	--embed-file soup_config.txt@/soup_in \
+	--embed-file 0080aaa.tie@/gb0/0080aaa.tie
+
+# Source files (core simulation - order matters for dependencies)
+SOURCES = ../tierra/tierra.c \
+	../tierra/bookeep.c \
+	../tierra/diskbank.c \
+	../tierra/rambank.c \
+	../tierra/decode.c \
+	../tierra/instruct.c \
+	../tierra/memalloc.c \
+	../tierra/memtree.c \
+	../tierra/slicers.c \
+	../tierra/trand.c \
+	../tierra/tsetup.c \
+	../tierra/ttools.c \
+	../tierra/operator.c \
+	../tierra/queues.c \
+	../tierra/genio.c \
+	../tierra/frontend.c \
+	../tierra/port.c \
+	../tierra/tie_inp.c \
+	../tierra/thrdana.c \
+	../tierra/savload.c
+
+# Output files
+OUTPUT_DIR = ../dist
+OUTPUT_JS = $(OUTPUT_DIR)/tierra.js
+OUTPUT_WASM = $(OUTPUT_DIR)/tierra.wasm
+
+# Build target
+all: prepare_files $(OUTPUT_JS)
+
+# Prepare embedded files
+prepare_files:
+	@echo "Preparing embedded files..."
+	@mkdir -p temp_build
+	@cp soup_config.txt temp_build/ || cp ../tierra/soup_in temp_build/soup_config.txt || echo "Warning: soup_in not found"
+	@cp ../tierra/gb0/0080aaa.tie temp_build/ || echo "Warning: 0080aaa.tie not found"
+
+# Main build rule
+$(OUTPUT_JS): $(SOURCES)
+	@echo "Compiling Tierra to WebAssembly..."
+	@mkdir -p $(OUTPUT_DIR)
+	cd temp_build && $(EMCC) $(CFLAGS) $(EMFLAGS) $(SOURCES) -o $(OUTPUT_JS)
+	@echo "Build complete: $(OUTPUT_JS) and $(OUTPUT_WASM)"
+
+# Clean build artifacts
+clean:
+	rm -rf temp_build
+	rm -f $(OUTPUT_JS) $(OUTPUT_WASM) $(OUTPUT_DIR)/tierra.data
+
+.PHONY: all clean prepare_files

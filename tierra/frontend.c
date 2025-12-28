@@ -12,6 +12,12 @@
    here as dummy functions, or they will have to be ifdef'ed where they
    are called from Tierra */
 
+#ifdef __EMSCRIPTEN__
+/* Use WebAssembly frontend */
+#include "wasm_frontend.c"
+#else
+/* Use native frontend (STDIO, BASIC, or BGL) */
+
 #include "license.h"
 #include "tierra.h"
 
@@ -2997,3 +3003,4 @@ double *szclsentrp;
     return;
 }
 #endif /* CLSTRSRVR */
+#endif /* __EMSCRIPTEN__ */

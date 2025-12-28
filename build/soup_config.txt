@@ -1,0 +1,87 @@
+# Tierra WASM Configuration
+# Optimized for browser environment
+
+# Observational parameters (most disabled for WASM):
+BrkupSiz = 1024
+CumGeneBnk = 0
+debug = 0
+DiskBank = 0            # Disabled: No disk access in browser
+DiskOut = 0             # Disabled: No disk output
+FindTimeM = 0
+FindTimeI = 0
+GeneBnker = 0           # Disabled: Use in-memory tracking only
+GenebankPath = gb0/
+hangup = 0
+MaxFreeBlocks = 800
+SaveFreq = 0            # Disabled: No auto-save to disk
+SavRenewMem = 0
+SavMinNum = 10
+SavThrMem = .02
+SavThrPop = .02
+TierraLog = 0           # Disabled: No log file
+WatchExe = 0
+WatchMov = 0
+WatchTem = 0
+
+# Environmental variables:
+alive = 0               # Run indefinitely (controlled by JavaScript)
+DistFreq = -.3
+DistProp = .2
+DivSameGen = 0
+DivSameSiz = 0
+DropDead = 5
+EjectRate = 0
+GenPerBkgMut = 32       # Background mutation rate
+GenPerFlaw = 32
+GenPerMovMut = 0
+GenPerDivMut = 32
+GenPerCroInsSamSiz = 32
+GenPerInsIns = 32
+GenPerDelIns = 32
+GenPerCroIns = 32
+GenPerDelSeg = 32
+GenPerInsSeg = 32
+GenPerCroSeg = 32
+MutBitProp = .2
+IMapFile = opcode.map
+JmpSouTra = 0.
+JumpTrackProb = .2
+LazyTol = 10
+MalMode = 1
+MalReapTol = 1
+MalSamSiz = 0
+MalTol = 20
+MateSizeEp = 2
+MaxCpuPerCell = 16
+MaxIOBufSiz = 8
+MaxGetBufSiz = 4
+MaxPutBufSiz = 4
+MaxSigBufSiz = 8
+MemModeFree = 0
+MemModeMine = 0
+MemModeProt = 2
+MinCellSize = 12
+MinGenMemSiz = 12
+MinTemplSize = 1
+MovPropThrDiv = .7
+new_soup = 1            # Always start with new soup in browser
+NumCells = 2            # Inoculate with 2 ancestor organisms
+PhotonPow = 1.5
+PhotonWidth = 8
+PhotonWord = chlorophill
+PutLimit = 10
+ReapRndProp = .3
+SearchLimit = 5
+seed = 0                # Use time-based random seed
+SizDepSlice = 0
+SlicePow = 1
+SliceSize = 25          # Instructions per time slice
+SliceStyle = 2          # Random queue slicer
+SlicFixFrac = 0
+SlicRanFrac = 2
+SoupSize = 60000        # 60k instructions (fits in 64MB WASM memory)
+AliveGen = 0
+
+# Initial genome to inoculate
+center
+0080aaa

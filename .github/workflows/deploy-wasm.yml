@@ -1,0 +1,112 @@
+name: Build and Deploy Tierra WASM
+
+on:
+  push:
+    branches: [ tierra-on-browser ]
+  pull_request:
+    branches: [ tierra-on-browser ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Emscripten
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: '3.1.50'
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: Verify Emscripten installation
+        run: |
+          emcc --version
+          em++ --version
+
+      - name: Prepare build directory
+        run: |
+          mkdir -p build/temp_build
+          mkdir -p dist
+
+      - name: Copy build files
+        run: |
+          cp build/soup_config.txt build/temp_build/
+          cp tierra/gb0/0080aaa.tie build/temp_build/
+
+      - name: Compile Tierra to WASM
+        run: |
+          emcc -O3 \
+            -DPLOIDY=1 \
+            -D__EMSCRIPTEN__ \
+            -DFRONTEND=99 \
+            -Itierra \
+            -s WASM=1 \
+            -s MODULARIZE=1 \
+            -s EXPORT_NAME='TierraModule' \
+            -s ALLOW_MEMORY_GROWTH=1 \
+            -s INITIAL_MEMORY=67108864 \
+            -s MAXIMUM_MEMORY=134217728 \
+            -s NO_EXIT_RUNTIME=1 \
+            -s ASSERTIONS=1 \
+            -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","HEAPU8","HEAP32"]' \
+            -s EXPORTED_FUNCTIONS='["_tierra_init","_tierra_step","_tierra_get_soup","_tierra_get_stats","_tierra_reset","_tierra_pause","_tierra_resume","_tierra_get_size_histogram","_malloc","_free"]' \
+            -s ENVIRONMENT='web' \
+            --embed-file build/temp_build/soup_config.txt@/soup_in \
+            --embed-file build/temp_build/0080aaa.tie@/gb0/0080aaa.tie \
+            tierra/tierra.c \
+            tierra/bookeep.c \
+            tierra/diskbank.c \
+            tierra/rambank.c \
+            tierra/decode.c \
+            tierra/instruct.c \
+            tierra/memalloc.c \
+            tierra/memtree.c \
+            tierra/slicers.c \
+            tierra/trand.c \
+            tierra/tsetup.c \
+            tierra/ttools.c \
+            tierra/operator.c \
+            tierra/queues.c \
+            tierra/genio.c \
+            tierra/frontend.c \
+            tierra/port.c \
+            tierra/tie_inp.c \
+            tierra/thrdana.c \
+            tierra/savload.c \
+            -o dist/tierra.js
+
+      - name: Copy web assets
+        run: |
+          cp src/index.html dist/ || echo "Warning: index.html not found"
+          cp src/styles/main.css dist/styles.css || echo "Warning: main.css not found"
+          cp -r src/js/* dist/ 2>/dev/null || echo "Warning: JS files not found"
+
+      - name: List dist directory
+        run: ls -lah dist/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/tierra-on-browser' && github.event_name == 'push'
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

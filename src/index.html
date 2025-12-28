@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tierra - Artificial Life Simulator</title>
+    <meta name="description" content="Tierra artificial life simulator running in WebAssembly">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Tierra Artificial Life Simulator</h1>
+            <p>WebAssembly Port - Evolution in Your Browser</p>
+        </header>
+
+        <main>
+            <div id="visualization-panel">
+                <canvas id="soup-canvas" width="800" height="600"></canvas>
+                <div id="canvas-overlay">
+                    <span id="zoom-level">Zoom: 1.0x</span>
+                    <span id="loading">Loading WASM...</span>
+                </div>
+            </div>
+
+            <aside id="control-panel">
+                <section id="controls">
+                    <h2>Controls</h2>
+                    <div class="button-group">
+                        <button id="btn-start" class="btn-primary">Start</button>
+                        <button id="btn-pause" class="btn-secondary" disabled>Pause</button>
+                        <button id="btn-reset" class="btn-danger">Reset</button>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="speed-slider">
+                            Speed: <span id="speed-display">1x</span>
+                        </label>
+                        <input type="range" id="speed-slider" min="1" max="100" value="10" step="1">
+                    </div>
+                </section>
+
+                <section id="stats">
+                    <h2>Statistics</h2>
+                    <div class="stat-row">
+                        <span class="stat-label">Population:</span>
+                        <span id="stat-population" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Generations:</span>
+                        <span id="stat-generations" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Instructions:</span>
+                        <span id="stat-instructions" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Soup Size:</span>
+                        <span id="stat-soupsize" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">FPS:</span>
+                        <span id="stat-fps" class="stat-value">0</span>
+                    </div>
+                </section>
+
+                <section id="info">
+                    <h2>About</h2>
+                    <p>Tierra is an artificial life simulator where self-replicating programs evolve in a virtual computer environment.</p>
+                    <p>Watch as digital organisms compete for CPU time and memory, evolving through mutation and natural selection.</p>
+                </section>
+            </aside>
+        </main>
+
+        <footer>
+            <p>Original Tierra by Tom Ray | WebAssembly port |
+            <a href="https://github.com/bioerrorlog/Tierra" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="tierra.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>

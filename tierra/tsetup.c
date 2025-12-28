@@ -3200,9 +3200,9 @@ void GetSoup(argc, argv)
     {   tsprintf((char *)(&(Fbuf[0])), "SetPriorityClass failed");
         FEError(-1923, EXIT, WRITE, (char *)(&(Fbuf[0])));
     }
-#else /* _WIN32 */
+#elif !defined(__EMSCRIPTEN__)
     nice(TierraNice);
-#endif /* _WIN32 */
+#endif /* _WIN32 || __EMSCRIPTEN__ */
 #endif /* AMIGA */
     tsprintf((char *)(&(Fbuf[0])), "TierraNice = %d\n", TierraNice);
     FEPrintf(MSG_X, PLN_Y, 0, 0, (char *)(&(Fbuf[0])));

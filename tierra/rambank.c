@@ -909,7 +909,7 @@ I32s NewGenotype(cd, hash, lsl, flags)
  *
  * Returns:
  */
-GList *gq_read(si, gi)
+GList *gq_read(int si, int gi)
 {   GList *p = sl[si]->g[gi];
     I32s n;
     FILE *fp;

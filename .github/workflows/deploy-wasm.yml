@@ -74,13 +74,11 @@ jobs:
             tierra/tsetup.c \
             tierra/ttools.c \
             tierra/operator.c \
-            tierra/queues.c \
-            tierra/genio.c \
             tierra/frontend.c \
-            tierra/port.c \
-            tierra/tie_inp.c \
-            tierra/thrdana.c \
-            tierra/savload.c \
+            tierra/tie_inc.c \
+            tierra/genebank_xdr.c \
+            tierra/port_xdr.c \
+            tierra/tiexdrcom_xdr.c \
             -o dist/tierra.js
 
       - name: Copy web assets

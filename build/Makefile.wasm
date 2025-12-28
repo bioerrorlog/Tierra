@@ -7,6 +7,7 @@ EMCC = emcc
 CFLAGS = -O3 \
 	-DPLOIDY=1 \
 	-D__EMSCRIPTEN__ \
+	-DTIERRA \
 	-DFRONTEND=99 \
 	-I../tierra
 

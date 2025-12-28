@@ -46,6 +46,7 @@ jobs:
           emcc -O3 \
             -DPLOIDY=1 \
             -D__EMSCRIPTEN__ \
+            -DTIERRA \
             -DFRONTEND=99 \
             -Itierra \
             -s WASM=1 \

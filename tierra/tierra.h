@@ -175,23 +175,13 @@ extern int nice __P((int __val));
 #include <dos.h>
 #endif /* __TURBOC__ */
 
-#ifdef HAVE_STDARG_H
+#if defined(HAVE_STDARG_H) || defined(_WIN32) || defined(AMIGA) || defined(__EMSCRIPTEN__)
 #include <stdarg.h>
-#else /* HAVE_STDARG_H */
-#ifdef _WIN32
-#include <stdarg.h>
-#else /* _WIN32 */
-#ifdef AMIGA
-#ifndef _STDARG_H
-#include <stdarg.h>
-#endif /* _STDARG_H */
-#else /* AMIGA */
+#else /* Use stdarg.h for modern platforms */
 #ifndef __VARARGS_H__
 #include <varargs.h>
 #endif /* __VARARGS_H__ */
-#endif /* AMIGA */
-#endif /* _WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* HAVE_STDARG_H || _WIN32 || AMIGA || __EMSCRIPTEN__ */
 
 #if defined(NET)||defined(BGL)||defined(TIEAUDIO)
 #ifdef DECVAX
@@ -239,7 +229,9 @@ typedef int socklen_t;
 #endif /* defined(TIERRA)||defined(CLSTRSRVR)||defined(LOG2IPMAP) */
 
 #ifndef BGL_CLNT
-#ifdef unix
+#ifdef __EMSCRIPTEN__
+#define KEYHIT() ( 0 )  /* No keyboard input in WASM */
+#elif defined(unix)
 #if FRONTEND == BASIC
 #include <curses.h>
 #endif /* FRONTEND == BASIC */
@@ -270,10 +262,6 @@ typedef int socklen_t;
 #ifdef __MWERKS__
 #define KEYHIT() ( FEProcessEvent() )
 #endif /* __MWERKS__ */
-
-#ifdef __EMSCRIPTEN__
-#define KEYHIT() ( 0 )  /* No keyboard input in WASM */
-#endif /* __EMSCRIPTEN__ */
 #endif /* BGL_CLNT */
 
 #if defined(TIERRA)||defined(PROBE)||defined(ARGTIE)

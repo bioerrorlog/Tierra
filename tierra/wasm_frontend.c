@@ -6,7 +6,6 @@
 #include <emscripten.h>
 #include "tierra.h"
 #include "globals.h"
-#include "instruct.h"
 
 /* Stats structure for JavaScript export */
 typedef struct {

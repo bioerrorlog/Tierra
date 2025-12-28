@@ -47,12 +47,12 @@ void FEStats(void)
 }
 
 /* Frontend error handler - stub for WASM */
-void FEError(I32s code, I8s *string)
+void FEError(I32s errno1, I32s exit, I32s write, char * buff)
 {
     /* Report error to JavaScript console */
     EM_ASM_({
-        console.error('Tierra Error', $0, UTF8ToString($1));
-    }, code, string);
+        console.error('Tierra Error', $0, UTF8ToString($3));
+    }, errno1, exit, write, buff);
 }
 
 /* Keyboard hit check - always false for WASM */
@@ -153,10 +153,14 @@ int tierra_get_size_histogram(int* hist_out, int max_size)
     int i;
     int count = 0;
 
-    /* sl[] array contains size histogram */
-    for(i = 0; i < max_size && i < INSTBITSORIG; i++) {
-        hist_out[i] = sl[i];
-        if(sl[i] > 0) count++;
+    /* sl[] array contains size histogram, use siz_sl for bounds */
+    for(i = 0; i < max_size && i < siz_sl; i++) {
+        if(sl[i] != NULL) {
+            hist_out[i] = sl[i]->num_c;  /* number of creatures of this size */
+            if(sl[i]->num_c > 0) count++;
+        } else {
+            hist_out[i] = 0;
+        }
     }
 
     return count;

@@ -349,11 +349,13 @@ typedef int socklen_t;
     defined(GENALIGN)||defined(THREADTREE)||\
     defined(PROBE)||defined(BGL_CLNT)||\
     defined(CLSTRSRVR)||defined(SOUPUPDTRC)
-#if defined(unix)||defined(AMIGA)
+#if defined(__EMSCRIPTEN__)
+#include "xdr.h"
+#elif defined(unix)||defined(AMIGA)
 #include <rpc/xdr.h>
 #else /* defined(unix)||defined(AMIGA) */
 #include "xdr.h"
-#endif /* defined(unix)||defined(AMIGA) */
+#endif /* defined(__EMSCRIPTEN__) || defined(unix)||defined(AMIGA) */
 #endif /* defined(TIERRA)||defined(ARGTIE)||
           defined(GENALIGN)||defined(THREADTREE)||
           defined(PROBE)||defined(BGL_CLNT)||

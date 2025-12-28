@@ -1,9 +1,9 @@
 #ifndef _DATPKT_H_RPCGEN
 #define _DATPKT_H_RPCGEN
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__EMSCRIPTEN__)
 #include <rpc/rpc.h>
-#endif /* _WIN32 */
+#endif /* !_WIN32 && !__EMSCRIPTEN__ */
 
 #ifdef __cplusplus
 extern "C" {

@@ -1731,6 +1731,7 @@ Pgl tgl;
  */
 void AllocGenBits(tgl,size)
 Pgl tgl;
+I32s size;
 {   (tgl->gbits)=(FpGenB)tcalloc(
         GenBitsXdrWrdSize(size),sizeof(xdrwrd),1404);
 }

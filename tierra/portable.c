@@ -12,6 +12,12 @@
 #include "tieaudsrv.h"
 #endif /* TIEAUDIO */
 
+#ifdef __EMSCRIPTEN__
+#include <unistd.h>
+#include <fcntl.h>
+#include <sys/time.h>
+#endif /* __EMSCRIPTEN__ */
+
 #define MaxSizeT (((unsigned int) (~0)) - 1)
 #ifdef SETENDIAN
 static I32s SetEndianType P_((void));
@@ -1407,7 +1413,7 @@ I32s sleepintrvl;
 
 #ifdef _WIN32
                 Sleep(1000);
-#else /* _WIN32 */
+#elif !defined(__EMSCRIPTEN__)
                 sleep(1);
 #endif /* _WIN32 */
 
@@ -1550,7 +1556,9 @@ unsigned long usec;
 #ifdef SIGBLOCK
     SigSaveSet = TSigBlock(SigSet);
 #endif /* SIGBLOCK */
+#ifndef __EMSCRIPTEN__
     usleep(usec);
+#endif /* __EMSCRIPTEN__ */
 #ifdef SIGBLOCK
     TSigRelease(SigSaveSet);
 #endif /* SIGBLOCK */
@@ -1572,7 +1580,7 @@ unsigned long sec;
 #endif /* SIGBLOCK */
 #ifdef _WIN32
                 Sleep(sec*1000);
-#else /* _WIN32 */
+#elif !defined(__EMSCRIPTEN__)
                 sleep(sec);
 #endif /* _WIN32 */
 #ifdef SIGBLOCK
@@ -2217,13 +2225,16 @@ sigset_t TSigQuery()
 
 void SetAsyncSkt(sock)
 int sock;
-{   I32s sktflg;
+{
+#ifndef __EMSCRIPTEN__
+    I32s sktflg;
     errno=0;
     if((sktflg=tfcntl(sock, F_GETFL, 0))>=0)
         if(tfcntl(sock, F_SETFL,sktflg|FASYNC)>=0)
             tfcntl(sock, F_SETOWN, getpid());
     if(errno)
         porterrmsg(1215,NULL,1);
+#endif /* __EMSCRIPTEN__ */
 }
 
 /*
@@ -3100,7 +3111,7 @@ I32s fd, cmd, arg;
     defined(PROBE)||defined(BGL_CLNT)||\
     defined(CLSTRSRVR)||defined(SOUPUPDTRC)
 
-#ifdef HAVE_STDARG_H
+#if defined(HAVE_STDARG_H) || defined(__EMSCRIPTEN__)
 I32s tsprintf(char *buf,char *fmt, ...)
 #else /* HAVE_STDARG_H */
 #ifdef _WIN32
@@ -3113,7 +3124,7 @@ I32s tsprintf(va_alist)
 va_dcl
 #endif /* AMIGA */
 #endif /* _WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* HAVE_STDARG_H || __EMSCRIPTEN__ */
 {   va_list args;
     I32s rtnval;
 #ifndef HAVE_STDARG_H
@@ -3132,7 +3143,7 @@ va_dcl
     SigSaveSet = TSigBlock(SigSet);
 #endif /* SIGBLOCK */
 
-#ifdef HAVE_STDARG_H
+#if defined(HAVE_STDARG_H) || defined(__EMSCRIPTEN__)
     va_start(args, fmt);
 #else /* HAVE_STDARG_H */
 #ifdef _WIN32
@@ -3144,7 +3155,7 @@ va_dcl
     va_start(args);
 #endif /* AMIGA */
 #endif /* _WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* HAVE_STDARG_H || __EMSCRIPTEN__ */
 
 #ifndef _WIN32
 #ifndef AMIGA
@@ -3532,7 +3543,7 @@ int mode;
  * Returns: return from vfprintf()
  *
  */
-#ifdef HAVE_STDARG_H
+#if defined(HAVE_STDARG_H) || defined(__EMSCRIPTEN__)
 I32s tfprintf(FILE *filhndl, const char *fmt, ...)
 #else /* HAVE_STDARG_H */
 #ifdef _WIN32
@@ -3545,7 +3556,7 @@ I32s tfprintf(va_alist)
 va_dcl
 #endif /* AMIGA */
 #endif /* _WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* HAVE_STDARG_H || __EMSCRIPTEN__ */
 {   va_list args;
     I32s rtnval;
 
@@ -3566,7 +3577,7 @@ I8s *fmt;
     SigSaveSet = TSigBlock(SigSet);
 #endif /* SIGBLOCK */
 
-#ifdef HAVE_STDARG_H
+#if defined(HAVE_STDARG_H) || defined(__EMSCRIPTEN__)
     va_start(args, fmt);
 #else /* HAVE_STDARG_H */
 #ifdef _WIN32
@@ -3578,7 +3589,7 @@ I8s *fmt;
     va_start(args);
 #endif /* AMIGA */
 #endif /* _WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* HAVE_STDARG_H || __EMSCRIPTEN__ */
 
 #ifndef _WIN32
 #ifndef AMIGA

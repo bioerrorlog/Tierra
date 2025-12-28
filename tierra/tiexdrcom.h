@@ -1,9 +1,9 @@
 #ifndef _TIEXDRCOM_H_RPCGEN
 #define _TIEXDRCOM_H_RPCGEN
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__EMSCRIPTEN__)
 #include <rpc/rpc.h>
-#endif /* _WIN32 */
+#endif /* !_WIN32 && !__EMSCRIPTEN__ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,9 +12,9 @@ extern "C" {
 #ifndef TIEXDRCOM_H
 #define TIEXDRCOM_H
 #include "portable.h"
-#ifdef _WIN32
+#if defined(_WIN32) || defined(__EMSCRIPTEN__)
 #include "xdr.h"
-#endif /* _WIN32 */
+#endif /* _WIN32 || __EMSCRIPTEN__ */
 
 struct DynArrCtrl {
 	I32s dync_elsize;

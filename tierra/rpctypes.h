@@ -38,12 +38,16 @@
 #ifndef _RPC_TYPES_H_
 #define _RPC_TYPES_H_
 
+#ifndef __EMSCRIPTEN__
+/* Skip type definitions for Emscripten - they conflict with system headers */
 typedef /*signed*/ char            int8_t;
 typedef unsigned char            u_int8_t;
 typedef short                     int16_t;
 typedef unsigned short          u_int16_t;
 typedef int                       int32_t;
 typedef unsigned int            u_int32_t;
+#endif /* __EMSCRIPTEN__ */
+
 typedef unsigned int                u_int;
 typedef unsigned long              u_long;
 typedef unsigned short            u_short;

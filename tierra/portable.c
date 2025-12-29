@@ -3052,6 +3052,14 @@ I32s tgettimeofday(struct timeval *timearg, struct timezone *zone)
 }
 #endif /* DJGPP */
 
+#ifdef __EMSCRIPTEN__
+I32s tgettimeofday(struct timeval *tp, struct timezone *tzp)
+{
+    /* Emscripten provides gettimeofday directly, just call it */
+    return gettimeofday(tp, tzp);
+}
+#endif /* __EMSCRIPTEN__ */
+
 #if defined(unix) && !defined(__EMSCRIPTEN__)
 I32s tgettimeofday(tp, tzp)
 struct timeval *tp;

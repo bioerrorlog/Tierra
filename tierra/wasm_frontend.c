@@ -186,4 +186,57 @@ void tierra_resume(void)
     /* Currently just a placeholder */
 }
 
+/* Micromon stubs - interactive debugger not needed for WASM */
+void GoBrkClr(void)
+{
+    /* No interactive debugger in WASM */
+}
+
+void Micro_Spy(Pcells cp)
+{
+    /* No interactive debugger in WASM */
+}
+
+void ChkBrkBd(void)
+{
+    /* No interactive debugger in WASM */
+}
+
+Pcells FindHost(I32s soupaddr, I32s *hosttype)
+{
+    /* No interactive debugger in WASM */
+    *hosttype = 0;
+    return NULL;
+}
+
+/* Frontend UI stubs - no curses/X11 UI in WASM */
+void FEBanner(void)
+{
+    /* No banner display in WASM */
+}
+
+void FEPrintf(I32s scr_x, I32s scr_y, I32s scr_a, I32s slee, char * buff)
+{
+    /* Log to console instead of displaying on screen */
+    EM_ASM_({
+        console.log('FE:', UTF8ToString($0));
+    }, buff);
+}
+
+void FEPlan(I32s tielog)
+{
+    /* No plan view in WASM */
+}
+
+void ChangeGeneBnker(I32s gb)
+{
+    /* No interactive gene banker selection in WASM */
+}
+
+/* Signal handler stub */
+void T_sig_int(int sig)
+{
+    /* Signal handling not needed in WASM browser environment */
+}
+
 #endif /* __EMSCRIPTEN__ */

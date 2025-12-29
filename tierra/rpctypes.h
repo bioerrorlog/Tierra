@@ -41,6 +41,10 @@
 #ifdef __EMSCRIPTEN__
 /* Use standard headers for Emscripten */
 #include <stdint.h>
+/* Define u_int* variants for compatibility */
+typedef uint8_t                  u_int8_t;
+typedef uint16_t                u_int16_t;
+typedef uint32_t                u_int32_t;
 #else
 /* Skip type definitions for Emscripten - they conflict with system headers */
 typedef /*signed*/ char            int8_t;

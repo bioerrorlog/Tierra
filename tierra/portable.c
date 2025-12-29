@@ -3053,9 +3053,13 @@ I32s tgettimeofday(struct timeval *timearg, struct timezone *zone)
 #endif /* DJGPP */
 
 #ifdef unix
+#ifdef __EMSCRIPTEN__
+I32s tgettimeofday(struct timeval *tp, struct timezone *tzp)
+#else
 I32s tgettimeofday(tp, tzp)
 struct timeval *tp;
 struct timezone *tzp;
+#endif
 {   I32s rtnval;
 
 #ifdef SIGBLOCK
@@ -3127,13 +3131,13 @@ va_dcl
 #endif /* HAVE_STDARG_H || __EMSCRIPTEN__ */
 {   va_list args;
     I32s rtnval;
-#ifndef HAVE_STDARG_H
+#if !defined(HAVE_STDARG_H) && !defined(__EMSCRIPTEN__)
 #ifndef _WIN32
 #ifndef AMIGA
     I8s *fmt, *buf;
 #endif /* AMIGA */
 #endif /* WIN32 */
-#endif /* HAVE_STDARG_H */
+#endif /* !HAVE_STDARG_H && !__EMSCRIPTEN__ */
 
 #ifdef SIGBLOCK
     sigset_t SigSaveSet;
@@ -3159,10 +3163,10 @@ va_dcl
 
 #ifndef _WIN32
 #ifndef AMIGA
-#ifndef HAVE_STDARG_H
+#if !defined(HAVE_STDARG_H) && !defined(__EMSCRIPTEN__)
     buf=va_arg(args, char *);
     fmt=va_arg(args, char *);
-#endif /* HAVE_STDARG_H */
+#endif /* !HAVE_STDARG_H && !__EMSCRIPTEN__ */
 #endif /* AMIGA */
 #endif /* _WIN32 */
 
@@ -3562,10 +3566,10 @@ va_dcl
 
 #ifndef _WIN32
 #ifndef AMIGA
-#ifndef HAVE_STDARG_H
+#if !defined(HAVE_STDARG_H) && !defined(__EMSCRIPTEN__)
 FILE *filhndl;
 I8s *fmt;
-#endif /* HAVE_STDARG_H */
+#endif /* !HAVE_STDARG_H && !__EMSCRIPTEN__ */
 #endif /* AMIGA */
 #endif /* _WIN32 */
 
@@ -3593,10 +3597,10 @@ I8s *fmt;
 
 #ifndef _WIN32
 #ifndef AMIGA
-#ifndef HAVE_STDARG_H
+#if !defined(HAVE_STDARG_H) && !defined(__EMSCRIPTEN__)
     filhndl=va_arg(args, FILE *);
     fmt=va_arg(args, char *);
-#endif /* HAVE_STDARG_H */
+#endif /* !HAVE_STDARG_H && !__EMSCRIPTEN__ */
 #endif /* AMIGA */
 #endif /* _WIN32 */
 

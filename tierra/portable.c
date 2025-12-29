@@ -3052,14 +3052,10 @@ I32s tgettimeofday(struct timeval *timearg, struct timezone *zone)
 }
 #endif /* DJGPP */
 
-#ifdef unix
-#ifdef __EMSCRIPTEN__
-I32s tgettimeofday(struct timeval *tp, struct timezone *tzp)
-#else
+#if defined(unix) && !defined(__EMSCRIPTEN__)
 I32s tgettimeofday(tp, tzp)
 struct timeval *tp;
 struct timezone *tzp;
-#endif
 {   I32s rtnval;
 
 #ifdef SIGBLOCK

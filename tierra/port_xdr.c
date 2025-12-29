@@ -29,12 +29,12 @@
 #endif /* __MWERKS__ */
 #endif /* DECVAX */
 
-#if defined(unix)||defined(AMIGA)
+#if (defined(unix) && !defined(__EMSCRIPTEN__))||defined(AMIGA)
 #include <rpc/types.h>
 #include <rpc/xdr.h>
-#else /* defined(unix)||defined(AMIGA) */
+#else /* (defined(unix) && !defined(__EMSCRIPTEN__))||defined(AMIGA) */
 #include "xdr.h"
-#endif /* defined(unix)||defined(AMIGA) */
+#endif /* (defined(unix) && !defined(__EMSCRIPTEN__))||defined(AMIGA) */
 
 #include "port_xdr.h"
 

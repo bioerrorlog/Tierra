@@ -38,7 +38,10 @@
 #ifndef _RPC_TYPES_H_
 #define _RPC_TYPES_H_
 
-#ifndef __EMSCRIPTEN__
+#ifdef __EMSCRIPTEN__
+/* Use standard headers for Emscripten */
+#include <stdint.h>
+#else
 /* Skip type definitions for Emscripten - they conflict with system headers */
 typedef /*signed*/ char            int8_t;
 typedef unsigned char            u_int8_t;
@@ -57,11 +60,11 @@ typedef char *                    caddr_t;
 #endif
 
 #ifndef bool_t
-#define	bool_t	int32_t
+typedef int32_t                   bool_t;
 #endif
 
 #ifndef enum_t
-#define	enum_t	int32_t
+typedef int32_t                   enum_t;
 #endif
 
 #define __dontcare__	-1

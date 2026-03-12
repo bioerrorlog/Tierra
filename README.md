@@ -56,7 +56,11 @@ For more detail, see [Tierra.doc](https://github.com/bioerrorlog/Tierra/blob/mai
 
 [![Running Tierra - Artificial Life](https://user-images.githubusercontent.com/51422347/204118501-448ab941-a367-4b3d-b698-7aa20d6ba054.png)](https://youtu.be/X5QBazw4NF4)
 
-## Reference
-- http://tomray.me/tierra/source/
+## Blog post
+
 - [Running "Tierra": Tom Ray's Artificial Life Simulation - BioErrorLog Tech Blog](https://en.bioerrorlog.work/entry/run-tierra-artificial-life)
+
+## Reference
+
+- http://tomray.me/tierra/source/
 - https://github.com/Mortal/tierra/commit/92ff9f2a9ad76b0c08ea93cb10d2d8f539c5cbae
